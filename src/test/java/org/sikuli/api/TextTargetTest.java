@@ -19,7 +19,7 @@ public class TextTargetTest extends BaseTest {
 
 	private ScreenRegion screen;
 	
-	@Test
+	//@Test
 	public void testOSXNetworkPreferences() throws IOException {
 		screen = createTestScreenRegionFrom("NetworkPreferences2.png");
 
@@ -40,7 +40,7 @@ public class TextTargetTest extends BaseTest {
 		}
 	}
 
-	@Test
+	//@Test
 	public void testWindowsSystemPropertiesComputerNameTab() throws IOException {
 		screen = createTestScreenRegionFrom("SystemPropertiesComputerName.png");
 
