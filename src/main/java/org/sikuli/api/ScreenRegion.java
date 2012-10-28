@@ -1,6 +1,7 @@
 package org.sikuli.api;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -419,27 +420,40 @@ public class ScreenRegion {
 	public void removeTargetEventListener(Target target, TargetEventListener listener) {
 		VisualEventManager.getSingleton().removeTargetEventListener(this,  target, listener);		
 	}
+	
+	
+	static class StaticScreen implements Screen {
+		
+		static private BufferedImage crop(BufferedImage src, int x, int y, int width, int height){
+		    BufferedImage dest = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+		    Graphics g = dest.getGraphics();
+		    g.drawImage(src, 0, 0, width, height, x, y, x + width, y + height, null);
+		    g.dispose();
+		    return dest;
+		}
+		
+		final BufferedImage fullScreenshot;
+		final Dimension screenSize;
+		
+		StaticScreen(ScreenRegion screenRegion){
+			screenSize = screenRegion.getScreen().getSize();
+			fullScreenshot = screenRegion.getScreen().getScreenshot(0, 0, screenSize.width, screenSize.height);
+		}
+		
+		@Override
+		public BufferedImage getScreenshot(int x, int y, int width, int height) {
+			return crop(fullScreenshot, x, y, width, height);
+		}
+
+		@Override
+		public Dimension getSize() {
+			return screenSize;
+		}
+	}
 
 	public ScreenRegion snapshot(){
-
-		
-		Dimension size = screen.getSize();
-		final BufferedImage fullScreenshot = screen.getScreenshot(0, 0, size.width, size.height);
-		ScreenRegion r = new ScreenRegion(this, 0, 0, width, height);
-		r.setScreen(new Screen(){
-
-			@Override
-			public BufferedImage getScreenshot(int x, int y, int width, int height) {
-				// need to crop this based on x, y, width, height
-				return fullScreenshot;
-			}
-
-			@Override
-			public Dimension getSize() {
-				return screen.getSize();
-			}
-			
-		});
+		ScreenRegion r = new ScreenRegion(x, y, width, height);
+		r.setScreen(new StaticScreen(this));
 		return r;
 	}
 
