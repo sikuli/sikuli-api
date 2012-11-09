@@ -28,7 +28,7 @@ import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.nodes.PText;
 
-class VisualModelFinder {
+public class VisualModelFinder {
 	
 	final static ImageExplainer logger = ImageExplainer.getExplainer(VisualModelFinder.class); 
 	
@@ -134,16 +134,16 @@ class VisualModelFinder {
 		ImageSearcher search = new ImageSearcher(testImage);	
 		
 		Query q = new ImageQuery(model.getTopLeft().getImage());
-		final List<RegionMatch> tms1 = search.search(q, null, 20);
+		final List<RegionMatch> tms1 = search.search(q, null, 40);
 
 		q = new ImageQuery(model.getBottomRight().getImage());
-		final List<RegionMatch> tms3 = search.search(q, null, 20);
+		final List<RegionMatch> tms3 = search.search(q, null, 40);
 
 		q = new ImageQuery(model.getTopRight().getImage());
-		final List<RegionMatch> tms2 = search.search(q, null, 20);
+		final List<RegionMatch> tms2 = search.search(q, null, 40);
 
 		q = new ImageQuery(model.getBottomLeft().getImage());
-		final List<RegionMatch> tms4 = search.search(q, null, 20);
+		final List<RegionMatch> tms4 = search.search(q, null, 40);
 		
 		ImageRenderer matchedPartsRenderer = new PiccoloImageRenderer(testImage){
 			@Override
@@ -153,6 +153,7 @@ class VisualModelFinder {
 						PPath c = PPath.createRectangle(tms.getX(),tms.getY(),tms.getWidth(),tms.getHeight());
 						c.setStroke(new BasicStroke(2f));
 						c.setStrokePaint(Color.blue);
+						c.setTransparency(0.5f);
 						layer.addChild(c);
 					}				
 				}
@@ -303,10 +304,12 @@ class VisualModelFinder {
 				RegionMatch p1 = m1.getScoreMatch();
 				RegionMatch p2 = m2.getScoreMatch();
 				
-				PPath line = PPath.createLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
-				line.setStroke(new BasicStroke(2f));
-				line.setStrokePaint(Color.red);
-				layer.addChild(line);
+				// draw diagonal line				
+//				PPath line = PPath.createLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
+//				line.setStroke(new BasicStroke(2f));
+//				line.setStrokePaint(Color.red);
+//				layer.addChild(line);
+				
 				
 				Rectangle bs = h.getBounds();
 				PPath rect = PPath.createRectangle(bs.x,bs.y,bs.width,bs.height);
@@ -316,11 +319,11 @@ class VisualModelFinder {
 				layer.addChild(rect);		
 				
 				// draw score
-				int score = h.getScore();
-				PText text = new PText(""+score);
-				text.setOffset(rect.getBounds().getCenterX(), rect.getBounds().y - 20);
-				text.setHorizontalAlignment(0.5f);
-				layer.addChild(text);
+//				int score = h.getScore();
+//				PText text = new PText(""+score);
+//				text.setOffset(rect.getBounds().getCenterX(), rect.getBounds().y - 20);
+//				text.setHorizontalAlignment(0.5f);
+//				layer.addChild(text);
 				
 				ModelPartMatch m3 = h.getTopRight();
 				ModelPartMatch m4 = h.getBottomLeft();
@@ -330,6 +333,7 @@ class VisualModelFinder {
 					PPath c = PPath.createRectangle(p3.getX(),p3.getY(),p3.getWidth(),p3.getHeight());
 					c.setStroke(new BasicStroke(2f));
 					c.setStrokePaint(Color.blue);
+					c.setTransparency(0.5f);
 					layer.addChild(c);
 				}
 				
@@ -338,6 +342,7 @@ class VisualModelFinder {
 					PPath c = PPath.createRectangle(p4.getX(),p4.getY(),p4.getWidth(),p4.getHeight());
 					c.setStroke(new BasicStroke(2f));
 					c.setStrokePaint(Color.green);
+					c.setTransparency(0.5f);
 					layer.addChild(c);
 				}
 			}				
