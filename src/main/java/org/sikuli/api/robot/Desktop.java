@@ -115,12 +115,6 @@ class Desktop {
 	static DesktopRobot getRobot(ScreenLocation location){
 		int id = ((DesktopScreen) location.getScreen()).getId();
 		return _screens.get(id).robot;
-//		for (ScreenDevice s : _screens){
-//			if (s.getBounds().contains(location.x, location.y)){
-//				return s.getRobot();
-//			}
-//		}
-//		return null;
 	}
 	
 	public static Rectangle getScreenBounds(int screenId){

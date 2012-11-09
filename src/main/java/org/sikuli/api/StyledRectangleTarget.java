@@ -11,6 +11,11 @@ public class StyledRectangleTarget extends ImageTarget {
 	public StyledRectangleTarget(URL url) {
 		super(url);
 	}
+	
+	public StyledRectangleTarget(BufferedImage image) {
+		super(image);
+	}
+
 
 	@Override
 	protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion){

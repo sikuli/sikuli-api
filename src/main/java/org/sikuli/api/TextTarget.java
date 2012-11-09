@@ -31,8 +31,7 @@ import edu.umd.cs.piccolo.nodes.PText;
 
 public class TextTarget extends Target {
 
-	static private ImageExplainer explainer = ImageExplainer
-			.getExplainer(TextTarget.class);
+	static private ImageExplainer explainer = ImageExplainer.getExplainer(TextTarget.class);
 	static private Logger logger = LoggerFactory.getLogger(TextTarget.class);
 
 	final private String text;
@@ -57,7 +56,7 @@ public class TextTarget extends Target {
 				Fonts.WINDOWS_XP_120DPI_DEFAULT_GUI,
 				new Font("sansserif", 0, 0), new Font("serif", 0, 0) };
 		for (Font font : fonts) {
-			for (double size = 9; size <= 14; size = size + 1) {
+			for (double size = 20; size <= 25; size = size + 1) {
 				for (double tracking = 0; tracking > -0.03; tracking = tracking - 0.01) {
 					WeightedFontModel fontModel = new WeightedFontModel();
 					fontModel.setFont(font);
@@ -73,9 +72,8 @@ public class TextTarget extends Target {
 			String word, double minScore, boolean firstMatchOnly) {
 
 		ScreenRegion snapshot = screenRegion.snapshot();
-		TextMap map = TextMap.createFrom(snapshot.capture());
-		//System.out.println("map x:" + 		snapshot.getWidth());
-
+		TextMap map = TextMap.createFrom(snapshot.capture());		
+		explainer.step(map.getImage(), "text map");
 
 		List<TextMatch> ret = Lists.newArrayList();
 		for (WeightedFontModel fontModel : fontModels) {

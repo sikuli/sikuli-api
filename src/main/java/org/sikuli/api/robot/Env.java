@@ -18,9 +18,8 @@ class Env {
    final static String SikuliVersion = "X-1.0rc3";
 
    public static Point getMouseLocation() throws HeadlessException{
-	  System.out.println(MouseInfo.getPointerInfo());
       Point loc = MouseInfo.getPointerInfo().getLocation();
-      return loc;//new ScreenLocation(loc.x, loc.y);
+      return loc;
    }
 
    public static String getOSVersion(){
