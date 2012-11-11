@@ -10,7 +10,7 @@ import org.sikuli.core.search.RegionMatch;
 import com.google.common.collect.Lists;
 
 /**
- * The Target class allows you to specify what targets to find or wait for 
+ * The Target interface allows you to specify what targets to find or wait for 
  * and also to specify several control parameters. It is intended mainly to 
  * passed as an input argument to target finding functions such as 
  * {@link ScreenRegion#find(Target)} and {@link ScreenRegion#findAll(Target)}.
@@ -23,7 +23,7 @@ import com.google.common.collect.Lists;
  * @author Tom Yeh (tom.yeh@colorado.edu)
  *
  */
-abstract public class Target {
+public interface Target {
 
 	/**
 	 * Defines a set of constants to use to indicate how multiple targets
@@ -55,21 +55,8 @@ abstract public class Target {
 		RIGHT_LEFT
 	};
 	
-	protected double getDefaultMinScore() { return 0;};
-	protected int getDefaultLimit() { return 100;};
-		
-	/**
-	 * Constructs a Target with default parameters
-	 * 
-	 */
-	public Target(){
-		setMinScore(getDefaultMinScore());
-		setLimit(getDefaultLimit());
-	}
 
-	public double getMinScore() {
-		return minScore;
-	}	
+	public double getMinScore();
 
 	/**
 	 * Sets the minimum matching score. This controls how "fuzzy" the
@@ -78,98 +65,26 @@ abstract public class Target {
 	 * 
 	 * @param minScore
 	 */
-	public void setMinScore(double minScore) {
-		this.minScore = minScore;
-	}
+	public void setMinScore(double minScore);
 
-	public int getLimit() {
-		return limit;
-	}
+	public int getLimit();
 	
 	/**
 	 * Sets the limit on the number of matched targets to return.
 	 * 
 	 * @param limit	the number of matches
 	 */
-	public void setLimit(int limit) {
-		this.limit = limit;
-	}
+	public void setLimit(int limit);
 	
-	public Ordering getOrdering() {
-		return ordering;
-	}
+	public Ordering getOrdering();
 
 	/**
 	 * Sets the ordering of the matched targets.
 	 * 
 	 * @param ordering
 	 */
-	public void setOrdering(Ordering ordering) {
-		this.ordering = ordering;
-	}
-
-	private double minScore = 0;
-	private int limit = 0;
-	private Ordering ordering = Ordering.DEFAULT;
+	public void setOrdering(Ordering ordering);
 	
-	
-	abstract protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion);
-	
-	protected static List<ScreenRegion> convertToScreenRegions(ScreenRegion parent, List<RegionMatch> rms) {
-		List<ScreenRegion> irs = Lists.newArrayList();		
-		for (RegionMatch rm : rms){
-			ScreenRegion ir = new DefaultScreenRegion(parent, rm.getX(),rm.getY(),rm.getWidth(),rm.getHeight());
-			ir.setScore(rm.getScore());
-			irs.add(ir);
-		}
-		return irs;
-	}
-	
-	List<ScreenRegion> doFindAll(ScreenRegion screenRegion) {
-		// get raw results
-		List<ScreenRegion> ScreenRegions = getUnordredMatches(screenRegion);
-
-		// sorting
-		if (ordering == Ordering.TOP_DOWN){
-			Collections.sort(ScreenRegions, new Comparator<ScreenRegion>(){
-				@Override
-				public int compare(ScreenRegion a, ScreenRegion b) {
-					return a.getBounds().y - b.getBounds().y;
-				}    				    				
-			});
-		}else if (ordering == Ordering.BOTTOM_UP){
-			Collections.sort(ScreenRegions, new Comparator<ScreenRegion>(){
-				@Override
-				public int compare(ScreenRegion a, ScreenRegion b) {
-					return b.getBounds().y - a.getBounds().y;
-				}    				    				
-			});			
-		}else if (ordering == Ordering.LEFT_RIGHT){
-			Collections.sort(ScreenRegions, new Comparator<ScreenRegion>(){
-				@Override
-				public int compare(ScreenRegion a, ScreenRegion b) {
-					return a.getBounds().x - b.getBounds().x;
-				}    				    				
-			});			
-		}else if (ordering == Ordering.RIGHT_LEFT){
-			Collections.sort(ScreenRegions, new Comparator<ScreenRegion>(){
-				@Override
-				public int compare(ScreenRegion a, ScreenRegion b) {
-					return b.getBounds().x - a.getBounds().x;
-				}    				    				
-			});			
-		}
-		
-		return ScreenRegions;
-	}
-	
-	/**
-	 * Gets the image representation of this target for visualization purposes
-	 * 
-	 * @return a BufferedImage object
-	 */
-	public BufferedImage toImage() {
-		return null;
-	}
+	public List<ScreenRegion> doFindAll(ScreenRegion screenRegion);
 		
 }

@@ -29,7 +29,7 @@ import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.nodes.PText;
 
-public class TextTarget extends Target {
+public class TextTarget extends DefaultTarget implements Target {
 
 	private static final int MAX_FONT_SIZE = 14;
 	private static final int MIN_FONT_SIZE = 9;

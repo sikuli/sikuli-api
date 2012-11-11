@@ -26,7 +26,7 @@ import com.google.common.collect.Lists;
  * @author Tom Yeh (tom.yeh@colorado.edu)
  *
  */
-public class ImageTarget extends Target {
+public class ImageTarget extends DefaultTarget implements Target {
 	
 	final BufferedImage targetImage;	
 	final private String imageSource;
@@ -87,8 +87,6 @@ public class ImageTarget extends Target {
 	public BufferedImage getImage(){
 		return targetImage;
 	}
-	
-	
 	
 	
 	@Override

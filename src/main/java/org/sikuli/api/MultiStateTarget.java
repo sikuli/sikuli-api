@@ -11,7 +11,7 @@ import java.util.Map;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Doubles;
 
-public class MultiStateTarget extends Target {
+public class MultiStateTarget extends DefaultTarget implements Target {
 
 	Map<Target, Object> states = new HashMap<Target, Object>();
 	
@@ -23,7 +23,8 @@ public class MultiStateTarget extends Target {
 		List<ScreenRegion> allMatches = Lists.newArrayList();
 		for (Target t : states.keySet()){
 			t.setLimit(getLimit());
-			List<ScreenRegion> matches = t.getUnordredMatches(screenRegion);
+			//List<ScreenRegion> matches = t.getUnordredMatches(screenRegion);
+			List<ScreenRegion> matches = t.doFindAll(screenRegion);
 			allMatches.addAll(matches);
 		}
 				

@@ -27,7 +27,7 @@ public class ImageTargetTest extends BaseTest {
 	public void testSingleImageTargetIsFound() {
 		Target t = new ImageTarget(getClass().getResource("dock.png"));
 		t.setLimit(1);
-		List<ScreenRegion> results = t.doFindAll(testScreenRegion);
+		List<ScreenRegion> results = testScreenRegion.findAll(t);
 		assertEquals(results.size(), 1);
 		
 		ScreenRegion m = results.get(0);
@@ -39,12 +39,12 @@ public class ImageTargetTest extends BaseTest {
 	public void testHigherMinScoreLessFuzzy() {
 		Target t = new ImageTarget(getClass().getResource("dock.png"));
 		t.setLimit(10);
-		List<ScreenRegion> results = t.doFindAll(testScreenRegion);
+		List<ScreenRegion> results = testScreenRegion.findAll(t);
 		assertThat("number of matches found with default min score",
 				results.size(), is(2));
 		
 		t.setMinScore(0.9);
-		results = t.doFindAll(testScreenRegion);		
+		results = testScreenRegion.findAll(t);		
 		assertThat("number of matches found with a higher min score",
 				results.size(), is(1));
 		
@@ -54,7 +54,7 @@ public class ImageTargetTest extends BaseTest {
 	public void testBufferedImageConstructor() {
 		Target t = new ImageTarget(getClass().getResource("dock.png"));
 		t.setLimit(1);
-		List<ScreenRegion> results = t.doFindAll(testScreenRegion);
+		List<ScreenRegion> results = testScreenRegion.findAll(t);
 		assertEquals(results.size(), 1);
 		
 		ScreenRegion m = results.get(0);
@@ -66,7 +66,7 @@ public class ImageTargetTest extends BaseTest {
 	public void testFewerThanLimitImageTargetsAreFound() {		
 		Target t = new ImageTarget(getClass().getResource("fileIcon.png"));
 		t.setLimit(12);
-		List<ScreenRegion> results = t.doFindAll(testScreenRegion);
+		List<ScreenRegion> results = testScreenRegion.findAll(t);
 		assertEquals(10, results.size());
 	}
 
@@ -74,14 +74,14 @@ public class ImageTargetTest extends BaseTest {
 	public void testFiveImageTargetsAreFound() {		
 		Target t = new ImageTarget(getClass().getResource("fileIcon.png"));
 		t.setLimit(5);
-		List<ScreenRegion> results = t.doFindAll(testScreenRegion);
+		List<ScreenRegion> results = testScreenRegion.findAll(t);
 		assertEquals(5, results.size());
 	}
 
 	@Test
 	public void testNoImageTargetIsFound() {		
 		Target t = new ImageTarget(getClass().getResource("chicken.png"));
-		List<ScreenRegion> results = t.doFindAll(testScreenRegion);
+		List<ScreenRegion> results = testScreenRegion.findAll(t);
 		assertEquals(0, results.size());
 	}
 	
@@ -97,7 +97,7 @@ public class ImageTargetTest extends BaseTest {
 	public void testImageTargetsAreOrderedTopDown() {		
 		Target t = new ImageTarget(getClass().getResource("fileIcon.png"));
 		t.setOrdering(Ordering.TOP_DOWN);
-		List<ScreenRegion> results = t.doFindAll(testScreenRegion);
+		List<ScreenRegion> results = testScreenRegion.findAll(t);
 		for (int i = 0; i < results.size() - 1; i++){
 			ScreenRegion a = results.get(i);
 			ScreenRegion b = results.get(i+1);
@@ -109,7 +109,7 @@ public class ImageTargetTest extends BaseTest {
 	public void testImageTargetsAreOrderedLeftRight() {		
 		Target t = new ImageTarget(getClass().getResource("fileIcon.png"));
 		t.setOrdering(Ordering.LEFT_RIGHT);
-		List<ScreenRegion> results = t.doFindAll(testScreenRegion);
+		List<ScreenRegion> results = testScreenRegion.findAll(t);
 		for (int i = 0; i < results.size() - 1; i++){
 			ScreenRegion a = results.get(i);
 			ScreenRegion b = results.get(i+1);
@@ -121,7 +121,7 @@ public class ImageTargetTest extends BaseTest {
 	public void testImageTargetsAreOrderedRightLeft() {		
 		Target t = new ImageTarget(getClass().getResource("fileIcon.png"));
 		t.setOrdering(Ordering.RIGHT_LEFT);
-		List<ScreenRegion> results = t.doFindAll(testScreenRegion);
+		List<ScreenRegion> results = testScreenRegion.findAll(t);
 		for (int i = 0; i < results.size() - 1; i++){
 			ScreenRegion a = results.get(i);
 			ScreenRegion b = results.get(i+1);
@@ -133,7 +133,7 @@ public class ImageTargetTest extends BaseTest {
 	public void testImageTargetsAreOrderedBottomUp() throws IOException{		
 		Target t = new ImageTarget(getClass().getResource("fileIcon.png"));
 		t.setOrdering(Ordering.BOTTOM_UP);
-		List<ScreenRegion> results = t.doFindAll(testScreenRegion);
+		List<ScreenRegion> results = testScreenRegion.findAll(t);
 		for (int i = 0; i < results.size() - 1; i++){
 			ScreenRegion a = results.get(i);
 			ScreenRegion b = results.get(i+1);
@@ -145,7 +145,7 @@ public class ImageTargetTest extends BaseTest {
 	public void testImageTargetNotFoundInROI(){
 		Target t = new ImageTarget(getClass().getResource("fileIcon.png"));
 		testScreenRegion.addROI(0, 0, 100, 500);
-		List<ScreenRegion> rs = t.doFindAll(testScreenRegion);		
+		List<ScreenRegion> rs = testScreenRegion.findAll(t);		
 		assertThat("number of targets found", rs.size(), is(0));
 	}
 	
@@ -153,7 +153,7 @@ public class ImageTargetTest extends BaseTest {
 	public void testImageTargetFoundInROI(){
 		Target t = new ImageTarget(getClass().getResource("fileIcon.png"));
 		testScreenRegion.addROI(1450, 0, 120, 300);
-		List<ScreenRegion> rs = t.doFindAll(testScreenRegion);		
+		List<ScreenRegion> rs = testScreenRegion.findAll(t);		
 		assertThat("number of targets found", rs.size(), is(3));
 	}
 
@@ -162,7 +162,7 @@ public class ImageTargetTest extends BaseTest {
 		Target t = new ImageTarget(getClass().getResource("fileIcon.png"));
 		testScreenRegion.addROI(1450, 0, 120, 300);
 		testScreenRegion.addROI(1570, 295, 120, 300);
-		List<ScreenRegion> rs = t.doFindAll(testScreenRegion);		
+		List<ScreenRegion> rs = testScreenRegion.findAll(t);		
 		assertThat("number of targets found", rs.size(), is(6));
 	}
 	

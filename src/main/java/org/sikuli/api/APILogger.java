@@ -162,7 +162,7 @@ class ScreenRegionImageLogger extends APILogger {
 				addTextLabel(layer, actionName, 3, 3);		
 				
 				// draw the target image
-				BufferedImage targetImage = target.toImage();
+				BufferedImage targetImage = ((DefaultTarget) target).toImage();
 				if (targetImage != null){
 					PImage im = new PImage(targetImage);
 					im.setOffset(3, 30);
