@@ -24,7 +24,7 @@ public class ScreenPainter {
 	
 	public void circle(ScreenLocation l, int duration){
 		Rectangle b = ((DesktopScreen) l.getScreen()).getBounds();
-		new CircleOverlay(b.x + l.x-10, b.y + l.y-10, 20, 20).show(duration);
+		new CircleOverlay(b.x + l.getX()-10, b.y + l.getY()-10, 20, 20).show(duration);
 	}
 		
 	public void label(ScreenRegion screenRegion, String txt, int duration){
@@ -34,12 +34,12 @@ public class ScreenPainter {
 	
 	public void label(ScreenLocation l, String txt, int duration){
 		Rectangle b = ((DesktopScreen) l.getScreen()).getBounds();
-		new LabelOverlay(txt, b.x + l.x, b.y + l.y).show(duration);
+		new LabelOverlay(txt, b.x + l.getX(), b.y + l.getY()).show(duration);
 	}
 
 	public void image(ScreenLocation l, BufferedImage image, int time){
 		Rectangle b = ((DesktopScreen) l.getScreen()).getBounds();
-		new ImageOverlay(image, b.x + l.x, b.y + l.y).show(time);
+		new ImageOverlay(image, b.x + l.getX(), b.y + l.getY()).show(time);
 	}		
 }
 

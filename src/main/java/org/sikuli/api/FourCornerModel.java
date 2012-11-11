@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import org.sikuli.core.cv.VisionUtils;
 import org.sikuli.core.draw.ImageRenderer;
 import org.sikuli.core.draw.PiccoloImageRenderer;
 

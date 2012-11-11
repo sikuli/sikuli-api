@@ -116,10 +116,10 @@ class ScreenRegionImageLogger extends APILogger {
 			protected void addContent(PLayer layer) {
 				PPath c = PPath.createEllipse(0, 0, 10,10);
 				c.setPaint(Color.red);
-				c.setOffset(location.x - loggedScreenRegion.getBounds().getX() - 5, location.y - loggedScreenRegion.getBounds().getY() - 5);
+				c.setOffset(location.getX() - loggedScreenRegion.getBounds().getX() - 5, location.getY() - loggedScreenRegion.getBounds().getY() - 5);
 				layer.addChild(c);
 				
-				addTextLabel(layer, actionName,location.x - loggedScreenRegion.getBounds().x - 20, location.y - loggedScreenRegion.getBounds().y - 40);
+				addTextLabel(layer, actionName,location.getX() - loggedScreenRegion.getBounds().x - 20, location.getY() - loggedScreenRegion.getBounds().y - 40);
 				addNodeWithShadow(layer, c);
 			}			
 		};

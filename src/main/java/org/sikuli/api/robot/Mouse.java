@@ -78,7 +78,7 @@ class DesktopMouse {
 	private void _moveTo(ScreenLocation screenLoc){				
 		Point o = robot.getOrigin();
 		// TODO: figure out why the offset is applied negatively 
-		robot.smoothMove(new Point(-o.x+screenLoc.x, -o.y+screenLoc.y));
+		robot.smoothMove(new Point(-o.x+screenLoc.getX(), -o.y+screenLoc.getY()));
 		robot.waitForIdle();
 	}
 	

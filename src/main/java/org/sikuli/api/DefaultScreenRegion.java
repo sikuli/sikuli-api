@@ -93,8 +93,8 @@ public class DefaultScreenRegion implements ScreenRegion {
 	}
 	
 	@Override
-	public ScreenLocation getScreenLocation(int xoffset, int yoffset){
-		return new ScreenLocation(x + xoffset, y + yoffset, screen);
+	public ScreenLocation getRelativeScreenLocation(int xoffset, int yoffset){
+		return new DefaultScreenLocation(screen, x + xoffset, y + yoffset);
 
 	}
 
@@ -249,51 +249,16 @@ public class DefaultScreenRegion implements ScreenRegion {
 		return lastCapturedImage;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.sikuli.api.ScreenRegion#getCenter()
-	 */
 	@Override
 	public ScreenLocation getCenter() {
-		return new ScreenLocation(x + width/2, y + height/2, screen);
+		return new DefaultScreenLocation(screen, x + width/2, y + height/2);
 	}
 
-//	/* (non-Javadoc)
-//	 * @see org.sikuli.api.ScreenRegion#getLocation()
-//	 */
-//	@Override
-//	public ScreenLocation getLocation(){
-//		return getTopLeft();
-//	}
-//
-//	/* (non-Javadoc)
-//	 * @see org.sikuli.api.ScreenRegion#getTopLeft()
-//	 */
-//	@Override
-//	public ScreenLocation getTopLeft() {
-//		return new ScreenLocation(x, y, screen);
-//	}
-//
-//
-//
-//	/* (non-Javadoc)
-//	 * @see org.sikuli.api.ScreenRegion#getBottomRight()
-//	 */
-//	@Override
-//	public ScreenLocation getBottomRight() {
-//		return new ScreenLocation(x + width, y + height, screen);
-//	}
-
-
-	/* (non-Javadoc)
-	 * @see org.sikuli.api.ScreenRegion#addTargetEventListener(org.sikuli.api.Target, org.sikuli.api.TargetEventListener)
-	 */
 	@Override
 	public void addTargetEventListener(Target target, TargetEventListener listener) {	
 		VisualEventManager.getSingleton().addTargetEventListener(this,  target, listener);
 	}
-	/* (non-Javadoc)
-	 * @see org.sikuli.api.ScreenRegion#removeTargetEventListener(org.sikuli.api.Target, org.sikuli.api.TargetEventListener)
-	 */
+
 	@Override
 	public void removeTargetEventListener(Target target, TargetEventListener listener) {
 		VisualEventManager.getSingleton().removeTargetEventListener(this,  target, listener);		

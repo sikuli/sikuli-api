@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import org.sikuli.api.DefaultScreenLocation;
 import org.sikuli.api.Screen;
 import org.sikuli.api.ScreenLocation;
 
@@ -77,7 +78,7 @@ class Desktop {
 	public static ScreenLocation getCurrentMouseScreenLocation(){		
 		Point p = MouseInfo.getPointerInfo().getLocation();		
 		Screen screen = getCurrentScreenDevice().screen;		
-		ScreenLocation screenLocation = new ScreenLocation(p.x, p.y);
+		ScreenLocation screenLocation = new DefaultScreenLocation(screen, p.x, p.y);
 		screenLocation.setScreen(screen);
 		return screenLocation;
 	}

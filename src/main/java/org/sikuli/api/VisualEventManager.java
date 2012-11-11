@@ -98,8 +98,8 @@ class TargetEventDetectionTask implements EventDetectionTask{
 		ScreenLocation newLocation = Relative.to(r).topLeft().getScreenLocation();
 		ScreenLocation lastLocation = Relative.to(lastTargetRegion).topLeft().getScreenLocation();
 
-		boolean isXClose = Math.abs(newLocation.x - lastLocation.x) < 3;
-		boolean isYClose = Math.abs(newLocation.y - lastLocation.y) < 3;
+		boolean isXClose = Math.abs(newLocation.getX() - lastLocation.getX()) < 3;
+		boolean isYClose = Math.abs(newLocation.getY() - lastLocation.getY()) < 3;
 
 		return isXClose && isYClose;
 	}

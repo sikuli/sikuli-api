@@ -41,22 +41,22 @@ public class Relative{
 		}
 		
 		public RelativeScreenLocationBuilder topLeft(){
-			return new RelativeScreenLocationBuilder(screenRegion.getScreenLocation(0,0));
+			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(0,0));
 		}
 
 		public RelativeScreenLocationBuilder topRight(){
 			Rectangle r = screenRegion.getBounds();
-			return new RelativeScreenLocationBuilder(screenRegion.getScreenLocation(r.width,0));
+			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(r.width,0));
 		}
 		
 		public RelativeScreenLocationBuilder bottomRight(){
 			Rectangle r = screenRegion.getBounds();
-			return new RelativeScreenLocationBuilder(screenRegion.getScreenLocation(r.width,r.height));
+			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(r.width,r.height));
 		}
 
 		public RelativeScreenLocationBuilder bottomLeft(){
 			Rectangle r = screenRegion.getBounds();
-			return new RelativeScreenLocationBuilder(screenRegion.getScreenLocation(0,r.height));
+			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(0,r.height));
 		}
 						
 		public ScreenRegion getScreenRegion(){
@@ -91,5 +91,10 @@ public class Relative{
 	public static RelativeScreenRegionBuilder to(ScreenRegion screenRegion){
 		return new RelativeScreenRegionBuilder(screenRegion);
 	}
+	
+	public static RelativeScreenLocationBuilder to(ScreenLocation screenLocation){
+		return new RelativeScreenLocationBuilder(screenLocation);
+	}
+
 
 }

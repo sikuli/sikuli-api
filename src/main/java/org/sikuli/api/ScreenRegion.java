@@ -13,7 +13,7 @@ public interface ScreenRegion {
 	public abstract Rectangle getBounds();
 	public abstract void setBounds(Rectangle newBounds);
 	public abstract ScreenRegion getRelativeScreenRegion(int xoffset, int yoffset, int width, int height);
-	public abstract ScreenLocation getScreenLocation(int xoffset, int yoffset);
+	public abstract ScreenLocation getRelativeScreenLocation(int xoffset, int yoffset);
 
 	/**
 	 * Gets the center of this screen region 
