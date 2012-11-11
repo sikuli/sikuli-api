@@ -23,8 +23,8 @@ public class ScreenRegionTest extends BaseTest {
 	public void testExtractIntegerInComboBox() throws IOException, InterruptedException{
 		ScreenRegion screen = createTestScreenRegionFrom("NetworkPreferencesCreateNew.png");
 		Target t = new ImageTarget(TestImage.get("channelLabel.png"));
-		DesktopScreenRegion comboboxRegion = screen.find(t).getRight(100).grow(10,0,10,0);
-		assertThat("integer", comboboxRegion.extractInteger(), is(11));
+		ScreenRegion comboboxRegion = screen.find(t).getRight(100).grow(10,0,10,0);
+		assertThat("integer", ((DefaultScreenRegion) comboboxRegion).extractInteger(), is(11));
 	}
 	
 

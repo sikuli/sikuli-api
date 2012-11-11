@@ -39,7 +39,7 @@ public class MultiStateTargetTest extends BaseTest {
 	@Test
 	public void testApplyButtonFound() throws IOException{
 		ScreenRegion s = createTestScreenRegionFrom("NetworkPreferences1.png");
-		DesktopScreenRegion r = s.find(applyButtonTarget);
+		ScreenRegion r = s.find(applyButtonTarget);
 		assertThat("number of buttons found", r, notNullValue());		
 	}
 	
@@ -47,7 +47,7 @@ public class MultiStateTargetTest extends BaseTest {
 	public void testApplyButtonNotFound() throws IOException{
 
 		ScreenRegion s = createTestScreenRegionFrom("macdesktop.png");		
-		DesktopScreenRegion r = s.find(applyButtonTarget);
+		ScreenRegion r = s.find(applyButtonTarget);
 		assertThat("number of buttons found", r, nullValue());		
 	}
 	
@@ -74,7 +74,7 @@ public class MultiStateTargetTest extends BaseTest {
 
 		// this image contains two checkboxes, both checked
 		ScreenRegion s = createTestScreenRegionFrom("NetworkPreferences1.png");				
-		List<DesktopScreenRegion> rs = s.findAll(checkboxTarget);
+		List<ScreenRegion> rs = s.findAll(checkboxTarget);
 		assertThat("number of checked checkboxes found", rs.size(), is(2));
 		
 		// this image contains two checkboxes, one checked, one unchecked
@@ -90,7 +90,7 @@ public class MultiStateTargetTest extends BaseTest {
 		// this image contains two checkboxes, top one is unchecked, bottom one is checked
 		ScreenRegion s = createTestScreenRegionFrom("NetworkPreferences2.png");			
 		checkboxTarget.setOrdering(Ordering.TOP_DOWN);
-		List<DesktopScreenRegion> rs = s.findAll(checkboxTarget);
+		List<ScreenRegion> rs = s.findAll(checkboxTarget);
 		
 		assertThat("number of checkboxes found", rs.size(), is(2));
 		
@@ -104,7 +104,7 @@ public class MultiStateTargetTest extends BaseTest {
 
 		// this image contains five checkboxes, three checked and two unchecked
 		ScreenRegion s = createTestScreenRegionFrom("DockPreferences.png");				
-		List<DesktopScreenRegion> rs = s.findAll(checkboxTarget);
+		List<ScreenRegion> rs = s.findAll(checkboxTarget);
 		assertThat("number of checkboxes found", rs.size(), is(5));
 		
 		rs = s.findAll(new ImageTarget(getClass().getResource("checkbox_checked.png")));

@@ -1,5 +1,6 @@
 package org.sikuli.api;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.Comparator;
@@ -37,10 +38,13 @@ public class MultiStateTarget extends Target {
 
 		// add padding to account for mis-alignment
 		for (ScreenRegion m : allMatches){
-			m.setWidth(m.getWidth() + 10);
-			m.setHeight(m.getHeight() + 10);
-			m.setX(m.getX()-5);
-			m.setY(m.getY()-5);
+			Rectangle oldBounds = m.getBounds();
+			Rectangle newBounds = new Rectangle();
+			newBounds.width = oldBounds.width + 10;
+			newBounds.height = oldBounds.height + 10;
+			newBounds.x = oldBounds.x - 5;
+			newBounds.y = oldBounds.y - 5;
+			m.setBounds(newBounds);
 		}
 			
 		

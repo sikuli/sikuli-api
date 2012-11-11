@@ -34,7 +34,7 @@ public class TextTargetTest extends BaseTest {
 		strings.add("Ask to join new networks");
 
 		for (String s : strings){
-			DesktopScreenRegion r = screen.find(new TextTarget(s));
+			ScreenRegion r = screen.find(new TextTarget(s));
 			System.out.println(s + ":" + r);
 			assertThat(s, r, notNullValue());
 		}
@@ -59,7 +59,7 @@ public class TextTargetTest extends BaseTest {
 		strings.add("Apply");
 
 		for (String s : strings){
-			DesktopScreenRegion r = screen.find(new TextTarget(s));
+			ScreenRegion r = screen.find(new TextTarget(s));
 			System.out.println(s + ":" + r);
 			assertThat(s, r, notNullValue());
 		}
@@ -68,16 +68,16 @@ public class TextTargetTest extends BaseTest {
 }
 
 
-class ScreenRegionSimilarTo extends TypeSafeMatcher<DesktopScreenRegion> {
+class ScreenRegionSimilarTo extends TypeSafeMatcher<ScreenRegion> {
 	
 	@Factory
-	static <T> Matcher<DesktopScreenRegion> similarTo(int x, int y, int width, int height){
+	static <T> Matcher<ScreenRegion> similarTo(int x, int y, int width, int height){
 		return new ScreenRegionSimilarTo(x,y,width,height);
 	}
 
 
-	DesktopScreenRegion other;
-	ScreenRegionSimilarTo(DesktopScreenRegion other){
+	ScreenRegion other;
+	ScreenRegionSimilarTo(ScreenRegion other){
 		this.other = other;
 	}
 	
@@ -86,11 +86,11 @@ class ScreenRegionSimilarTo extends TypeSafeMatcher<DesktopScreenRegion> {
 	}
 
 	@Override
-	public boolean matchesSafely(DesktopScreenRegion self) {
-		return (Math.abs(self.x - other.x) < 5 && 
-				Math.abs(self.y - other.y) < 5 && 
-				Math.abs(self.width - other.width) < 10 && 
-				Math.abs(self.height - other.height) < 10);
+	public boolean matchesSafely(ScreenRegion self) {
+		return (Math.abs(self.getBounds().x - other.getBounds().x) < 5 && 
+				Math.abs(self.getBounds().y - other.getBounds().y) < 5 && 
+				Math.abs(self.getBounds().width - other.getBounds().width) < 10 && 
+				Math.abs(self.getBounds().height - other.getBounds().height) < 10);
 	}
 
 	@Override

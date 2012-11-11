@@ -116,10 +116,10 @@ class ScreenRegionImageLogger extends APILogger {
 			protected void addContent(PLayer layer) {
 				PPath c = PPath.createEllipse(0, 0, 10,10);
 				c.setPaint(Color.red);
-				c.setOffset(location.x - loggedScreenRegion.getX() - 5, location.y - loggedScreenRegion.getY() - 5);
+				c.setOffset(location.x - loggedScreenRegion.getBounds().getX() - 5, location.y - loggedScreenRegion.getBounds().getY() - 5);
 				layer.addChild(c);
 				
-				addTextLabel(layer, actionName,location.x - loggedScreenRegion.getX() - 20, location.y - loggedScreenRegion.getY() - 40);
+				addTextLabel(layer, actionName,location.x - loggedScreenRegion.getBounds().x - 20, location.y - loggedScreenRegion.getBounds().y - 40);
 				addNodeWithShadow(layer, c);
 			}			
 		};
@@ -171,14 +171,14 @@ class ScreenRegionImageLogger extends APILogger {
 				}
 				
 				// draw a rectangle around the screen region in which find was performed
-				addRectangle(layer, screenRegion.getX() - loggedScreenRegion.getX(), 
-						screenRegion.getY() - loggedScreenRegion.getY(), screenRegion.getWidth(), screenRegion.getHeight(),
+				addRectangle(layer, screenRegion.getBounds().x - loggedScreenRegion.getBounds().x, 
+						screenRegion.getBounds().y - loggedScreenRegion.getBounds().y, screenRegion.getBounds().width, screenRegion.getBounds().height,
 						Color.green);
 				
 				// draw a rectangle around the found target
 				for (ScreenRegion result : results){
-					addRectangle(layer, result.getX() - loggedScreenRegion.getX(), 
-							result.getY() - loggedScreenRegion.getY(), result.getWidth(), result.getHeight(),
+					addRectangle(layer, result.getBounds().x - loggedScreenRegion.getBounds().x, 
+							result.getBounds().y - loggedScreenRegion.getBounds().y, result.getBounds().width, result.getBounds().height,
 							Color.red);
 				}
 				

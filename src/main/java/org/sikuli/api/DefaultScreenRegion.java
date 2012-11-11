@@ -42,8 +42,8 @@ public class DefaultScreenRegion implements ScreenRegion {
 	
 	public DefaultScreenRegion(ScreenRegion parent, int x, int y, int width, int height) {		
 		this.fullScreen = false;
-		this.x = parent.getX() + x;
-		this.y = parent.getY() + y;
+		this.x = parent.getBounds().x + x;
+		this.y = parent.getBounds().y + y;
 		this.width = width;
 		this.height = height;
 		setScreen(parent.getScreen());
@@ -73,45 +73,59 @@ public class DefaultScreenRegion implements ScreenRegion {
 	private int width;
 	private int height;
 	
+	
 	@Override
-	public int getX() {
-		return x;
+	public Rectangle getBounds(){
+		return new Rectangle(x,y,width,height);
 	}
-
+	
 	@Override
-	public void setX(int x) {
-		this.x = x;
+	public void setBounds(Rectangle newBounds){
+		x = newBounds.x;
+		y = newBounds.y;
+		width = newBounds.width;
+		height = newBounds.height;
+		
 	}
-
-	@Override
-	public int getY() {
-		return y;
-	}
-
-	@Override
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	@Override
-	public int getWidth() {
-		return width;
-	}
-
-	@Override
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	@Override
-	public int getHeight() {
-		return height;
-	}
-
-	@Override
-	public void setHeight(int height) {
-		this.height = height;
-	}
+//	@Override
+//	public int getX() {
+//		return x;
+//	}
+//
+//	@Override
+//	public void setX(int x) {
+//		this.x = x;
+//	}
+//
+//	@Override
+//	public int getY() {
+//		return y;
+//	}
+//
+//	@Override
+//	public void setY(int y) {
+//		this.y = y;
+//	}
+//
+//	@Override
+//	public int getWidth() {
+//		return width;
+//	}
+//
+//	@Override
+//	public void setWidth(int width) {
+//		this.width = width;
+//	}
+//
+//	@Override
+//	public int getHeight() {
+//		return height;
+//	}
+//
+//	@Override
+//	public void setHeight(int height) {
+//		this.height = height;
+//	}
 
 	@Override
 	public ScreenRegion getRight(int w){
@@ -407,7 +421,7 @@ public class DefaultScreenRegion implements ScreenRegion {
 	 */
 	@Override
 	public boolean contains(ScreenRegion r) {
-		return (new Rectangle(x,y,width,height)).contains(new Rectangle(r.getX(),r.getY(),r.getWidth(),r.getHeight()));
+		return (new Rectangle(x,y,width,height)).contains(getBounds());
 	}
 
 	public Integer extractInteger() {

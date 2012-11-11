@@ -85,27 +85,29 @@ public class TextTarget extends Target {
 					fontModel.getTracking());
 			ImageTarget t = new ImageTarget(img);
 			t.setMinScore(minScore);
-			List<ScreenRegion> rs = snapshot.findAll(t);
+			List<ScreenRegion> matchedRegions = snapshot.findAll(t);
 
-			if (!rs.isEmpty()) {
+			if (!matchedRegions.isEmpty()) {
 
-				logger.trace("top score = " + rs.get(0).getScore());
-				for (ScreenRegion r : rs) {
-					int localx = r.getX() - snapshot.getX();
-					int localy = r.getY() - snapshot.getY();
-					if (map.computeTextScore(localx, localy, r.getWidth(), r.getHeight()) > 0) {
-						TextMatch m = new TextMatch(r, fontModel);
+				logger.trace("top score = " + matchedRegions.get(0).getScore());
+				for (ScreenRegion matchedRegion : matchedRegions) {
+					Rectangle r = matchedRegion.getBounds();
+					Rectangle s = snapshot.getBounds();
+					int localx = r.x - s.x;
+					int localy = r.y - s.y;
+					if (map.computeTextScore(localx, localy, r.width, r.height) > 0) {
+						TextMatch m = new TextMatch(matchedRegion, fontModel);
 						ret.add(m);
 
 						fontModel.maxScore = Math.max(fontModel.maxScore,
-								r.getScore());
+								matchedRegion.getScore());
 					}
 				}
 
 				double quickAcceptThreshold = Math.max(0.65,
 						fontModel.maxScore * 0.85);
 				if (firstMatchOnly
-						&& rs.get(0).getScore() >= quickAcceptThreshold) {
+						&& matchedRegions.get(0).getScore() >= quickAcceptThreshold) {
 					return ret;
 				}
 
@@ -129,14 +131,14 @@ public class TextTarget extends Target {
 		List<TextMatch> filteredCandidateMatches = Lists.newArrayList();
 		for (TextMatch m1 : candidateMatches) {
 
-			final ScreenRegion s1 = m1.screenRegion;
-			final Rectangle r1 = new Rectangle(s1.getX(), s1.getY(), s1.getWidth(), s1.getHeight());
+			final Rectangle s1 = m1.screenRegion.getBounds();
+			final Rectangle r1 = new Rectangle(s1.x, s1.y, s1.width, s1.height);
 			boolean isOverlapping = Iterables.any(filteredCandidateMatches,
 					new Predicate<TextMatch>() {
 						@Override
 						public boolean apply(TextMatch m2) {
-							ScreenRegion s2 = m2.screenRegion;
-							Rectangle r2 = new Rectangle(s2.getX(),s2.getY(), s2.getWidth(), s2.getHeight());
+							Rectangle s2 = m2.screenRegion.getBounds();
+							Rectangle r2 = new Rectangle(s2.x,s2.y, s2.width, s2.height);
 							return r1.intersects(r2);
 						}
 					});
@@ -157,9 +159,9 @@ public class TextTarget extends Target {
 				for (int i = 0; i < matches.size(); ++i) {
 					if (i > 1)
 						continue;
-					ScreenRegion r = matches.get(i).screenRegion;
+					Rectangle r = matches.get(i).screenRegion.getBounds();
 					PPath p = PPath
-							.createRectangle(r.getX(), r.getY(), r.getWidth(), r.getHeight());
+							.createRectangle(r.x, r.y, r.width, r.height);
 
 					// if (map.computeTextScore(r.x,r.y,r.width,r.height) > 0)
 					if (i == 0)

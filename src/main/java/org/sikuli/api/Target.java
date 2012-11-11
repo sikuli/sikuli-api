@@ -134,28 +134,28 @@ abstract public class Target {
 			Collections.sort(ScreenRegions, new Comparator<ScreenRegion>(){
 				@Override
 				public int compare(ScreenRegion a, ScreenRegion b) {
-					return a.getY() - b.getY();
+					return a.getBounds().y - b.getBounds().y;
 				}    				    				
 			});
 		}else if (ordering == Ordering.BOTTOM_UP){
 			Collections.sort(ScreenRegions, new Comparator<ScreenRegion>(){
 				@Override
 				public int compare(ScreenRegion a, ScreenRegion b) {
-					return b.getY() - a.getY();
+					return b.getBounds().y - a.getBounds().y;
 				}    				    				
 			});			
 		}else if (ordering == Ordering.LEFT_RIGHT){
 			Collections.sort(ScreenRegions, new Comparator<ScreenRegion>(){
 				@Override
 				public int compare(ScreenRegion a, ScreenRegion b) {
-					return a.getX() - b.getX();
+					return a.getBounds().x - b.getBounds().x;
 				}    				    				
 			});			
 		}else if (ordering == Ordering.RIGHT_LEFT){
 			Collections.sort(ScreenRegions, new Comparator<ScreenRegion>(){
 				@Override
 				public int compare(ScreenRegion a, ScreenRegion b) {
-					return b.getX() - a.getX();
+					return b.getBounds().x - a.getBounds().x;
 				}    				    				
 			});			
 		}
