@@ -6,11 +6,22 @@ import java.util.List;
 import java.util.Map;
 
 public interface ScreenRegion {
+	
+	public abstract Screen getScreen();
+	public abstract void setScreen(Screen screen);
 
 	public abstract Rectangle getBounds();
 	public abstract void setBounds(Rectangle newBounds);
-	
+	public abstract ScreenRegion getRelativeScreenRegion(int xoffset, int yoffset, int width, int height);
+	public abstract ScreenLocation getScreenLocation(int xoffset, int yoffset);
 
+	/**
+	 * Gets the center of this screen region 
+	 * 
+	 * @return a Location object corresponding to the center of the screen region
+	 */
+	public abstract ScreenLocation getCenter();
+	
 	/**
 	 * Gets the score of this ScreenRegion, which is set if this screen region
 	 * was returned as the result of a find command. The score should be between
@@ -41,42 +52,6 @@ public interface ScreenRegion {
 	public abstract Object getState();
 
 	/**
-	 * Gets a new screen region of the given width to the right of this screen region. This new
-	 * screen region would have the same y position and the same height.
-	 * 
-	 * @param w	the width of the new screen region
-	 * @return	the new screen region
-	 */
-	public abstract ScreenRegion getRight(int w);
-
-	/**
-	 * Gets a new screen region of the given width to the left of this screen region. This new
-	 * screen region would have the same y position and the same height.
-	 * 
-	 * @param w	the width of the new screen region
-	 * @return	the new screen region
-	 */
-	public abstract ScreenRegion getLeft(int w);
-
-	/**
-	 * Gets a new screen region of the given height above this screen region. This new
-	 * screen region would have the same x position and the same width.
-	 * 
-	 * @param h	the width of the new screen region
-	 * @return	the new screen region
-	 */
-	public abstract ScreenRegion getAbove(int h);
-
-	/**
-	 * Gets a new screen region of the given height above this screen region. This new
-	 * screen region would have the same x position and the same width.
-	 * 
-	 * @param h	the width of the new screen region
-	 * @return	the new screen region
-	 */
-	public abstract ScreenRegion getBelow(int h);
-
-	/**
 	 * Finds all the instances of the target on the screen immediately
 	 * 
 	 * @param target	the target to find
@@ -105,52 +80,11 @@ public interface ScreenRegion {
 	public abstract ScreenRegion wait(final Target target, int mills);
 
 	/**
-	 * Grows this screen region above, left, below, and right 
-	 * 
-	 * @param above	the amount to grow above
-	 * @param below	the amount to grow below
-	 * @param left	the amount to grow left
-	 * @param right	the amount to grow above
-	 * @return	this ScreenRegion that has grown larger
-	 */
-	public abstract ScreenRegion grow(int above, int right, int below,
-			int left);
-
-	/**
 	 * Captures and returns a screenshot of this screen region
 	 * 
 	 * @return	a BufferedImage containing the screenshot. The type of the image is TYPE_3BYTE_BGR
 	 */
 	public abstract BufferedImage capture();
-
-	/**
-	 * Gets the center of this screen region 
-	 * 
-	 * @return a Location object corresponding to the center of the screen region
-	 */
-	public abstract ScreenLocation getCenter();
-
-	/**
-	 * Gets the location of this screen region, which is the top-left corner of 
-	 * this screen region
-	 * 
-	 * @return the screen location of this screen region
-	 */
-	public abstract ScreenLocation getLocation();
-
-	/**
-	 * Gets the top left corner of this screen region
-	 * 
-	 * @return	a Location object corresponding to the top left corner of the region
-	 */
-	public abstract ScreenLocation getTopLeft();
-
-	/**
-	 * Gets the bottom right corner of this screen region
-	 * 
-	 * @return a Location object corresponding to the bottom right corner of the region
-	 */
-	public abstract ScreenLocation getBottomRight();
 
 	/**
 	 * Adds a listener for a given target
@@ -177,21 +111,16 @@ public interface ScreenRegion {
 	 * 
 	 * @param listener	the listener to handle state changes in this screen region
 	 */
-	public abstract void addStateChangeEventListener(
-			StateChangeListener listener);
+	public abstract void addStateChangeEventListener(StateChangeListener listener);
 	
 	public abstract Map<Target, Object> getStates();
-
 
 	public abstract void addROI(int x, int y, int width, int height);
 
 	public abstract List<Rectangle> getROIs();
 
-	public abstract boolean contains(ScreenRegion r);
+	//public abstract boolean contains(ScreenRegion r);
 
-	public abstract Screen getScreen();
-
-	public abstract void setScreen(Screen screen);
 	
 	
 	public BufferedImage getLastCapturedImage();

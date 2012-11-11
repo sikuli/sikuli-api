@@ -16,7 +16,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.Timer;
 
-import org.sikuli.api.robot.DesktopScreen;
 import org.sikuli.core.cv.ImageMask;
 import org.sikuli.ocr.DigitRecognizer;
 import org.sikuli.ocr.RecognizedDigit;
@@ -87,65 +86,38 @@ public class DefaultScreenRegion implements ScreenRegion {
 		height = newBounds.height;
 		
 	}
-//	@Override
-//	public int getX() {
-//		return x;
-//	}
-//
-//	@Override
-//	public void setX(int x) {
-//		this.x = x;
-//	}
-//
-//	@Override
-//	public int getY() {
-//		return y;
-//	}
-//
-//	@Override
-//	public void setY(int y) {
-//		this.y = y;
-//	}
-//
-//	@Override
-//	public int getWidth() {
-//		return width;
-//	}
-//
-//	@Override
-//	public void setWidth(int width) {
-//		this.width = width;
-//	}
-//
-//	@Override
-//	public int getHeight() {
-//		return height;
-//	}
-//
-//	@Override
-//	public void setHeight(int height) {
-//		this.height = height;
-//	}
 
 	@Override
-	public ScreenRegion getRight(int w){
-		return new DefaultScreenRegion(this, width, 0, w, height);
+	public ScreenRegion getRelativeScreenRegion(int xoffset, int yoffset, int width, int height){
+		return new DefaultScreenRegion(this, xoffset, yoffset, width, height);
+	}
+	
+	@Override
+	public ScreenLocation getScreenLocation(int xoffset, int yoffset){
+		return new ScreenLocation(x + xoffset, y + yoffset, screen);
+
 	}
 
-	@Override
-	public ScreenRegion getLeft(int w){
-		return new DefaultScreenRegion(this, -w, 0, w, height);
-	}
-
-	@Override
-	public ScreenRegion getAbove(int h){
-		return new DefaultScreenRegion(this, 0, -h, width, h);
-	}
-
-	@Override
-	public ScreenRegion getBelow(int h){
-		return new DefaultScreenRegion(this, 0, height, width, h);
-	}
+	
+//	@Override
+//	public ScreenRegion getRight(int w){
+//		return new DefaultScreenRegion(this, width, 0, w, height);
+//	}
+//
+//	@Override
+//	public ScreenRegion getLeft(int w){
+//		return new DefaultScreenRegion(this, -w, 0, w, height);
+//	}
+//
+//	@Override
+//	public ScreenRegion getAbove(int h){
+//		return new DefaultScreenRegion(this, 0, -h, width, h);
+//	}
+//
+//	@Override
+//	public ScreenRegion getBelow(int h){
+//		return new DefaultScreenRegion(this, 0, height, width, h);
+//	}
 
 
 	public String toString(){
@@ -230,14 +202,14 @@ public class DefaultScreenRegion implements ScreenRegion {
 	/* (non-Javadoc)
 	 * @see org.sikuli.api.ScreenRegion#grow(int, int, int, int)
 	 */
-	@Override
-	public ScreenRegion grow(int above, int right, int below, int left) {
-		x -= left;
-		y -= above;
-		height = height + above + below;
-		width = width + left + right;
-		return this;
-	}
+//	@Override
+//	public ScreenRegion grow(int above, int right, int below, int left) {
+//		x -= left;
+//		y -= above;
+//		height = height + above + below;
+//		width = width + left + right;
+//		return this;
+//	}
 
 	/**
 	 * Gets a screen region on the same screen corresponding to the full screen
@@ -285,31 +257,31 @@ public class DefaultScreenRegion implements ScreenRegion {
 		return new ScreenLocation(x + width/2, y + height/2, screen);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.sikuli.api.ScreenRegion#getLocation()
-	 */
-	@Override
-	public ScreenLocation getLocation(){
-		return getTopLeft();
-	}
-
-	/* (non-Javadoc)
-	 * @see org.sikuli.api.ScreenRegion#getTopLeft()
-	 */
-	@Override
-	public ScreenLocation getTopLeft() {
-		return new ScreenLocation(x, y, screen);
-	}
-
-
-
-	/* (non-Javadoc)
-	 * @see org.sikuli.api.ScreenRegion#getBottomRight()
-	 */
-	@Override
-	public ScreenLocation getBottomRight() {
-		return new ScreenLocation(x + width, y + height, screen);
-	}
+//	/* (non-Javadoc)
+//	 * @see org.sikuli.api.ScreenRegion#getLocation()
+//	 */
+//	@Override
+//	public ScreenLocation getLocation(){
+//		return getTopLeft();
+//	}
+//
+//	/* (non-Javadoc)
+//	 * @see org.sikuli.api.ScreenRegion#getTopLeft()
+//	 */
+//	@Override
+//	public ScreenLocation getTopLeft() {
+//		return new ScreenLocation(x, y, screen);
+//	}
+//
+//
+//
+//	/* (non-Javadoc)
+//	 * @see org.sikuli.api.ScreenRegion#getBottomRight()
+//	 */
+//	@Override
+//	public ScreenLocation getBottomRight() {
+//		return new ScreenLocation(x + width, y + height, screen);
+//	}
 
 
 	/* (non-Javadoc)
@@ -419,10 +391,10 @@ public class DefaultScreenRegion implements ScreenRegion {
 	/* (non-Javadoc)
 	 * @see org.sikuli.api.ScreenRegion#contains(org.sikuli.api.ScreenRegion)
 	 */
-	@Override
-	public boolean contains(ScreenRegion r) {
-		return (new Rectangle(x,y,width,height)).contains(getBounds());
-	}
+	//@Override
+//	public boolean contains(ScreenRegion r) {
+//		return (new Rectangle(x,y,width,height)).contains(getBounds());
+//	}
 
 	public Integer extractInteger() {
 		List<RecognizedDigit> digits = DigitRecognizer.recognize(capture());

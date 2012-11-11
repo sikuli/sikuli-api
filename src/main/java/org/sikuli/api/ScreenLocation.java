@@ -55,6 +55,12 @@ public class ScreenLocation {
 		loc.screen = screen;
 		return loc;		
 	}
+	
+	public ScreenLocation getRelativeScreenLocation(int xoffset, int yoffset){
+		ScreenLocation loc =  new ScreenLocation(x + xoffset, y + yoffset);
+		loc.screen = screen;
+		return loc;
+	}
 
 	public ScreenLocation getAbove(int dy){
 		ScreenLocation loc =  new ScreenLocation(x, y-dy);

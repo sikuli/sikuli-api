@@ -3,6 +3,7 @@ package org.sikuli.api.visual;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.robot.DesktopScreen;
@@ -27,7 +28,8 @@ public class ScreenPainter {
 	}
 		
 	public void label(ScreenRegion screenRegion, String txt, int duration){
-		label(screenRegion.getTopLeft().getAbove(5).getLeft(5), txt, duration);
+		ScreenLocation labelLocation = Relative.to(screenRegion).topLeft().above(5).left(5).getScreenLocation();
+		label(labelLocation, txt, duration);
 	}
 	
 	public void label(ScreenLocation l, String txt, int duration){
