@@ -37,10 +37,10 @@ public class MultiStateTarget extends Target {
 
 		// add padding to account for mis-alignment
 		for (ScreenRegion m : allMatches){
-			m.width += 10;
-			m.height += 10;
-			m.x -= 5;
-			m.y -= 5;
+			m.setWidth(m.getWidth() + 10);
+			m.setHeight(m.getHeight() + 10);
+			m.setX(m.getX()-5);
+			m.setY(m.getY()-5);
 		}
 			
 		

@@ -118,7 +118,7 @@ abstract public class Target {
 	protected static List<ScreenRegion> convertToScreenRegions(ScreenRegion parent, List<RegionMatch> rms) {
 		List<ScreenRegion> irs = Lists.newArrayList();		
 		for (RegionMatch rm : rms){
-			ScreenRegion ir = new ScreenRegion(parent, rm.getX(),rm.getY(),rm.getWidth(),rm.getHeight());
+			ScreenRegion ir = new DefaultScreenRegion(parent, rm.getX(),rm.getY(),rm.getWidth(),rm.getHeight());
 			ir.setScore(rm.getScore());
 			irs.add(ir);
 		}

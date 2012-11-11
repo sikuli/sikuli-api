@@ -104,7 +104,7 @@ public class ImageTarget extends Target {
 
 	@Override
 	protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion){
-		if (screenRegion.width < targetImage.getWidth() || screenRegion.height < targetImage.getHeight()){
+		if (screenRegion.getWidth() < targetImage.getWidth() || screenRegion.getHeight() < targetImage.getHeight()){
 			// if screen region is smaller than the target, no target can be found
 			// TODO: perhaps a more fault tolerant approach is to return a smaller target with a lower score
 			return Lists.newArrayList();

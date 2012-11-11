@@ -91,9 +91,9 @@ public class TextTarget extends Target {
 
 				logger.trace("top score = " + rs.get(0).getScore());
 				for (ScreenRegion r : rs) {
-					int localx = r.x - snapshot.x;
-					int localy = r.y - snapshot.y;
-					if (map.computeTextScore(localx, localy, r.width, r.height) > 0) {
+					int localx = r.getX() - snapshot.getX();
+					int localy = r.getY() - snapshot.getY();
+					if (map.computeTextScore(localx, localy, r.getWidth(), r.getHeight()) > 0) {
 						TextMatch m = new TextMatch(r, fontModel);
 						ret.add(m);
 
@@ -130,14 +130,13 @@ public class TextTarget extends Target {
 		for (TextMatch m1 : candidateMatches) {
 
 			final ScreenRegion s1 = m1.screenRegion;
-			final Rectangle r1 = new Rectangle(s1.x, s1.y, s1.width, s1.height);
+			final Rectangle r1 = new Rectangle(s1.getX(), s1.getY(), s1.getWidth(), s1.getHeight());
 			boolean isOverlapping = Iterables.any(filteredCandidateMatches,
 					new Predicate<TextMatch>() {
 						@Override
 						public boolean apply(TextMatch m2) {
 							ScreenRegion s2 = m2.screenRegion;
-							Rectangle r2 = new Rectangle(s2.x, s2.y, s2.width,
-									s2.height);
+							Rectangle r2 = new Rectangle(s2.getX(),s2.getY(), s2.getWidth(), s2.getHeight());
 							return r1.intersects(r2);
 						}
 					});
@@ -160,7 +159,7 @@ public class TextTarget extends Target {
 						continue;
 					ScreenRegion r = matches.get(i).screenRegion;
 					PPath p = PPath
-							.createRectangle(r.x, r.y, r.width, r.height);
+							.createRectangle(r.getX(), r.getY(), r.getWidth(), r.getHeight());
 
 					// if (map.computeTextScore(r.x,r.y,r.width,r.height) > 0)
 					if (i == 0)
@@ -169,7 +168,7 @@ public class TextTarget extends Target {
 						p.setStrokePaint(Color.blue);
 					p.setPaint(null);
 					PText t = new PText("" + i);
-					t.setOffset(r.x, r.y);
+					t.setOffset(r.getX(), r.getY());
 					layer.addChild(p);
 					layer.addChild(t);
 				}

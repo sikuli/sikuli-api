@@ -143,8 +143,8 @@ public class ScreenRegionRecorder{
 					logger.debug("Cannot build media locator from: " + output);
 				}
 				
-				if (imageToMovie.doIt(screenRegion.width, 
-						screenRegion.height, (1000 / captureInterval), imgLst, oml) == false){
+				if (imageToMovie.doIt(screenRegion.getWidth(), 
+						screenRegion.getHeight(), (1000 / captureInterval), imgLst, oml) == false){
 					logger.debug("Failed to execute JpegImagesToMovie");
 				}
 				logger.trace("movie is written to " + output);

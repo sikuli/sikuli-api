@@ -6,18 +6,19 @@ import java.net.URL;
 
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.robot.DesktopScreen;
 
 public class ScreenPainter {
 		
 	public void box(ScreenRegion r, int duration){
 		Rectangle b = ((DesktopScreen) r.getScreen()).getBounds();
-		new BoxOverlay(b.x+r.x, b.y+r.y, r.width, r.height).show(duration);
+		new BoxOverlay(b.x+r.getX(), b.y+r.getY(), r.getWidth(), r.getHeight()).show(duration);
 	}
 	
 	public void circle(ScreenRegion r, int duration){
 		Rectangle b = ((DesktopScreen) r.getScreen()).getBounds();
-		new CircleOverlay(b.x+r.x, b.y+r.y, r.width, r.height).show(duration);
+		new CircleOverlay(b.x+r.getX(), b.y+r.getY(), r.getWidth(), r.getHeight()).show(duration);
 	}
 	
 	public void circle(ScreenLocation l, int duration){

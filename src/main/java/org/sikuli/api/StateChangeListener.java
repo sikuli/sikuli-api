@@ -8,7 +8,7 @@ import java.util.EventListener;
  *  defined by the presence of a particular target. 
  * 
  * @author Tom Yeh (tom.yeh@colorado.edu)
- * @see ScreenRegion#addTargetEventListener(Target, TargetEventListener)
+ * @see DesktopScreenRegion#addTargetEventListener(Target, TargetEventListener)
  */
 public interface StateChangeListener extends EventListener {	
 	/**

@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class ColorImageTargetTest extends BaseTest {
 
-	ScreenRegion greenBlueStarsImage;
+	DesktopScreenRegion greenBlueStarsImage;
 		
 	
 	@Before
@@ -28,11 +28,11 @@ public class ColorImageTargetTest extends BaseTest {
 
 		ColorImageTarget t = new ColorImageTarget(getClass().getResource("green_star.png"));
 		t.setLimit(1);
-		List<ScreenRegion> results = t.doFindAll(greenBlueStarsImage);
+		List<DesktopScreenRegion> results = t.doFindAll(greenBlueStarsImage);
 		assertThat("number of green star", results.size(), is(1));
 		
 		//System.out.println(results.get(0));		
-		ScreenRegion g = results.get(0);
+		DesktopScreenRegion g = results.get(0);
 		assertThat("x", g.x, is(190));
 		assertThat("y", g.y, is(296));
 		
@@ -42,7 +42,7 @@ public class ColorImageTargetTest extends BaseTest {
 		assertThat("number of blue star", results.size(), is(1));
 		
 		//System.out.println(results.get(0));
-		ScreenRegion b = results.get(0);
+		DesktopScreenRegion b = results.get(0);
 		assertThat("x", b.x, is(463));
 		assertThat("y", b.y, is(293));
 				
