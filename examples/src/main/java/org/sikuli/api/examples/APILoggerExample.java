@@ -22,12 +22,12 @@ public class APILoggerExample {
 
 		// get the screen region of the simulator window
 		Rectangle b = simulator.getBounds();		
-		ScreenRegion s = new ScreenRegion(b.x, b.y, b.width, b.height);
+		ScreenRegion s = new DesktopScreenRegion(b.x, b.y, b.width, b.height);
 
 		// perform some actions to be logged to stdout		
 		ScreenRegion r = s.find(new ImageTarget(Images.OSXDockIcon));
-		mouse.click(r.getCenter());		
-		mouse.rightClick(r.getTopLeft());
+		mouse.click(r.getCenter());				
+		mouse.rightClick(Relative.to(r).topLeft().getScreenLocation());
 		mouse.doubleClick(r.getCenter());
 	}
 	
@@ -35,16 +35,16 @@ public class APILoggerExample {
 		
 		// set the API logger to use the visual logger in the fullscreen mode and write
 		// the resulting log images to the directory "log"
-		APILogger.setLogger(APILogger.createVisualLogger(new ScreenRegion(), new File("log")));
+		APILogger.setLogger(APILogger.createVisualLogger(new DesktopScreenRegion(), new File("log")));
 
 		// get the screen region of the simulator window
 		Rectangle b = simulator.getBounds();		
-		ScreenRegion s = new ScreenRegion(b.x, b.y, b.width, b.height);
+		ScreenRegion s = new DesktopScreenRegion(b.x, b.y, b.width, b.height);
 
 		// perform some actions to be logged by the visual logger
 		ScreenRegion r = s.find(new ImageTarget(Images.OSXDockIcon));
-		mouse.click(r.getCenter());		
-		mouse.rightClick(r.getTopLeft());
+		mouse.click(r.getCenter());
+		mouse.rightClick(Relative.to(r).topLeft().getScreenLocation());
 		mouse.doubleClick(r.getCenter());
 	}
 	
@@ -74,13 +74,13 @@ public class APILoggerExample {
 
 		// get the screen region of the simulator window
 		Rectangle b = simulator.getBounds();		
-		ScreenRegion s = new ScreenRegion(b.x, b.y, b.width, b.height);
+		ScreenRegion s = new DesktopScreenRegion(b.x, b.y, b.width, b.height);
 		
 		// perform some actions that will be logged by the custom logger
 		ScreenRegion r = s.find(new ImageTarget(Images.OSXDockIcon));
 		mouse.click(r.getCenter());
-		mouse.click(r.getTopLeft());
-		mouse.click(r.getBottomRight());
+		mouse.click(Relative.to(r).topLeft().getScreenLocation());
+		mouse.click(Relative.to(r).bottomRight().getScreenLocation());
 	}
 
 	public static void main(String[] args) {

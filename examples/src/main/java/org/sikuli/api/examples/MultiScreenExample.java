@@ -2,6 +2,7 @@ package org.sikuli.api.examples;
 import java.awt.Rectangle;
 
 import org.sikuli.api.ImageTarget;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.robot.DesktopScreen;
 import org.sikuli.api.robot.Keyboard;
@@ -46,10 +47,10 @@ public class MultiScreenExample {
 		simulator1.start();
 		simulator2.start();
 		
-		ScreenRegion s0 = new ScreenRegion(30,30,800,500);
+		DesktopScreenRegion s0 = new DesktopScreenRegion(30,30,800,500);
 		s0.setScreen(screen0);
 		
-		ScreenRegion s1 = new ScreenRegion(30,30,800,500);
+		DesktopScreenRegion s1 = new DesktopScreenRegion(30,30,800,500);
 		s1.setScreen(screen1);
 		
 		painter.box(s0, 10000);

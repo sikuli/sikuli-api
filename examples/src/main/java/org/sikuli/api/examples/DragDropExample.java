@@ -122,7 +122,7 @@ public class DragDropExample {
 		DragDropFrame imageFrame = new DragDropFrame(backgroundImage,dragTargetImage);
 		imageFrame.autoClose(10000);
 		
-		ScreenRegion s = new ScreenRegion();		
+		ScreenRegion s = new DesktopScreenRegion();		
 		Mouse mouse = new Mouse();
 
 		URL imageURL = Images.OSXDockIcon;                

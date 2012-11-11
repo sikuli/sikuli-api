@@ -23,6 +23,7 @@ import org.sikuli.api.API;
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.Screen;
 import org.sikuli.api.ScreenLocation;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
 
 import com.google.common.collect.ImmutableList;
@@ -85,8 +86,8 @@ public class CustomMultiScreenExample {
 			
 			// Add a rectangle to the frame around the given screen region object
 			final JPanel l = new JPanel();
-			l.setSize(r.width, r.height);
-			l.setLocation(r.x, r.y);
+			l.setSize(r.getBounds().getSize());
+			l.setLocation(r.getBounds().getLocation());
 			l.setBorder(BorderFactory.createLineBorder(Color.red,3));
 			l.setBackground(null);
 			l.setOpaque(false);
@@ -168,10 +169,10 @@ public class CustomMultiScreenExample {
 		f2.setLocation(600,20);
 		f2.setTitle("MyApp 2");
 
-		ScreenRegion s1 = new ScreenRegion();
+		ScreenRegion s1 = new DesktopScreenRegion();
 		s1.setScreen(f1);
 
-		ScreenRegion s2 = new ScreenRegion();
+		ScreenRegion s2 = new DesktopScreenRegion();
 		s2.setScreen(f2);
 
 		for (int i=0; i < 10; i++){

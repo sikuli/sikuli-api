@@ -1,6 +1,7 @@
 package org.sikuli.api.examples;
 import java.util.List;
 
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
@@ -25,7 +26,7 @@ public class FindAllExample {
 	public static void main(String[] args) {
 		simulator.start();
 		
-		ScreenRegion s = new ScreenRegion();
+		ScreenRegion s = new DesktopScreenRegion();
 		Target imageTarget = new ImageTarget(Images.ThumbIcon);
 	
 		List<ScreenRegion> rs = s.findAll(imageTarget);

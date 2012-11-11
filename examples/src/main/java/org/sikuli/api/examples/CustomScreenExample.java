@@ -25,6 +25,7 @@ import org.sikuli.api.API;
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.Screen;
 import org.sikuli.api.ScreenLocation;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
 
 import com.google.common.collect.ImmutableList;
@@ -145,8 +146,8 @@ public class CustomScreenExample {
 		void rectangle(ScreenRegion r){
 			// Add a rectangle to the frame around the given screen region object
 			final JPanel l = new JPanel();
-			l.setSize(r.width, r.height);
-			l.setLocation(r.x, r.y);
+			l.setSize(r.getBounds().getSize());
+			l.setLocation(r.getBounds().getLocation());
 			l.setBorder(BorderFactory.createLineBorder(Color.red,3));
 			l.setBackground(null);
 			l.setOpaque(false);
@@ -182,7 +183,7 @@ public class CustomScreenExample {
 		MyMouse myMouse = new MyMouse(f);
 		MyPainter myPainter = new MyPainter(f);
 
-		ScreenRegion s = new ScreenRegion();
+		ScreenRegion s = new DesktopScreenRegion();
 		s.setScreen(myScreen);
 
 		for (int i=0; i < 10; i++){

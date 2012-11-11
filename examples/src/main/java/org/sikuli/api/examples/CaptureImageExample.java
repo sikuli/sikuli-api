@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.visual.ScreenPainter;
@@ -17,7 +17,7 @@ public class CaptureImageExample {
 	static ScreenPainter painter = new ScreenPainter();
 
 	public static void main(String[] args) throws IOException {
-		ScreenRegion smallRegion = new ScreenRegion(500,500,400,200);
+		DesktopScreenRegion smallRegion = new DesktopScreenRegion(500,500,400,200);
 		painter.box(smallRegion, 1000);
 		
 		BufferedImage capturedImage = smallRegion.capture();

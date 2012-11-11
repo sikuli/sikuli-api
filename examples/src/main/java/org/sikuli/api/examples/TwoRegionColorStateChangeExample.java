@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.sikuli.api.ColorImageTarget;
 import org.sikuli.api.ImageTarget;
+import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.StateChangeEvent;
 import org.sikuli.api.StateChangeListener;
@@ -43,7 +45,7 @@ public class TwoRegionColorStateChangeExample {
 
 		Rectangle b = simulator.getBounds();
 
-		ScreenRegion s = new ScreenRegion(b.x, b.y, b.width, b.height);
+		ScreenRegion s = new DesktopScreenRegion(b.x, b.y, b.width, b.height);
 		painter.box(s, 10000);
 
 		List<ScreenRegion> rs;
@@ -54,8 +56,8 @@ public class TwoRegionColorStateChangeExample {
 		ScreenRegion left = rs.get(0);
 		ScreenRegion right = rs.get(1);
 
-		left.grow(30, 30, 30, 30);
-		right.grow(30, 30, 30, 30);
+		left = Relative.to(left).taller(30).wider(30).getScreenRegion();
+		right = Relative.to(right).taller(30).wider(30).getScreenRegion();
 
 		painter.box(left, 1000);
 		painter.label(left, "left", 1000);

@@ -3,6 +3,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.sikuli.api.ImageTarget;
+import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.Relative;
+import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.robot.Keyboard;
@@ -20,7 +23,7 @@ public class TwitterSearchExample {
 		
 		browse(new URL("http://www.twitter.com/search"));
 
-		ScreenRegion s = new ScreenRegion();
+		ScreenRegion s = new DesktopScreenRegion();
 				
 		Target searchButtonImageTarget = new ImageTarget(Images.TwitterSearchButton);
 				
@@ -31,7 +34,8 @@ public class TwitterSearchExample {
 		
 		keyboard.type("sikuli");
 		
-		mouse.click(searchButton.getRight(50).getCenter());
+		ScreenLocation outside = Relative.to(searchButton).right(50).center().getScreenLocation();
+		mouse.click(outside);
 				
 		mouse.click(searchButton.getCenter());
 		

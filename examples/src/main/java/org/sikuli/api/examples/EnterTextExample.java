@@ -3,6 +3,7 @@ import java.awt.Rectangle;
 
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.ScreenLocation;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
@@ -29,7 +30,7 @@ public class EnterTextExample {
 		simulator.start();
 
 		Rectangle b = simulator.getBounds(); 
-		ScreenRegion s = new ScreenRegion(b.x,b.y,b.width,b.height);
+		ScreenRegion s = new DesktopScreenRegion(b.x,b.y,b.width,b.height);
 		
 		ScreenRegion r = s.find(new ImageTarget(Images.GreenBullet));
 		painter.box(r, 3000);

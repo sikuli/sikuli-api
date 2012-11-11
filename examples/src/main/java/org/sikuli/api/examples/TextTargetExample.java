@@ -3,6 +3,7 @@ package org.sikuli.api.examples;
 import java.awt.Rectangle;
 import java.util.List;
 
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.TextTarget;
@@ -45,7 +46,7 @@ public class TextTargetExample {
 		ImageExplainer.getExplainer(TextMap.class).setLevel(Level.ALL);
 		ImageExplainer.getExplainer(TextTarget.class).setLevel(Level.ALL);
 		
-		ScreenRegion s = new ScreenRegion();
+		ScreenRegion s = new DesktopScreenRegion();
 		String[] stringsToFind = new String[]{
 				//"TRANSFER",
 				//"DIVIDEND",

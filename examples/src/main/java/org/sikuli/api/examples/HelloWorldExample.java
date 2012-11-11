@@ -17,7 +17,7 @@ public class HelloWorldExample {
 		browse(new URL("http://code.google.com"));
 
 		// Create a screen region object that corresponds to the default monitor in full screen 
-		ScreenRegion s = new ScreenRegion();
+		ScreenRegion s = new DesktopScreenRegion();
 				
 		// Specify an image as the target to find on the screen
 		URL imageURL = new URL("http://code.google.com/images/code_logo.gif");                

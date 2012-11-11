@@ -2,6 +2,7 @@ package org.sikuli.api.examples;
 import java.net.URL;
 
 import org.sikuli.api.ImageTarget;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.robot.Keyboard;
@@ -31,7 +32,7 @@ public class FindExample {
 
 		// Obtain the screen region object corresponding to the 
 		// default monitor in full screen
-		ScreenRegion s = new ScreenRegion();	
+		ScreenRegion s = new DesktopScreenRegion();	
 		
 		// Define an image target on the screen
 		URL imageURL = Images.GoogleSearchButton;                

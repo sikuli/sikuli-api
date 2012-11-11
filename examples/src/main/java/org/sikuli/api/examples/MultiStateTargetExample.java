@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.MultiStateTarget;
+import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.Relative;
+import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
@@ -26,7 +29,7 @@ public class MultiStateTargetExample {
 	public static void main(String[] args) {
 		simulator.start();
 		Rectangle b = simulator.getBounds();
-		ScreenRegion s = new ScreenRegion(b.x,b.y,b.width,b.height);
+		ScreenRegion s = new DesktopScreenRegion(b.x,b.y,b.width,b.height);
 				
 		// create an image target based on an image of a checked checkbox
 		ImageTarget checked = new ImageTarget(Images.CheckedCheckbox);
@@ -46,7 +49,8 @@ public class MultiStateTargetExample {
 			// get the state of each checkbox
 			String state = (String) c.getState();
 			// display the state next to each checkbox to visualize
-			painter.label(c.getTopLeft().getLeft(70), state, 3000);
+			ScreenLocation labelLocation = Relative.to(c).topLeft().left(70).getScreenLocation();
+			painter.label(labelLocation, state, 3000);
 		}
 	}
 }

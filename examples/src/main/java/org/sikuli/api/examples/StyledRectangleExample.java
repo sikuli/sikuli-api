@@ -2,6 +2,7 @@ package org.sikuli.api.examples;
 import java.awt.Rectangle;
 import java.util.List;
 
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.StyledRectangleTarget;
 import org.sikuli.api.robot.Keyboard;
@@ -32,7 +33,7 @@ public class StyledRectangleExample {
 		simulator.start();
 		
 		Rectangle b = simulator.getBounds();
-		ScreenRegion s = new ScreenRegion(b.x,b.y,b.width,b.height);
+		ScreenRegion s = new DesktopScreenRegion(b.x,b.y,b.width,b.height);
 
 		StyledRectangleTarget target = new StyledRectangleTarget(Images.ButtonOptions);
 		List<ScreenRegion> rs = s.findAll(target);

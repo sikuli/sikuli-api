@@ -3,6 +3,8 @@ import java.awt.Rectangle;
 import java.util.List;
 
 import org.sikuli.api.ImageTarget;
+import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.StyledRectangleTarget;
 import org.sikuli.api.Target;
@@ -32,7 +34,7 @@ public class OrderingExample {
 		simulator.start();
 		
 		Rectangle b = simulator.getBounds();
-		ScreenRegion s = new ScreenRegion(b.x,b.y,b.width,b.height);	
+		ScreenRegion s = new DesktopScreenRegion(b.x,b.y,b.width,b.height);	
 
 		Target target;
 		List<ScreenRegion> rs;
@@ -48,8 +50,8 @@ public class OrderingExample {
 		painter.label(s, "Unchecked checkboxes found in bottom-up ordering", 3000);
 		for (int i=0; i < rs.size(); ++i){
 			ScreenRegion r = rs.get(i);
-			painter.box(r, 3000);
-			painter.label(r.getTopLeft().getLeft(20), ""+(i+1), 3000);
+			painter.box(r, 3000);			
+			painter.label(Relative.to(r).topLeft().left(20).getScreenLocation(), ""+(i+1), 3000);
 		}
 		
 		pause(5000);
@@ -65,7 +67,7 @@ public class OrderingExample {
 		for (int i=0; i < rs.size(); ++i){
 			ScreenRegion r = rs.get(i);
 			painter.box(r,3000);
-			painter.label(r.getTopLeft().getAbove(20), ""+(i+1), 3000);
+			painter.label(Relative.to(r).topLeft().left(20).getScreenLocation(), ""+(i+1), 3000);
 		}
 
 	}

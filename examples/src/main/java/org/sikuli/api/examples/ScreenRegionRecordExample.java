@@ -2,7 +2,7 @@ package org.sikuli.api.examples;
 import java.awt.Rectangle;
 import java.io.File;
 
-import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.visual.ScreenPainter;
@@ -32,7 +32,7 @@ public class ScreenRegionRecordExample {
 		simulator.start();
 		
 		Rectangle b = simulator.getBounds(); 
-		ScreenRegion s = new ScreenRegion(b.x,b.y,b.width,b.height);	
+		DesktopScreenRegion s = new DesktopScreenRegion(b.x,b.y,b.width,b.height);	
 		painter.box(s, 50000);
 		s.record(new File("ScreenRegionRecordExampleVideo.mov"), 5000);
 		

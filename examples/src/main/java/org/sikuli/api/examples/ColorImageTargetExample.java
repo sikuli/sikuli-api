@@ -3,6 +3,7 @@ import java.awt.Rectangle;
 import java.util.List;
 
 import org.sikuli.api.ColorImageTarget;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.robot.Keyboard;
@@ -31,7 +32,7 @@ public class ColorImageTargetExample {
 				
 		Rectangle b = simulator.getBounds();
 		
-		final ScreenRegion s = new ScreenRegion(b.x, b.y, b.width, b.height);
+		final DesktopScreenRegion s = new DesktopScreenRegion(b.x, b.y, b.width, b.height);
 		painter.box(s, 10000);
 
 		// Finding color stars

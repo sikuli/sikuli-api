@@ -3,6 +3,9 @@ import java.awt.Rectangle;
 
 import org.sikuli.api.ColorImageTarget;
 import org.sikuli.api.ImageTarget;
+import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.Relative;
+import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.StateChangeEvent;
 import org.sikuli.api.StateChangeListener;
@@ -38,7 +41,7 @@ public class ColorStateChangeExample {
 
 		Rectangle b = simulator.getBounds();
 		
-		ScreenRegion s = new ScreenRegion(b.x, b.y, b.width, b.height);
+		ScreenRegion s = new DesktopScreenRegion(b.x, b.y, b.width, b.height);
 		painter.box(s, 2000);                
 
 		StateChangeListener l = new StateChangeListener(){       				
@@ -51,14 +54,15 @@ public class ColorStateChangeExample {
 				
 				
 				String txt = event.getOldState() + "->" + event.getNewState();
-				painter.label(event.getScreenRegion().getTopLeft().getAbove(20),txt, 1000);
+				ScreenLocation labelLocation = Relative.to(event.getScreenRegion()).topLeft().above(20).getScreenLocation();
+				painter.label(labelLocation,txt, 1000);
 			}					
 		};
 
 		ScreenRegion personIcon = s.wait(new ImageTarget(Images.PersonIcon),1000);
 		painter.box(personIcon, 1000);
 
-		ScreenRegion statusIcon = personIcon.getRight(30);
+		ScreenRegion statusIcon = Relative.to(personIcon).right(30).getScreenRegion();
 		painter.box(statusIcon, 1000);
 
 		statusIcon.addState(new ColorImageTarget(Images.GreenBullet), "GREEN");

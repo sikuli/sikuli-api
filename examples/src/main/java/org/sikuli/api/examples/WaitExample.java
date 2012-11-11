@@ -2,6 +2,7 @@ package org.sikuli.api.examples;
 import java.net.URL;
 
 import org.sikuli.api.ImageTarget;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.robot.Keyboard;
@@ -26,7 +27,7 @@ public class WaitExample {
 		
 		simulator.start();
 
-		ScreenRegion s = new ScreenRegion();
+		ScreenRegion s = new DesktopScreenRegion();
 
 		URL imageURL = Images.OSXDockIcon;                
 		Target imageTarget = new ImageTarget(imageURL);

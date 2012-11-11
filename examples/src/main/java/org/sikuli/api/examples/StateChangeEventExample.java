@@ -2,7 +2,7 @@ package org.sikuli.api.examples;
 import java.awt.Rectangle;
 
 import org.sikuli.api.ImageTarget;
-import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.StateChangeEvent;
 import org.sikuli.api.StateChangeListener;
 import org.sikuli.api.Target;
@@ -38,7 +38,7 @@ public class StateChangeEventExample {
 		
 		Rectangle b = simulator.getBounds();
 
-		ScreenRegion smallRegion = new ScreenRegion(b.x, b.y, b.width, b.height);
+		DesktopScreenRegion smallRegion = new DesktopScreenRegion(b.x, b.y, b.width, b.height);
 
 		StateChangeListener l = new StateChangeListener(){       				
 

@@ -1,7 +1,8 @@
 package org.sikuli.api.examples;
 import java.awt.Rectangle;
 import org.sikuli.api.ImageTarget;
-import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.Relative;
 import org.sikuli.api.Target;
 import org.sikuli.api.TargetEvent;
 import org.sikuli.api.TargetEventListener;
@@ -39,13 +40,13 @@ public class TargetEventExample {
 
 		Rectangle b = simulator.getBounds();
 
-		ScreenRegion smallRegion = new ScreenRegion(b.x, b.y, b.width, b.height);
+		DesktopScreenRegion smallRegion = new DesktopScreenRegion(b.x, b.y, b.width, b.height);
 
 		TargetEventListener l = new TargetEventListener(){       				
 			@Override
 			public void targetAppeared(TargetEvent event) {
 				System.out.println(event.getTarget() + " has appeared within " + event.getScreenRegion() + 
-						" at " + event.getTargetRegion().getTopLeft());	
+						" at " + Relative.to(event.getTargetRegion()).topLeft().getScreenLocation());	
 				painter.box(event.getTargetRegion(), 1000);
 				painter.label(event.getTargetRegion(), "appeared", 1000);
 			}
@@ -59,7 +60,8 @@ public class TargetEventExample {
 
 			@Override
 			public void targetMoved(TargetEvent event) {
-				System.out.println(event.getTarget() + " has moved to " + event.getTargetRegion().getTopLeft());
+				System.out.println(event.getTarget() + " has moved to " + 
+						Relative.to(event.getTargetRegion()).topLeft().getScreenLocation());
 				painter.box(event.getTargetRegion(), 1000);
 				painter.label(event.getTargetRegion(), "moved", 1000);
 			}					
