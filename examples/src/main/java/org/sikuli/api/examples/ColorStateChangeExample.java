@@ -7,16 +7,18 @@ import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
-import org.sikuli.api.StateChangeEvent;
-import org.sikuli.api.StateChangeListener;
+import org.sikuli.api.event.StateChangeEvent;
+import org.sikuli.api.event.StateChangeListener;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
+import org.sikuli.api.robot.desktop.DesktopKeyboard;
+import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.visual.ScreenPainter;
 
 public class ColorStateChangeExample {
 	
-	static Mouse mouse = new Mouse();
-	static Keyboard keyboard = new Keyboard();
+	static Mouse mouse = new DesktopMouse();
+	static Keyboard keyboard = new DesktopKeyboard();
 	static ScreenPainter painter = new ScreenPainter();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){

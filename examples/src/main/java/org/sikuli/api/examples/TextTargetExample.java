@@ -9,6 +9,8 @@ import org.sikuli.api.Target;
 import org.sikuli.api.TextTarget;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
+import org.sikuli.api.robot.desktop.DesktopKeyboard;
+import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.visual.ScreenPainter;
 import org.sikuli.core.cv.TextMap;
 import org.sikuli.core.logging.ImageExplainer;
@@ -16,8 +18,8 @@ import org.sikuli.core.logging.ImageExplainer.Level;
 
 public class TextTargetExample {
 	
-	static Mouse mouse = new Mouse();
-	static Keyboard keyboard = new Keyboard();
+	static Mouse mouse = new DesktopMouse();
+	static Keyboard keyboard = new DesktopKeyboard();
 	static ScreenPainter painter = new ScreenPainter();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){

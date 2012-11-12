@@ -91,7 +91,7 @@ public class CustomScreenExample {
 		}
 
 		void click(ScreenLocation location){
-			Component comp = f.findComponentAt(location.x, location.y);	
+			Component comp = f.findComponentAt(location.getX(), location.getY());	
 			if (comp instanceof JButton){
 				((JButton) comp).doClick();
 			}

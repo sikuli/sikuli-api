@@ -115,7 +115,7 @@ public class CustomMultiScreenExample {
 		
 		static void click(ScreenLocation location){
 			MyApp f = (MyApp) location.getScreen();
-			Component comp = f.findComponentAt(location.x, location.y);	
+			Component comp = f.findComponentAt(location.getX(), location.getY());	
 			if (comp instanceof JButton){
 				((JButton) comp).doClick();
 			}

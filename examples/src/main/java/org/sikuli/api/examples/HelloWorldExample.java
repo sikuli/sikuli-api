@@ -5,6 +5,7 @@ import java.net.URL;
 
 import org.sikuli.api.*;
 import org.sikuli.api.robot.Mouse;
+import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.visual.ScreenPainter;
 
 import static org.sikuli.api.API.*;
@@ -33,7 +34,7 @@ public class HelloWorldExample {
 		painter.label(r, "Hello World", 3000);
 		
 		// Click the center of the found target
-		Mouse mouse = new Mouse();
+		Mouse mouse = new DesktopMouse();
 		mouse.click(r.getCenter());
 	}
 }

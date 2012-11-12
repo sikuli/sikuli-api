@@ -4,15 +4,17 @@ import java.awt.Rectangle;
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
-import org.sikuli.api.robot.DesktopScreen;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
+import org.sikuli.api.robot.desktop.DesktopKeyboard;
+import org.sikuli.api.robot.desktop.DesktopMouse;
+import org.sikuli.api.robot.desktop.DesktopScreen;
 import org.sikuli.api.visual.ScreenPainter;
 
 public class MultiScreenExample {
 	
-	static Mouse mouse = new Mouse();
-	static Keyboard keyboard = new Keyboard();
+	static Mouse mouse = new DesktopMouse();
+	static Keyboard keyboard = new DesktopKeyboard();
 	static ScreenPainter painter = new ScreenPainter();
 	
 	static ScreenSimulator simulator1 = new ScreenSimulator(){

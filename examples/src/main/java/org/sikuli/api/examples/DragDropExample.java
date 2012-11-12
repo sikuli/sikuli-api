@@ -12,6 +12,7 @@ import javax.swing.Timer;
 
 import org.sikuli.api.*;
 import org.sikuli.api.robot.Mouse;
+import org.sikuli.api.robot.desktop.DesktopMouse;
 
 import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.event.PBasicInputEventHandler;
@@ -123,7 +124,7 @@ public class DragDropExample {
 		imageFrame.autoClose(10000);
 		
 		ScreenRegion s = new DesktopScreenRegion();		
-		Mouse mouse = new Mouse();
+		Mouse mouse = new DesktopMouse();
 
 		URL imageURL = Images.OSXDockIcon;                
 		Target imageTarget = new ImageTarget(imageURL);
@@ -141,7 +142,7 @@ public class DragDropExample {
 		
 		ScreenLocation c = mouse.getLocation();		
 		mouse.drag(c);
-		mouse.drop(c.getLeft(200).getAbove(50));
+		mouse.drop(Relative.to(c).left(200).above(50).getScreenLocation());
 
 	}		
 }

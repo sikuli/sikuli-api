@@ -11,13 +11,15 @@ import org.sikuli.api.Target;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.Key;
+import org.sikuli.api.robot.desktop.DesktopKeyboard;
+import org.sikuli.api.robot.desktop.DesktopMouse;
 
 import static org.sikuli.api.API.*;
 
 public class TwitterSearchExample {
 	
-	static Mouse mouse = new Mouse();
-	static Keyboard keyboard = new Keyboard();
+	static Mouse mouse = new DesktopMouse();
+	static Keyboard keyboard = new DesktopKeyboard();
 
 	public static void main(String[] args) throws MalformedURLException {
 		

@@ -4,16 +4,18 @@ import org.sikuli.api.ImageTarget;
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.Relative;
 import org.sikuli.api.Target;
-import org.sikuli.api.TargetEvent;
-import org.sikuli.api.TargetEventListener;
+import org.sikuli.api.event.TargetEvent;
+import org.sikuli.api.event.TargetEventListener;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
+import org.sikuli.api.robot.desktop.DesktopKeyboard;
+import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.visual.ScreenPainter;
 
 public class TargetEventExample {
 	
-	static Mouse mouse = new Mouse();
-	static Keyboard keyboard = new Keyboard();
+	static Mouse mouse = new DesktopMouse();
+	static Keyboard keyboard = new DesktopKeyboard();
 	static ScreenPainter painter = new ScreenPainter();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){
