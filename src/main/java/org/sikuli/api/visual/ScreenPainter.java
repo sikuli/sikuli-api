@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
-import org.sikuli.api.robot.DesktopScreen;
+import org.sikuli.api.robot.desktop.DesktopScreen;
 
 public class ScreenPainter {
 		

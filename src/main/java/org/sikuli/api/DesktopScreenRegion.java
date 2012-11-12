@@ -1,6 +1,6 @@
 package org.sikuli.api;
 
-import org.sikuli.api.robot.DesktopScreen;
+import org.sikuli.api.robot.desktop.DesktopScreen;
 
 public class DesktopScreenRegion extends DefaultScreenRegion implements ScreenRegion {
 

@@ -3,7 +3,7 @@
  * Released under the MIT License.
  *
  */
-package org.sikuli.api.robot;
+package org.sikuli.api.robot.desktop;
 
 import java.util.Date;
 

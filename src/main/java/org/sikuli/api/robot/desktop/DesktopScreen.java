@@ -1,4 +1,4 @@
-package org.sikuli.api.robot;
+package org.sikuli.api.robot.desktop;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
@@ -22,7 +22,7 @@ public class DesktopScreen implements Screen {
 	
 	@Override
 	public BufferedImage getScreenshot(int x, int y, int width, int height) {					
-		BufferedImage image = Desktop.captureScreenshot(getId(), x, y, width, height);
+		BufferedImage image = AWTDesktop.captureScreenshot(getId(), x, y, width, height);
 
 		// Java Robot returns a buffered image of the type TYPE_INT_RGB
 		// JavaCV IplImage has trouble handling TYPE_INT_RGB 
@@ -40,7 +40,7 @@ public class DesktopScreen implements Screen {
 
 	@Override
 	public Dimension getSize() {
-		return Desktop.getScreenBounds(getId()).getSize();
+		return AWTDesktop.getScreenBounds(getId()).getSize();
 	}
 
 	public int getId() {
@@ -48,7 +48,7 @@ public class DesktopScreen implements Screen {
 	}
 	
 	public Rectangle getBounds(){
-		return Desktop.getScreenBounds(getId());
+		return AWTDesktop.getScreenBounds(getId());
 	}
 
 }

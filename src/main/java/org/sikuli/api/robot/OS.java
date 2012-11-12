@@ -5,7 +5,7 @@
  */
 package org.sikuli.api.robot;
 
-enum OS {
+public enum OS {
    MAC, WINDOWS, LINUX,
    NOT_SUPPORTED
 }

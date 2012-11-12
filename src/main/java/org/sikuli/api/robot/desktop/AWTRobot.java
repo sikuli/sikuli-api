@@ -3,9 +3,11 @@
  * Released under the MIT License.
  *
  */
-package org.sikuli.api.robot;
+package org.sikuli.api.robot.desktop;
 
 
+import java.awt.HeadlessException;
+import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Robot;
 import java.awt.GraphicsDevice;
@@ -14,20 +16,28 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.event.KeyEvent;
 
-class DesktopRobot extends Robot {
+import org.sikuli.api.robot.Env;
+import org.sikuli.api.robot.Key;
+import org.sikuli.api.robot.KeyModifier;
+import org.sikuli.api.robot.OS;
+
+class AWTRobot extends Robot {
 	final static int MAX_DELAY = 60000;
+	public static double DelayBeforeDrop = 0.3;
+	public static double DelayAfterDrag = 0.3;
+
 
 	public enum KeyMode {
 		PRESS_ONLY, RELEASE_ONLY, PRESS_RELEASE
 	};
 
 	GraphicsDevice gdev;
-	public DesktopRobot(GraphicsDevice gdev) throws AWTException{
+	public AWTRobot(GraphicsDevice gdev) throws AWTException{
 		super(gdev);   
 		this.gdev = gdev;
 	}
 
-	public DesktopRobot() throws AWTException {
+	public AWTRobot() throws AWTException {
 	}
 
 
@@ -35,8 +45,15 @@ class DesktopRobot extends Robot {
 		return gdev.getDefaultConfiguration().getBounds().getLocation();
 	}
 
+	public static Point getMouseLocation() throws HeadlessException{
+		Point loc = MouseInfo.getPointerInfo().getLocation();
+		return loc;
+	}
+
+	public static float MoveMouseDelay = 0.5f; // in seconds
+
 	public void smoothMove(Point dest){
-		smoothMove(Env.getMouseLocation(), dest, (long)(Settings.MoveMouseDelay*1000L));
+		smoothMove(getMouseLocation(), dest, (long)(MoveMouseDelay*1000L));
 	}
 
 	public void smoothMove(Point src, Point dest, long ms){
@@ -60,10 +77,10 @@ class DesktopRobot extends Robot {
 	public void dragDrop(Point start, Point end, int steps, long ms, int buttons){
 		mouseMove(start.x, start.y);
 		mousePress(buttons);
-		delay((int)(Settings.DelayAfterDrag*1000));
+		delay((int)(DelayAfterDrag*1000));
 		waitForIdle();
 		smoothMove(start, end, ms);
-		delay((int)(Settings.DelayBeforeDrop*1000));
+		delay((int)(DelayBeforeDrop*1000));
 		mouseRelease(buttons);
 		waitForIdle();
 	}

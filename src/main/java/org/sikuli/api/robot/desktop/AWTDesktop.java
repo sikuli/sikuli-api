@@ -1,4 +1,4 @@
-package org.sikuli.api.robot;
+package org.sikuli.api.robot.desktop;
 
 import java.awt.AWTException;
 import java.awt.GraphicsDevice;
@@ -15,10 +15,10 @@ import org.sikuli.api.ScreenLocation;
 
 import com.google.common.collect.Lists;
 
-class Desktop {
+class AWTDesktop {
 	private static GraphicsEnvironment _genv;
 	private static GraphicsDevice[] _gdev;
-	private static DesktopRobot[] _robots;
+	private static AWTRobot[] _robots;
 	//private static DesktopMouse[] _desktopMouse
 	private static List<ScreenDevice> _screens;
 
@@ -37,7 +37,7 @@ class Desktop {
 			device.id = i;
 			device.gdev = _gdev[i];
 			device.robot = _robots[i];	
-			device.mouse = new DesktopMouse(device.robot);
+			device.mouse = new AWTMouse(device.robot);
 			device.screen = new DesktopScreen(i);
 			_screens.add(device);
 		}
@@ -45,9 +45,9 @@ class Desktop {
 
 	private static void initRobots(){
 		try{
-			_robots = new DesktopRobot[_gdev.length];
+			_robots = new AWTRobot[_gdev.length];
 			for(int i=0;i<_gdev.length;i++){
-				_robots[i] = new DesktopRobot(_gdev[i]);
+				_robots[i] = new AWTRobot(_gdev[i]);
 				//_robots[i].setAutoWaitForIdle(false); //TODO: make sure we don't need this
 				_robots[i].setAutoDelay(10);
 			}
@@ -62,15 +62,15 @@ class Desktop {
 		
 		int id;
 		GraphicsDevice gdev;
-		DesktopRobot robot;
-		DesktopMouse mouse;
+		AWTRobot robot;
+		AWTMouse mouse;
 		DesktopScreen screen;
 		
 		Rectangle getBounds(){
 			return gdev.getDefaultConfiguration().getBounds();
 		}
 		
-		DesktopRobot getRobot(){
+		AWTRobot getRobot(){
 			return robot; 
 		}		
 	}
@@ -83,7 +83,7 @@ class Desktop {
 		return screenLocation;
 	}
 	
-	static DesktopMouse getCurrentMouse(){
+	static AWTMouse getCurrentMouse(){
 		return getCurrentScreenDevice().mouse;
 	}
 	
@@ -104,16 +104,16 @@ class Desktop {
 		return null;
 	}
 	
-	public static DesktopRobot getCurrentRobot() {
+	public static AWTRobot getCurrentRobot() {
 		return getCurrentScreenDevice().getRobot();
 	}	
 	
-	static DesktopMouse getMouse(ScreenLocation location){
+	static AWTMouse getMouse(ScreenLocation location){
 		int id = ((DesktopScreen) location.getScreen()).getId();
 		return _screens.get(id).mouse;
 	}
 	
-	static DesktopRobot getRobot(ScreenLocation location){
+	static AWTRobot getRobot(ScreenLocation location){
 		int id = ((DesktopScreen) location.getScreen()).getId();
 		return _screens.get(id).robot;
 	}

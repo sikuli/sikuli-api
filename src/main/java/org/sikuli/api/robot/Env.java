@@ -14,13 +14,12 @@ import java.lang.reflect.Constructor;
 
 import org.sikuli.api.ScreenLocation;
 
-class Env {
-   final static String SikuliVersion = "X-1.0rc3";
+public class Env {
 
-   public static Point getMouseLocation() throws HeadlessException{
-      Point loc = MouseInfo.getPointerInfo().getLocation();
-      return loc;
-   }
+//   public static Point getMouseLocation() throws HeadlessException{
+//      Point loc = MouseInfo.getPointerInfo().getLocation();
+//      return loc;
+//   }
 
    public static String getOSVersion(){
       return System.getProperty("os.version");
@@ -55,20 +54,20 @@ class Env {
       return ":";
    }
 
-   public static String getClipboard(){
-      Transferable content = Clipboard.getSystemClipboard().getContents(null);
-      try{
-         if(content.isDataFlavorSupported(DataFlavor.stringFlavor))
-            return content.getTransferData(DataFlavor.stringFlavor).toString();
-      }
-      catch(UnsupportedFlavorException e){
-         //Debug.error("UnsupportedFlavorException: " + content);
-      }
-      catch(IOException e){
-         e.printStackTrace();
-      }
-      return "";
-   }
+//   public static String getClipboard(){
+//      Transferable content = Clipboard.getSystemClipboard().getContents(null);
+//      try{
+//         if(content.isDataFlavorSupported(DataFlavor.stringFlavor))
+//            return content.getTransferData(DataFlavor.stringFlavor).toString();
+//      }
+//      catch(UnsupportedFlavorException e){
+//         //Debug.error("UnsupportedFlavorException: " + content);
+//      }
+//      catch(IOException e){
+//         e.printStackTrace();
+//      }
+//      return "";
+//   }
 //   
 //   static String getOSUtilClass(){
 //      String pkg = "org.sikuli.script.";
