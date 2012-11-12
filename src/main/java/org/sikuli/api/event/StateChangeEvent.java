@@ -1,7 +1,10 @@
-package org.sikuli.api;
+package org.sikuli.api.event;
 
 import java.util.Map;
 import java.util.Set;
+
+import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.Target;
 
 
 /**

@@ -5,6 +5,9 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 
+import org.sikuli.api.event.StateChangeListener;
+import org.sikuli.api.event.TargetEventListener;
+
 public interface ScreenRegion {
 	
 	public abstract Screen getScreen();

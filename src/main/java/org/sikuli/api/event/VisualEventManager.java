@@ -1,7 +1,12 @@
-package org.sikuli.api;
+package org.sikuli.api.event;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.sikuli.api.Relative;
+import org.sikuli.api.ScreenLocation;
+import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.Target;
 
 interface EventDetectionTask {
 	public void run();
@@ -106,7 +111,7 @@ class TargetEventDetectionTask implements EventDetectionTask{
 }
 
 
-class VisualEventManager {
+public class VisualEventManager {
 
 	// update is rare, could be done by any user thread that adds or removes items
 	// iteration is often, but only done on the single thread, the event manager thread
@@ -130,11 +135,11 @@ class VisualEventManager {
 	}
 	static private VisualEventManager ref;
 
-	void addTargetEventListener(ScreenRegion screenRegion, Target target, TargetEventListener listener){
+	public void addTargetEventListener(ScreenRegion screenRegion, Target target, TargetEventListener listener){
 		detectionTaskList.add(new TargetEventDetectionTask(screenRegion,target,listener));		
 	}
 
-	void removeTargetEventListener(ScreenRegion screenRegion, Target target, TargetEventListener listener){
+	public void removeTargetEventListener(ScreenRegion screenRegion, Target target, TargetEventListener listener){
 		detectionTaskList.remove(new TargetEventDetectionTask(screenRegion,target,listener));
 	}
 

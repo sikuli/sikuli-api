@@ -16,6 +16,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.swing.Timer;
 
+import org.sikuli.api.event.StateChangeListener;
+import org.sikuli.api.event.TargetEventListener;
+import org.sikuli.api.event.VisualEventManager;
 import org.sikuli.core.cv.ImageMask;
 import org.sikuli.ocr.DigitRecognizer;
 import org.sikuli.ocr.RecognizedDigit;

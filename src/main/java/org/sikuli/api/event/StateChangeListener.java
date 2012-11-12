@@ -1,6 +1,9 @@
-package org.sikuli.api;
+package org.sikuli.api.event;
 
 import java.util.EventListener;
+
+import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.Target;
 
 /**
  * Interface for a screen region to register to receive notifications

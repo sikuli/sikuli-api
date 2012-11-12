@@ -1,4 +1,4 @@
-package org.sikuli.api;
+package org.sikuli.api.event;
 
 import java.util.EventListener;
 
