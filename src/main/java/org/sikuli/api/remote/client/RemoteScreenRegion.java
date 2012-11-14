@@ -16,34 +16,33 @@ import org.sikuli.api.Target;
 import org.sikuli.api.event.StateChangeListener;
 import org.sikuli.api.event.TargetEventListener;
 import org.sikuli.api.remote.Remote;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ImmutableMap;
 
 public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRegion {
 	
+	final static Logger logger = LoggerFactory.getLogger(RemoteScreenRegion.class);
 	final private Remote remote;
+	
 	public RemoteScreenRegion(Remote remoteRef){
 		super(remoteRef.getScreen());
 		remote = remoteRef;
 	}
-
 
 	@Override
 	public ScreenRegion find(Target target) {
 		if (target instanceof ImageTarget){
 			URL url = ((ImageTarget) target).getURL();
 			Response res = (Response) remote.getExecutionMethod().execute(ScreenRegion.FIND, ImmutableMap.of("imageUrl", url.toString()));
-			JsonToScreenRegionConverter converter = new JsonToScreenRegionConverter(remote);
-			System.out.println("res:" + res.getValue());			
-			ScreenRegion foundScreenRegion = (ScreenRegion) converter.apply(res.getValue());			
-			System.out.println("con:" + foundScreenRegion);
-			return foundScreenRegion;
-			
+			JsonToScreenRegionConverter converter = new JsonToScreenRegionConverter(remote);			
+			ScreenRegion foundScreenRegion = (ScreenRegion) converter.apply(res.getValue());
+			logger.debug("found:" + foundScreenRegion);
+			return foundScreenRegion;			
 		}
 		return null;
 	}
-	
-	
 
 	@Override
 	public ScreenRegion wait(Target target, int mills) {

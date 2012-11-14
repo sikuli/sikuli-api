@@ -33,7 +33,7 @@ public class SikuliServlet extends HttpServlet {
   private final Supplier<DriverSessions> sessionsSupplier;
 
   private SessionCleaner sessionCleaner;
-  private JsonHttpRemoteConfig mappings;
+  private SikuliRemoteConfig mappings;
 
   public SikuliServlet() {
     this.sessionsSupplier = new DriverSessionsSupplier();
@@ -52,7 +52,7 @@ public class SikuliServlet extends HttpServlet {
     logger.addHandler(LoggingHandler.getInstance());
 
     DriverSessions driverSessions = sessionsSupplier.get();
-    mappings = new JsonHttpRemoteConfig(driverSessions, logger);
+    mappings = new SikuliRemoteConfig(driverSessions, logger);
 
     long sessionTimeOutInMs = getValueToUseInMs("webdriver.server.session.timeout", 1800);
     long browserTimeoutInMs = getValueToUseInMs("webdriver.server.browser.timeout", 0);

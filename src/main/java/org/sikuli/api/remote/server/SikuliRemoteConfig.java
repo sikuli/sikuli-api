@@ -53,10 +53,10 @@ import org.openqa.selenium.remote.server.rest.ResultType;
 import org.openqa.selenium.remote.server.rest.UrlMapper;
 import org.openqa.selenium.remote.server.xdrpc.CrossDomainRpcRenderer;
 import org.sikuli.api.Screen;
+import org.sikuli.api.remote.client.RemoteScreen;
 import org.sikuli.api.remote.server.handler.Click;
 import org.sikuli.api.remote.server.handler.DoubleClick;
 import org.sikuli.api.remote.server.handler.Find;
-import org.sikuli.api.remote.server.handler.Capture;
 import org.sikuli.api.remote.server.handler.Size;
 import org.sikuli.api.robot.Mouse;
 
@@ -66,7 +66,7 @@ interface MimeType {
 }
 
 
-public class JsonHttpRemoteConfig {
+public class SikuliRemoteConfig {
 	private static final String EXCEPTION = ":exception";
 	private static final String RESPONSE = ":response";
 
@@ -75,7 +75,7 @@ public class JsonHttpRemoteConfig {
 	private UrlMapper deleteMapper;
 	private final Logger log;
 
-	public JsonHttpRemoteConfig(DriverSessions sessions, Logger log) {
+	public SikuliRemoteConfig(DriverSessions sessions, Logger log) {
 		this.log = log;
 		setUpMappings(sessions, log);
 	}
@@ -160,7 +160,10 @@ public class JsonHttpRemoteConfig {
 		postMapper.bind("/screen/find",Find.class)
 		.on(ResultType.SUCCESS, jsonResponse);
 		
-		getMapper.bind("/screen/"+ Screen.GET_SIZE, Size.class)
+		getMapper.bind("/screen/" + Screen.GET_SIZE, RemoteScreen.GetSize.class)
+		.on(ResultType.SUCCESS, jsonResponse);
+		
+		postMapper.bind("/screen/" + Screen.GET_SCREENSHOT, RemoteScreen.GetScreenshot.class)
 		.on(ResultType.SUCCESS, jsonResponse);
 
 		
@@ -170,6 +173,7 @@ public class JsonHttpRemoteConfig {
 		postMapper.bind("/mouse/" + Mouse.DOUBLE_CLICK, DoubleClick.class)
 		.on(ResultType.SUCCESS, emptyResponse);
 
+		
 
 		
 		// When requesting the command root from a JSON-client, just return the server
@@ -248,8 +252,6 @@ public class JsonHttpRemoteConfig {
 		//		getMapper.bind("/session/:sessionId/source", GetPageSource.class)
 		//		.on(ResultType.SUCCESS, jsonResponse);
 		//
-		getMapper.bind("/screenshot", Capture.class)
-		.on(ResultType.SUCCESS, jsonResponse);
 		//
 		//		getMapper.bind("/session/:sessionId/title", GetTitle.class)
 		//		.on(ResultType.SUCCESS, jsonResponse);

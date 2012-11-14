@@ -145,11 +145,7 @@ public class SikuliHttpCommandExecutor implements CommandExecutor, NeedsLocalLog
     targetHost = new HttpHost(
         host, remoteServer.getPort(), remoteServer.getProtocol());
 
-    nameToUrl = ImmutableMap.<String, CommandInfo>builder()
-        .put(ScreenRegion.FIND, post("/screen/find"))
-        .put(Mouse.CLICK, post("/mouse/click"))
-        .put(Screen.GET_SIZE, get("/screen/size"))
-        .build();
+    nameToUrl = UrlMapper.getMappings();
   }
 
   public void setLocalLogs(LocalLogs logs) {
@@ -405,24 +401,24 @@ public class SikuliHttpCommandExecutor implements CommandExecutor, NeedsLocalLog
     return null;
   }
 
-  private static CommandInfo get(String url) {
+  static CommandInfo get(String url) {
     return new CommandInfo(url, HttpVerb.GET);
   }
 
-  private static CommandInfo post(String url) {
+  static CommandInfo post(String url) {
     return new CommandInfo(url, HttpVerb.POST);
   }
 
-  private static CommandInfo delete(String url) {
+  static CommandInfo delete(String url) {
     return new CommandInfo(url, HttpVerb.DELETE);
   }
 
-  private static class CommandInfo {
+  static class CommandInfo {
 
     private final String url;
     private final HttpVerb verb;
 
-    private CommandInfo(String url, HttpVerb verb) {
+    CommandInfo(String url, HttpVerb verb) {
       this.url = url;
       this.verb = verb;
     }
@@ -450,7 +446,7 @@ public class SikuliHttpCommandExecutor implements CommandExecutor, NeedsLocalLog
       return verb.createMethod(urlBuilder.toString());
     }
 
-    private String get(String propertyName, Command command) {
+    String get(String propertyName, Command command) {
       if ("sessionId".equals(propertyName)) {
         SessionId id = command.getSessionId();
         if (id == null) {
