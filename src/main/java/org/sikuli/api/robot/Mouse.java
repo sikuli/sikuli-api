@@ -3,6 +3,10 @@ package org.sikuli.api.robot;
 import org.sikuli.api.ScreenLocation;
 
 public interface Mouse {
+	
+	static String RIGHT_CLICK = "rightClick";
+	static String CLICK = "click";
+	static String DOUBLE_CLICK = "doubleClick";
 
 	public void drag(ScreenLocation screenLoc);
 	public void drop(ScreenLocation screenLoc);

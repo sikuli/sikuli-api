@@ -15,8 +15,8 @@ public class ScreenRegionTest extends BaseTest {
 	
 	@Test
 	public void testExtractInteger() throws IOException{
-		DesktopScreenRegion screen = createTestScreenRegionFrom("321904.png");
-		assertThat("integer", screen.extractInteger(), is(321904));
+		ScreenRegion screen = createTestScreenRegionFrom("321904.png");
+		assertThat("integer", ((DefaultScreenRegion)screen).extractInteger(), is(321904));
 	}
 	
 	@Test

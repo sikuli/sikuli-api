@@ -30,6 +30,7 @@ public class ImageTarget extends DefaultTarget implements Target {
 	
 	final BufferedImage targetImage;	
 	final private String imageSource;
+	private URL url = null;
 	
 	/**
 	 * Creates an ImageTarget from an image at a given URL
@@ -42,9 +43,14 @@ public class ImageTarget extends DefaultTarget implements Target {
 		try{
 			targetImage = ImageIO.read(url);
 		} catch (IOException e){
-			throw new RuntimeException("Image file can not be loaded from " + url);
+			throw new RuntimeException("Image file can not be loaded from " + url + " because " + e.getMessage());
 		}
 		this.imageSource = url.toString();
+		this.url = url;
+	}
+	
+	public URL getURL(){
+		return url;
 	}
 	
 	/**

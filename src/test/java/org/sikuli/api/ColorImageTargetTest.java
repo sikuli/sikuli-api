@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class ColorImageTargetTest extends BaseTest {
 
-	DesktopScreenRegion greenBlueStarsImage;
+	ScreenRegion greenBlueStarsImage;
 		
 	
 	@Before

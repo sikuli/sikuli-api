@@ -12,10 +12,9 @@ class BaseTest {
 		BasicConfigurator.configure();
 	}
 
-	protected DesktopScreenRegion createTestScreenRegionFrom(String name) throws IOException{
+	protected ScreenRegion createTestScreenRegionFrom(String name) throws IOException{
 		BufferedImage testScreenImage = ImageIO.read(this.getClass().getResource(name));
-		DesktopScreenRegion r = new DesktopScreenRegion();
-		r.setScreen(new StaticImageScreen(testScreenImage));
+		ScreenRegion r = new DefaultScreenRegion(new StaticImageScreen(testScreenImage));
 		return r;
 	}
 	

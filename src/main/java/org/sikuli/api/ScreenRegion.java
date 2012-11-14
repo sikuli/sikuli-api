@@ -9,6 +9,10 @@ import org.sikuli.api.event.StateChangeListener;
 import org.sikuli.api.event.TargetEventListener;
 
 public interface ScreenRegion {
+		
+	public String FIND = "find";
+	public String FIND_ALL = "findAll";
+	public String WAIT = "wait";
 	
 	public abstract Screen getScreen();
 	public abstract void setScreen(Screen screen);
