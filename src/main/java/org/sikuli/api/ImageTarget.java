@@ -43,7 +43,7 @@ public class ImageTarget extends DefaultTarget implements Target {
 		try{
 			targetImage = ImageIO.read(url);
 		} catch (IOException e){
-			throw new RuntimeException("Image file can not be loaded from " + url + " because " + e.getMessage());
+			throw new SikuliRuntimeException("Image file can not be loaded from " + url + " because " + e.getMessage());
 		}
 		this.imageSource = url.toString();
 		this.url = url;

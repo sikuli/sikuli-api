@@ -14,19 +14,19 @@ import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
 
 abstract public class AbstractRemoteMethod<T> implements RemoteMethod<T>,
-	 JsonParametersAware {
-	
+JsonParametersAware {
+
 	final Response response;
 
 	static Logger logger = LoggerFactory.getLogger(RemoteMethod.class); 
-	
+
 	abstract public String getName();
 
 	abstract protected T execute(Map<String,?> parameterMap);
 	protected T decodeResult(Remote remote, Map<String,?> value){
 		return null;					
 	}
-	
+
 	protected Map<String,?> encodeResult(T result){
 		return null;
 	}
@@ -38,17 +38,23 @@ abstract public class AbstractRemoteMethod<T> implements RemoteMethod<T>,
 	public Response getResponse() {
 		return response;
 	}
-	
+
 	@Override
 	public T call(Remote remote, Map<String,?> parameterMap){	
 		logger.info("calling [{}] params={}", getName(), parameterMap);
 		Response response = (Response) remote.getExecutionMethod().execute(getName(), 
-				Objects.firstNonNull(parameterMap, ImmutableMap.of("","")));		
-		Object value = response.getValue();
-		if (value instanceof Map<?,?>){
-			return decodeResult(remote, (Map<String,?>) response.getValue());	
+				Objects.firstNonNull(parameterMap, ImmutableMap.of("","")));	
+		
+		if (response.getStatus() == ErrorCodes.SUCCESS){
+			Object value = response.getValue();
+			if (value instanceof Map<?,?>){
+				return decodeResult(remote, (Map<String,?>) response.getValue());	
+			}else{
+				return null;
+			}
 		}else{
-			return null;
+			logger.info("response: {}", response.getValue());
+			throw new RemoteSikuliException(response);
 		}
 	}		
 
@@ -58,12 +64,15 @@ abstract public class AbstractRemoteMethod<T> implements RemoteMethod<T>,
 			// we expect setJsonParameters() has been invoked already
 			throw new IllegalArgumentException("parameters have not been set properly");	
 		}
+
+
 		T result = execute(parameterMap);
 		Map<String,?> value = encodeResult(result);
 
 		response.setValue(value);			
 		response.setSessionId("dummyId");
 		response.setStatus(ErrorCodes.SUCCESS);
+
 		return ResultType.SUCCESS;
 	}
 
@@ -71,8 +80,8 @@ abstract public class AbstractRemoteMethod<T> implements RemoteMethod<T>,
 	public String toString(){
 		return Objects.toStringHelper(this).add("params", parameterMap).toString();
 	}
-	
-	
+
+
 	Map<String,?> parameterMap;
 	@Override
 	public void setJsonParameters(Map<String, Object> parameterMap)

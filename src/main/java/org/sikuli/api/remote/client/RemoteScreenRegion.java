@@ -1,6 +1,8 @@
 package org.sikuli.api.remote.client;
 
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -8,10 +10,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Timer;
+
+import org.sikuli.api.APILogger;
 import org.sikuli.api.AbstractScreenRegion;
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.SikuliRuntimeException;
 import org.sikuli.api.Target;
 import org.sikuli.api.event.StateChangeListener;
 import org.sikuli.api.event.TargetEventListener;
@@ -20,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -38,7 +45,9 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 	public ScreenRegion find(Target target) {		
 		if (target instanceof ImageTarget){
 			URL url = ((ImageTarget) target).getURL();
-			return (new Find()).call(remote, ImmutableMap.of("imageUrl", url.toString()));
+			ScreenRegion foundRegion = (new Find()).call(remote, ImmutableMap.of("imageUrl", url.toString()));
+			logger.info("result: {}", Objects.firstNonNull(foundRegion, "not found"));
+			return foundRegion;
 		}
 		return null;
 	}
@@ -48,7 +57,7 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 		if (target instanceof ImageTarget){
 			URL url = ((ImageTarget) target).getURL();
 			List<ScreenRegion> foundRegions = (new FindAll()).call(remote, ImmutableMap.of("imageUrl", url.toString()));
-			
+
 			int counter = 0;
 			for (ScreenRegion foundRegion : foundRegions){				
 				logger.info("{} {}", counter++, foundRegion);
@@ -60,8 +69,43 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 
 	@Override
 	public ScreenRegion wait(Target target, int mills) {
-		// TODO Auto-generated method stub
-		return null;
+		RepeatFind ru = new RepeatFind(target, mills);
+		ScreenRegion result = ru.run();
+		return result;
+	}
+
+	class RepeatFind{
+
+		private volatile boolean timeout = false;	
+
+		private Target target;
+		private int duration;
+
+		private ScreenRegion r = null;
+
+		RepeatFind(Target target, int duration){		
+			this.target = target;
+			this.duration = duration;
+		}
+
+		public ScreenRegion run(){
+			Timer t = new Timer(duration, new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					timeout = true;
+				}				
+			});
+			t.start();
+
+			while (r == null && !timeout){
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+				}
+				r = find(target);            
+			}
+			return r;
+		}
 	}
 
 	@Override
@@ -137,23 +181,33 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	static public Map<String,?> convertToMap(ScreenRegion screenRegion){
-		Rectangle r = screenRegion.getBounds();					
-		return ImmutableMap.of("x",r.x,"y",r.y,"width",r.width,"height",r.height);
-	}
-	
-	static public ScreenRegion createFromMap(Remote remote, Map<String,?> map){
-		int x = ((Long) map.get("x")).intValue();
-		int y = ((Long) map.get("y")).intValue();			
-		int width = ((Long) map.get("width")).intValue();
-		int height = ((Long) map.get("height")).intValue();
-		ScreenRegion ret = new RemoteScreenRegion(remote);
-		ret.setBounds(new Rectangle(x,y,width,height));		
-		return ret;
+		if (screenRegion != null){
+			Rectangle r = screenRegion.getBounds();					
+			return ImmutableMap.of("x",r.x,"y",r.y,"width",r.width,"height",r.height,"score",screenRegion.getScore());
+		}else{
+			return null;
+		}
 	}
 
-	
+	static public ScreenRegion createFromMap(Remote remote, Map<String,?> map){
+		if (map != null){
+			int x = ((Long) map.get("x")).intValue();
+			int y = ((Long) map.get("y")).intValue();			
+			int width = ((Long) map.get("width")).intValue();
+			int height = ((Long) map.get("height")).intValue();
+			double score = ((Double) map.get("score")).doubleValue();
+			ScreenRegion ret = new RemoteScreenRegion(remote);
+			ret.setBounds(new Rectangle(x,y,width,height));		
+			ret.setScore(score);
+			return ret;
+		}else{
+			return null;
+		}
+	}
+
+
 	static public class FindAll extends AbstractRemoteMethod<List<ScreenRegion>>{
 
 		@Override
@@ -174,7 +228,7 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 				throw new RuntimeException(e);
 			}			
 			List<ScreenRegion> foundRegions = s.findAll(imageTarget);
-			
+
 			int counter = 0;
 			for (ScreenRegion foundRegion : foundRegions){				
 				logger.info("{} {}", counter++, foundRegion);
@@ -226,9 +280,10 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 			try {
 				imageTarget = new ImageTarget(new URL(imageUrl));
 			} catch (MalformedURLException e) {
-				throw new RuntimeException(e);
+				throw new SikuliRuntimeException(e.getMessage());
+
 			}			
-			ScreenRegion foundRegion = s.find(imageTarget);
+			ScreenRegion foundRegion = s.find(imageTarget);			
 			return foundRegion;
 		}
 
@@ -239,7 +294,7 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 
 		@Override
 		protected ScreenRegion decodeResult(Remote remote, Map<String,?> valueAsMap){
-			return createFromMap(remote, valueAsMap);
+			return createFromMap(remote, valueAsMap); 
 		}
 
 	}

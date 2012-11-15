@@ -54,7 +54,7 @@ abstract public class AbstractScreenRegion implements ScreenRegion {
 	@Override
 	public String toString(){
 		return Objects.toStringHelper(this).add("screen", screen).				
-				add("x",x).add("y",y).add("width",width).add("height",height).toString();			
+				add("x",x).add("y",y).add("width",width).add("height",height).add("score",score).toString();			
 	}
 	
 	@Override	
