@@ -12,6 +12,7 @@ public class RemoteMethodConfig {
 	static public List<? extends RemoteMethod<?>> getRemoteMethods(){				
 		return Lists.newArrayList(
 				new RemoteScreenRegion.Find(),
+				new RemoteScreenRegion.FindAll(),
 				new RemoteScreen.GetSize(), 
 				new RemoteScreen.GetScreenshot(),
 				new RemoteMouse.Click(),

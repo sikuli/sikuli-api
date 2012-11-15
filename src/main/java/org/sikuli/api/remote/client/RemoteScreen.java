@@ -14,14 +14,11 @@ import com.google.common.collect.ImmutableMap;
 public class RemoteScreen implements Screen {
 
 	final private Remote remote;
-	final private int width;
-	final private int height;
+	private Integer height = null;
+	private Integer width = null;
 
 	public RemoteScreen(Remote remoteRef){
 		remote = remoteRef;		
-		Dimension d = getSize();
-		width = d.width;
-		height = d.height;		
 	}
 
 	@Override
@@ -32,13 +29,21 @@ public class RemoteScreen implements Screen {
 
 	@Override
 	public Dimension getSize() {
-		GetSize action = new GetSize();
-		return action.call(remote, null);
+		if (width == null){
+			GetSize action = new GetSize();
+			Dimension size = action.call(remote, null);
+			width = size.width;
+			height = size.height;
+		}
+		return new Dimension(width,height);
 	}
 
 	@Override
 	public String toString(){
-		return Objects.toStringHelper(this).add("width",width).add("height",height).toString();
+		return Objects.toStringHelper(this)
+				.add("width", Objects.firstNonNull(width, "?"))
+				.add("height", Objects.firstNonNull(height, "?"))
+				.toString();
 	}
 
 	static public class GetSize extends AbstractRemoteMethod<Dimension>{

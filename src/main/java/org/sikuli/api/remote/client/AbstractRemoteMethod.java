@@ -7,6 +7,8 @@ import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.remote.server.JsonParametersAware;
 import org.openqa.selenium.remote.server.rest.ResultType;
 import org.sikuli.api.remote.Remote;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableMap;
@@ -16,6 +18,7 @@ abstract public class AbstractRemoteMethod<T> implements RemoteMethod<T>,
 	
 	final Response response;
 
+	static Logger logger = LoggerFactory.getLogger(RemoteMethod.class); 
 	
 	abstract public String getName();
 
@@ -37,10 +40,10 @@ abstract public class AbstractRemoteMethod<T> implements RemoteMethod<T>,
 	}
 	
 	@Override
-	public T call(Remote remote, Map<String,?> parameterMap){
+	public T call(Remote remote, Map<String,?> parameterMap){	
+		logger.info("calling [{}] params={}", getName(), parameterMap);
 		Response response = (Response) remote.getExecutionMethod().execute(getName(), 
-				Objects.firstNonNull(parameterMap, ImmutableMap.of("","")));
-		
+				Objects.firstNonNull(parameterMap, ImmutableMap.of("","")));		
 		Object value = response.getValue();
 		if (value instanceof Map<?,?>){
 			return decodeResult(remote, (Map<String,?>) response.getValue());	
@@ -66,7 +69,7 @@ abstract public class AbstractRemoteMethod<T> implements RemoteMethod<T>,
 
 	@Override
 	public String toString(){
-		return Objects.toStringHelper(this).toString();
+		return Objects.toStringHelper(this).add("params", parameterMap).toString();
 	}
 	
 	
