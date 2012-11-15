@@ -128,15 +128,16 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 	
 	static public class Find extends AbstractRemoteMethod<ScreenRegion>{
 		
-		private String imageUrl;
-
 		@Override
 		public String getName(){
 			return FIND;
 		}
 
 		@Override
-		protected ScreenRegion execute(){
+		protected ScreenRegion execute(Map<String,?> parameterMap){
+			String imageUrl = (String) parameterMap.get("imageUrl");
+			
+			
 			ScreenRegion s = new DesktopScreenRegion();			
 			Target imageTarget;
 			try {
@@ -165,12 +166,6 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 			return ret;
 		}
 		
-		@Override
-		protected void readParameters(Map<String, ?> allParameters){
-			imageUrl = (String) allParameters.get("imageUrl");
-		}
-
-
 	}
 	
 }

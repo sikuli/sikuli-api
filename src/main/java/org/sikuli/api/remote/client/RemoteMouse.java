@@ -1,21 +1,10 @@
 package org.sikuli.api.remote.client;
 
-import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Map;
 
-import org.openqa.selenium.remote.Command;
-import org.openqa.selenium.remote.ExecuteMethod;
 import org.sikuli.api.DefaultScreenLocation;
-import org.sikuli.api.ImageTarget;
-import org.sikuli.api.Screen;
 import org.sikuli.api.ScreenLocation;
-import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.remote.Remote;
-import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.robot.desktop.DesktopScreen;
@@ -81,14 +70,18 @@ public class RemoteMouse implements Mouse {
 	}
 	
 	static abstract public class MouseClick extends AbstractRemoteMethod<Void>  {
-		protected int x;
-		protected int y;
-		
 		@Override
-		protected void readParameters(Map<String, ?> allParameters){				
-			x = ((Long) allParameters.get("x")).intValue();
-			y = ((Long) allParameters.get("y")).intValue();
-		}
+		protected Void execute(Map<String, ?> allParameters){
+			int x = ((Long) allParameters.get("x")).intValue();
+			int y = ((Long) allParameters.get("y")).intValue();
+
+			Mouse mouse = new DesktopMouse();
+			mouse.rightClick(new DefaultScreenLocation(new DesktopScreen(0), x, y));
+			return null;
+		}		
+		
+		abstract protected void execute(int x, int y);
+
 	}
 	
 	static public class RightClick extends MouseClick {
@@ -99,10 +92,9 @@ public class RemoteMouse implements Mouse {
 		}
 
 		@Override
-		protected Void execute(){
+		protected void execute(int x, int y){
 			Mouse mouse = new DesktopMouse();
 			mouse.rightClick(new DefaultScreenLocation(new DesktopScreen(0), x, y));
-			return null;
 		}		
 	}
 	
@@ -114,11 +106,11 @@ public class RemoteMouse implements Mouse {
 		}
 
 		@Override
-		protected Void execute(){
+		protected void execute(int x, int y){
 			Mouse mouse = new DesktopMouse();
 			mouse.doubleClick(new DefaultScreenLocation(new DesktopScreen(0), x, y));
-			return null;
 		}		
+
 	}
 	
 	static public class Click extends MouseClick {
@@ -129,11 +121,12 @@ public class RemoteMouse implements Mouse {
 		}
 
 		@Override
-		protected Void execute(){
+		protected void execute(int x, int y){
 			Mouse mouse = new DesktopMouse();
 			mouse.click(new DefaultScreenLocation(new DesktopScreen(0), x, y));
-			return null;
 		}		
+
+	
 	}
 
 }

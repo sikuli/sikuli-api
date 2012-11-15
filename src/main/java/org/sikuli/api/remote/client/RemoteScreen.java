@@ -49,7 +49,7 @@ public class RemoteScreen implements Screen {
 		}
 
 		@Override
-		protected Dimension execute(){
+		protected Dimension execute(Map<String, ?> allParameters){
 			Screen s = new DesktopScreen(0);
 			return s.getSize();
 		}
@@ -71,18 +71,18 @@ public class RemoteScreen implements Screen {
 
 	static public class GetScreenshot extends AbstractRemoteMethod<BufferedImage>{	
 
-		private int x;
-		private int y;
-		private int width;
-		private int height;
-
 		@Override
 		public String getName(){
 			return GET_SCREENSHOT;
 		}
 
 		@Override
-		protected BufferedImage execute(){
+		protected BufferedImage execute(Map<String, ?> allParameters){
+			int x = ((Long) allParameters.get("x")).intValue();
+			int y = ((Long) allParameters.get("y")).intValue();
+			int width = ((Long) allParameters.get("width")).intValue();
+			int height = ((Long) allParameters.get("height")).intValue();			
+			
 			Screen screen = new DesktopScreen(0);
 			BufferedImage image = screen.getScreenshot(x, y, width, height);
 			return image;
@@ -99,14 +99,6 @@ public class RemoteScreen implements Screen {
 			return ConverterUtil.decodeImage(imageString);
 		}
 
-		@Override
-		public void readParameters(Map<String, ?> allParameters){				
-			x = ((Long) allParameters.get("x")).intValue();
-			y = ((Long) allParameters.get("y")).intValue();
-			width = ((Long) allParameters.get("width")).intValue();
-			height = ((Long) allParameters.get("height")).intValue();
-		}
-		
 	}
 }
 

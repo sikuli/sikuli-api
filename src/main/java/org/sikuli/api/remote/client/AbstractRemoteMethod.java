@@ -16,9 +16,10 @@ abstract public class AbstractRemoteMethod<T> implements RemoteMethod<T>,
 	
 	final Response response;
 
+	
 	abstract public String getName();
 
-	abstract protected T execute();
+	abstract protected T execute(Map<String,?> parameterMap);
 	protected T decodeResult(Remote remote, Map<String,?> value){
 		return null;					
 	}
@@ -50,7 +51,11 @@ abstract public class AbstractRemoteMethod<T> implements RemoteMethod<T>,
 
 	@Override
 	public ResultType handle() throws Exception {
-		T result = execute();
+		if (parameterMap == null){
+			// we expect setJsonParameters() has been invoked already
+			throw new IllegalArgumentException("parameters have not been set properly");	
+		}
+		T result = execute(parameterMap);
 		Map<String,?> value = encodeResult(result);
 
 		response.setValue(value);			
@@ -64,13 +69,12 @@ abstract public class AbstractRemoteMethod<T> implements RemoteMethod<T>,
 		return Objects.toStringHelper(this).toString();
 	}
 	
+	
+	Map<String,?> parameterMap;
 	@Override
 	public void setJsonParameters(Map<String, Object> parameterMap)
 			throws Exception {
-		readParameters(parameterMap);
-	}
-
-	protected void readParameters(Map<String, ?> parameterMap) {		
+		this.parameterMap = parameterMap;
 	}
 
 }
