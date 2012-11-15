@@ -4,9 +4,9 @@ import org.sikuli.api.ScreenLocation;
 
 public interface Mouse {
 	
-	static String RIGHT_CLICK = "rightClick";
-	static String CLICK = "click";
-	static String DOUBLE_CLICK = "doubleClick";
+	static String RIGHT_CLICK = "/mouse/rightClick";
+	static String CLICK = "/mouse/click";
+	static String DOUBLE_CLICK = "/mouse/doubleClick";
 
 	public void drag(ScreenLocation screenLoc);
 	public void drop(ScreenLocation screenLoc);

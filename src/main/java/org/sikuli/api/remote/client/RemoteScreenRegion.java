@@ -2,15 +2,14 @@ package org.sikuli.api.remote.client;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.remote.Response;
 import org.sikuli.api.AbstractScreenRegion;
+import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ImageTarget;
-import org.sikuli.api.Screen;
-import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.event.StateChangeListener;
@@ -32,14 +31,10 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 	}
 
 	@Override
-	public ScreenRegion find(Target target) {
+	public ScreenRegion find(Target target) {		
 		if (target instanceof ImageTarget){
 			URL url = ((ImageTarget) target).getURL();
-			Response res = (Response) remote.getExecutionMethod().execute(ScreenRegion.FIND, ImmutableMap.of("imageUrl", url.toString()));
-			JsonToScreenRegionConverter converter = new JsonToScreenRegionConverter(remote);			
-			ScreenRegion foundScreenRegion = (ScreenRegion) converter.apply(res.getValue());
-			logger.debug("found:" + foundScreenRegion);
-			return foundScreenRegion;			
+			return (new Find()).call(remote, ImmutableMap.of("imageUrl", url.toString()));
 		}
 		return null;
 	}
@@ -130,5 +125,52 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 		return null;
 	}
 
+	
+	static public class Find extends AbstractRemoteMethod<ScreenRegion>{
+		
+		private String imageUrl;
+
+		@Override
+		public String getName(){
+			return FIND;
+		}
+
+		@Override
+		protected ScreenRegion execute(){
+			ScreenRegion s = new DesktopScreenRegion();			
+			Target imageTarget;
+			try {
+				imageTarget = new ImageTarget(new URL(imageUrl));
+			} catch (MalformedURLException e) {
+				throw new RuntimeException(e);
+			}			
+			ScreenRegion foundRegion = s.find(imageTarget);
+			return foundRegion;
+		}
+
+		@Override
+		protected Map<String,?> encodeResult(ScreenRegion screenRegion){
+			Rectangle r = screenRegion.getBounds();
+			return ImmutableMap.of("x",r.x,"y",r.y,"width",r.width,"height",r.height);
+		}
+
+		@Override
+		protected ScreenRegion decodeResult(Remote remote, Map<String,?> valueAsMap){
+			int x = ((Long) valueAsMap.get("x")).intValue();
+			int y = ((Long) valueAsMap.get("y")).intValue();			
+			int width = ((Long) valueAsMap.get("width")).intValue();
+			int height = ((Long) valueAsMap.get("height")).intValue();
+			ScreenRegion ret = new RemoteScreenRegion(remote);
+			ret.setBounds(new Rectangle(x,y,width,height));
+			return ret;
+		}
+		
+		@Override
+		protected void readParameters(Map<String, ?> allParameters){
+			imageUrl = (String) allParameters.get("imageUrl");
+		}
+
+
+	}
 	
 }

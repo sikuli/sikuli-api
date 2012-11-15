@@ -1,5 +1,7 @@
 package org.sikuli.api.remote.client;
 
+import java.awt.Point;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,20 +11,23 @@ import org.openqa.selenium.remote.Command;
 import org.openqa.selenium.remote.ExecuteMethod;
 import org.sikuli.api.DefaultScreenLocation;
 import org.sikuli.api.ImageTarget;
+import org.sikuli.api.Screen;
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.remote.Remote;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
+import org.sikuli.api.robot.desktop.DesktopMouse;
+import org.sikuli.api.robot.desktop.DesktopScreen;
 
 import com.google.common.collect.ImmutableMap;
 
 public class RemoteMouse implements Mouse {
-	
-	private ExecuteMethod executor;
 
-	public RemoteMouse(ExecuteMethod executor){
-		this.executor = executor;
+	private Remote remote;
+
+	public RemoteMouse(Remote remote){
+		this.remote = remote;
 	}
 
 	@Override
@@ -37,17 +42,17 @@ public class RemoteMouse implements Mouse {
 
 	@Override
 	public void rightClick(ScreenLocation screenLoc) {
-		executor.execute(RIGHT_CLICK, ImmutableMap.of("x", screenLoc.getX(),"y", screenLoc.getY()));				
+		(new RightClick()).call(remote, ImmutableMap.of("x", screenLoc.getX(),"y", screenLoc.getY()));				
 	}
 
 	@Override
 	public void doubleClick(ScreenLocation screenLoc) {
-		executor.execute(DOUBLE_CLICK, ImmutableMap.of("x", screenLoc.getX(),"y", screenLoc.getY()));		
+		(new DoubleClick()).call(remote, ImmutableMap.of("x", screenLoc.getX(),"y", screenLoc.getY()));		
 	}
 
 	@Override
 	public void click(ScreenLocation screenLoc) {
-		executor.execute(CLICK, ImmutableMap.of("x", screenLoc.getX(),"y", screenLoc.getY()));
+		(new Click()).call(remote, ImmutableMap.of("x", screenLoc.getX(),"y", screenLoc.getY()));
 	}
 
 	@Override
@@ -75,46 +80,60 @@ public class RemoteMouse implements Mouse {
 		throw new UnsupportedOperationException();
 	}
 	
-	public static void main(String[] args) throws MalformedURLException {
+	static abstract public class MouseClick extends AbstractRemoteMethod<Void>  {
+		protected int x;
+		protected int y;
 		
-//		final SikuliHttpCommandExecutor sikuliHttpCommandExecutor = 
-//				new SikuliHttpCommandExecutor(new URL("http://localhost:9000/sikuli/"));
-//		final ExecuteMethod executor = new ExecuteMethod(){
-//			@Override
-//			public Object execute(String commandName, Map<String, ?> parameters) {
-//				Command command = new Command(null, commandName, parameters);
-//				try {
-//					return sikuliHttpCommandExecutor.execute(command);
-//				} catch (IOException e) {
-//					return null;
-//				}
-//			}			
-//		};
-//
-//		Mouse mouse = new RemoteMouse(executor);
-//		mouse.click(new DefaultScreenLocation(null,100,100));
-//		
-//		Remote remote = new Remote(){
-//
-//			@Override
-//			public ExecuteMethod getExecutionMethod() {
-//				return executor;
-//			}
-//
-//			@Override
-//			public Mouse getMouse() {
-//				return null;
-//			}
-//
-//			@Override
-//			public Keyboard getKeyboard() {
-//				return null;
-//			}
-//			
-//		};
-//		ScreenRegion s = new RemoteScreenRegion(remote);
-//		ScreenRegion r = s.find(new ImageTarget(new URL("http://code.google.com/images/code_logo.gif")));		
-//		mouse.click(r.getCenter());
+		@Override
+		protected void readParameters(Map<String, ?> allParameters){				
+			x = ((Long) allParameters.get("x")).intValue();
+			y = ((Long) allParameters.get("y")).intValue();
+		}
+	}
+	
+	static public class RightClick extends MouseClick {
+
+		@Override
+		public String getName(){
+			return RIGHT_CLICK;
+		}
+
+		@Override
+		protected Void execute(){
+			Mouse mouse = new DesktopMouse();
+			mouse.rightClick(new DefaultScreenLocation(new DesktopScreen(0), x, y));
+			return null;
+		}		
+	}
+	
+	static public class DoubleClick extends MouseClick {
+
+		@Override
+		public String getName(){
+			return DOUBLE_CLICK;
+		}
+
+		@Override
+		protected Void execute(){
+			Mouse mouse = new DesktopMouse();
+			mouse.doubleClick(new DefaultScreenLocation(new DesktopScreen(0), x, y));
+			return null;
+		}		
+	}
+	
+	static public class Click extends MouseClick {
+
+		@Override
+		public String getName(){
+			return CLICK;
+		}
+
+		@Override
+		protected Void execute(){
+			Mouse mouse = new DesktopMouse();
+			mouse.click(new DefaultScreenLocation(new DesktopScreen(0), x, y));
+			return null;
+		}		
 	}
 
 }

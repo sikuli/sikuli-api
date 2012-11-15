@@ -18,6 +18,7 @@ package org.sikuli.api.remote.client;
 
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -72,6 +73,7 @@ import java.util.Map;
 
 import static org.apache.http.protocol.ExecutionContext.HTTP_TARGET_HOST;
 import static org.openqa.selenium.remote.DriverCommand.*;
+import static org.sikuli.api.remote.client.SikuliHttpCommandExecutor.post;
 
 public class SikuliHttpCommandExecutor implements CommandExecutor, NeedsLocalLogs {
 
@@ -145,7 +147,15 @@ public class SikuliHttpCommandExecutor implements CommandExecutor, NeedsLocalLog
     targetHost = new HttpHost(
         host, remoteServer.getPort(), remoteServer.getProtocol());
 
-    nameToUrl = UrlMapper.getMappings();
+    nameToUrl = createNameToUrlMap();
+  }
+  
+  public  Map<String, CommandInfo> createNameToUrlMap(){
+	  Builder<String, CommandInfo> builder = ImmutableMap.<String, CommandInfo>builder();
+	  for (RemoteMethod<?> m : RemoteMethodConfig.getRemoteMethods()){
+		  builder.put(m.getName(), post(m.getName()));
+	  }		
+	  return builder.build();
   }
 
   public void setLocalLogs(LocalLogs logs) {
