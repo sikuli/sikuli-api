@@ -10,7 +10,7 @@ import com.sun.awt.AWTUtilities;
 
 import edu.umd.cs.piccolo.PCanvas;
 
-public class ScreenOverlayWindow extends JWindow {
+public class ScreenOverlayWindow extends JWindow implements ScreenDisplayable {
 
 	private final PCanvas canvas;
 	public ScreenOverlayWindow() {
@@ -31,6 +31,15 @@ public class ScreenOverlayWindow extends JWindow {
 		setVisible(true);
 		autoClose(duration);
 	}
+	
+	//public void show(){
+		//setVisible(true);
+	//}
+	
+	public void close(){
+		setVisible(false);
+		dispose();
+	}
 
 	private void autoClose(int time){
 		Timer timer = new Timer(time, new ActionListener(){
@@ -41,6 +50,18 @@ public class ScreenOverlayWindow extends JWindow {
 			}			
 		});
 		timer.start();
+	}
+
+	@Override
+	public void displayOnScreen() {
+		setVisible(true);
+		
+	}
+
+	@Override
+	public void hideFromScreen() {
+		setVisible(false);
+		dispose();
 	}		
 
 }

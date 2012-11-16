@@ -39,6 +39,7 @@ JsonParametersAware {
 		return response;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public T call(Remote remote, Map<String,?> parameterMap){	
 		logger.info("calling [{}] params={}", getName(), parameterMap);

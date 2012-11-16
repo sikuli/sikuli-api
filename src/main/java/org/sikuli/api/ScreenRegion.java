@@ -14,13 +14,15 @@ public interface ScreenRegion {
 	public String FIND_ALL = "/screenRegion/findAll";
 	public String WAIT = "/screenRegion/wait";
 	
-	public abstract Screen getScreen();
-	public abstract void setScreen(Screen screen);
+	public Screen getScreen();
+	public void setScreen(Screen screen);
 
-	public abstract Rectangle getBounds();
-	public abstract void setBounds(Rectangle newBounds);
-	public abstract ScreenRegion getRelativeScreenRegion(int xoffset, int yoffset, int width, int height);
-	public abstract ScreenLocation getRelativeScreenLocation(int xoffset, int yoffset);
+	
+	public Rectangle getBounds();
+	public void setBounds(Rectangle newBounds);
+
+	public ScreenRegion getRelativeScreenRegion(int xoffset, int yoffset, int width, int height);
+	public ScreenLocation getRelativeScreenLocation(int xoffset, int yoffset);
 
 	/**
 	 * Gets the center of this screen region 

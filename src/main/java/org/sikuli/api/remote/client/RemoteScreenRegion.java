@@ -12,7 +12,6 @@ import java.util.Map;
 
 import javax.swing.Timer;
 
-import org.sikuli.api.APILogger;
 import org.sikuli.api.AbstractScreenRegion;
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ImageTarget;
@@ -110,76 +109,66 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 
 	@Override
 	public BufferedImage capture() {
-		// TODO Auto-generated method stub
-		return null;
+		Rectangle r = getBounds();
+		return getScreen().getScreenshot(r.x,r.y,r.width,r.height);
 	}
 
 	@Override
 	public void addTargetEventListener(Target target,
 			TargetEventListener listener) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void removeTargetEventListener(Target target,
 			TargetEventListener listener) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public ScreenRegion snapshot() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void addStateChangeEventListener(StateChangeListener listener) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Map<Target, Object> getStates() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void addROI(int x, int y, int width, int height) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public List<Rectangle> getROIs() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public BufferedImage getLastCapturedImage() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 
 	@Override
 	public void addState(Target target, Object state) {
-		// TODO Auto-generated method stub		
+		throw new UnsupportedOperationException();		
 	}
 
 	@Override
 	public void removeState(Target target) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Object getState() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	static public Map<String,?> convertToMap(ScreenRegion screenRegion){
