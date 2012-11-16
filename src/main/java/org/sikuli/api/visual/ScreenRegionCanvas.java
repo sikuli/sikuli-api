@@ -5,10 +5,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.remote.client.RemoteScreen;
-import org.sikuli.api.remote.client.RemoteScreenRegion;
 import org.sikuli.api.robot.desktop.DesktopScreen;
 import org.sikuli.core.cv.VisionUtils;
 
