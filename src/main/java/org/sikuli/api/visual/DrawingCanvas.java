@@ -3,6 +3,7 @@ package org.sikuli.api.visual;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import org.sikuli.api.ScreenLocation;
@@ -116,13 +117,13 @@ class PNodeFactory {
 }
 
 
-public class DrawingCanvas {
+abstract public class DrawingCanvas {
 
 	protected final List<Element> elements = 	Lists.newArrayList();;
 
 
 
-	static public class StyleBuilder {
+	public class StyleBuilder {
 
 		final private Element element;
 		public StyleBuilder(Element element) {
@@ -142,6 +143,10 @@ public class DrawingCanvas {
 		public StyleBuilder withLineWidth(int width){
 			element.lineWidth = width;
 			return this;
+		}
+		
+		public void display(int seconds){
+			DrawingCanvas.this.display(seconds);
 		}
 
 	}
@@ -170,9 +175,13 @@ public class DrawingCanvas {
 	}
 
 
-	public void clear() {
-		elements.clear();	
+	public DrawingCanvas clear() {
+		elements.clear();
+		return this;
 	}
 
+	
+	abstract public void display(int seconds);
+	abstract public BufferedImage createImage();
 
 }

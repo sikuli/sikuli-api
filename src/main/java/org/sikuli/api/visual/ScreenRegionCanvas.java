@@ -30,7 +30,7 @@ public class ScreenRegionCanvas extends DrawingCanvas {
 
 	
 
-	public void displayForSeconds(int seconds){
+	public void display(int seconds){
 		
 		if (canvasScreenRegion.getScreen() instanceof RemoteScreen ){
 			
@@ -94,15 +94,10 @@ public class ScreenRegionCanvas extends DrawingCanvas {
 		
 	}	
 
-
-	protected BufferedImage getBackgroundImage(){
-		return canvasScreenRegion.capture();
-	}
-
 	public BufferedImage createImage(){
 		final PCanvas canvas = new PCanvas();
 
-		BufferedImage backgroundImage = getBackgroundImage();
+		BufferedImage backgroundImage = canvasScreenRegion.capture();
 		final PImage background = new PImage(backgroundImage);
 		canvas.getLayer().addChild(background);
 		canvas.setBounds(0,0,backgroundImage.getWidth(),backgroundImage.getHeight());
