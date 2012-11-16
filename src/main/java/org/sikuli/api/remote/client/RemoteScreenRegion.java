@@ -13,8 +13,11 @@ import java.util.Map;
 import javax.swing.Timer;
 
 import org.sikuli.api.AbstractScreenRegion;
+import org.sikuli.api.DefaultScreenLocation;
+import org.sikuli.api.DefaultScreenRegion;
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ImageTarget;
+import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.SikuliRuntimeException;
 import org.sikuli.api.Target;
@@ -39,12 +42,21 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 		super(remoteRef.getScreen());
 		remote = remoteRef;
 	}
+	
+	@Override
+	public ScreenRegion getRelativeScreenRegion(int xoffset, int yoffset, int width, int height){
+		RemoteScreenRegion newRemoteScreenRegion = new RemoteScreenRegion(remote);
+		newRemoteScreenRegion.setBounds(new Rectangle(getX() + xoffset, getY() + yoffset, width, height));
+		return newRemoteScreenRegion;
+	}
+
 
 	@Override
 	public ScreenRegion find(Target target) {		
 		if (target instanceof ImageTarget){
 			URL url = ((ImageTarget) target).getURL();
-			ScreenRegion foundRegion = (new Find()).call(remote, ImmutableMap.of("imageUrl", url.toString()));
+			Map<String,?> params = 	ImmutableMap.of("imageUrl", url.toString(), "bounds", rectangleToMap(getBounds()));	
+			ScreenRegion foundRegion = (new Find()).call(remote, params);					
 			logger.info("result: {}", Objects.firstNonNull(foundRegion, "not found"));
 			return foundRegion;
 		}
@@ -179,6 +191,19 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 			return null;
 		}
 	}
+	
+	static public Rectangle mapToRectangle(Map<String,?> map){				
+		int x = ((Long) map.get("x")).intValue();
+		int y = ((Long) map.get("y")).intValue();			
+		int width = ((Long) map.get("width")).intValue();
+		int height = ((Long) map.get("height")).intValue();
+		return new Rectangle(x,y,width,height);
+	}
+	
+	static public Map<String,?> rectangleToMap(Rectangle r){
+		return ImmutableMap.of("x",r.x,"y",r.y,"width",r.width,"height",r.height);
+	}
+	
 
 	static public ScreenRegion createFromMap(Remote remote, Map<String,?> map){
 		if (map != null){
@@ -261,10 +286,10 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 
 		@Override
 		protected ScreenRegion execute(Map<String,?> parameterMap){
-			String imageUrl = (String) parameterMap.get("imageUrl");
+			String imageUrl = (String) parameterMap.get("imageUrl");		
+			Rectangle r = mapToRectangle((Map<String,?>) parameterMap.get("bounds"));
 
-
-			ScreenRegion s = new DesktopScreenRegion();			
+			ScreenRegion s = new DesktopScreenRegion(r.x,r.y,r.width,r.height);			
 			Target imageTarget;
 			try {
 				imageTarget = new ImageTarget(new URL(imageUrl));

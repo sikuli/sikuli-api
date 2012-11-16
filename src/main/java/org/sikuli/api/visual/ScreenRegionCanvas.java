@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.remote.client.RemoteScreen;
 import org.sikuli.api.remote.client.RemoteScreenRegion;
 import org.sikuli.api.robot.desktop.DesktopScreen;
 import org.sikuli.core.cv.VisionUtils;
@@ -33,7 +34,7 @@ public class ScreenRegionCanvas extends DrawingCanvas {
 
 	public void displayForSeconds(int seconds){
 		
-		if (canvasScreenRegion instanceof RemoteScreenRegion ){
+		if (canvasScreenRegion.getScreen() instanceof RemoteScreen ){
 			
 			BufferedImage image = createImage();
 			viewer = Objects.firstNonNull(viewer, new ImageViewer());
