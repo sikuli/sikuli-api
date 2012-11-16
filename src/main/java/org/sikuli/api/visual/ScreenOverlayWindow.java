@@ -17,7 +17,7 @@ public class ScreenOverlayWindow extends JWindow implements ScreenDisplayable {
 		canvas = new PCanvas();
 		canvas.setBackground(null);
 		add(canvas);
-		setBackground(null);
+//		setBackground(null);
 		getContentPane().setBackground(null); // this line is needed to make the window transparent on Windows
 		AWTUtilities.setWindowOpaque(this, false);
 		setAlwaysOnTop(true);						
