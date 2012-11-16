@@ -9,13 +9,15 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
+import org.sikuli.api.visual.DesktopDrawingCanvas;
+import org.sikuli.api.visual.DrawingCanvas;
 import org.sikuli.api.visual.ScreenPainter;
 
 public class FindExample {
 	
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static DrawingCanvas canvas = new DesktopDrawingCanvas();
 	
 	// Create a screen simulator running in the background
 	// that will show the image of Google's search page and
@@ -23,7 +25,7 @@ public class FindExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.GoogleSearchPage);
-			wait(5000);
+			wait(8000);
 			close();
 		}
 	};
@@ -45,22 +47,22 @@ public class FindExample {
 		ScreenRegion r = s.find(imageTarget);		
 		// Click the center of 'r'		
 		mouse.click(r.getCenter());		
-		// Display a circle at the center of 'r'
-		painter.circle(r.getCenter(), 1000);
+		// Display a box around 'r' for 1 second
+		canvas.addBox(r).display(1);
 
 		// Find another image target and perform similar operations
 		imageURL = Images.GoogleMicrophoneIcon;                
 		imageTarget = new ImageTarget(imageURL);    			
 		r = s.find(imageTarget);       			
 		mouse.rightClick(r.getCenter());
-		painter.circle(r.getCenter(), 1000);
+		canvas.clear().addBox(r).display(1);
 
 		// Find another image target and perform similar operations
 		imageURL = Images.GoogleSearchFeelingLuckyButton;                
 		imageTarget = new ImageTarget(imageURL);    			
 		r = s.find(imageTarget);
 		mouse.doubleClick(r.getCenter());
-		painter.circle(r.getCenter(), 1000);
+		canvas.clear().addBox(r).display(1);
 
 	}
 }

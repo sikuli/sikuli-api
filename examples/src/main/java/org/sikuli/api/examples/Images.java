@@ -4,7 +4,7 @@ import java.net.URL;
 
 public class Images {
 	static final URL OSXSystemPreferences = Images.class.getResource("OSXSystemPreferences.png");
-	static final URL OSXDockPreferences = Images.class.getResource("OSXDockPreferences.png");
+	public static final URL OSXDockPreferences = Images.class.getResource("OSXDockPreferences.png");
 	static final URL OSXSharingPreferences = Images.class.getResource("OSXSharingPreferences.png");
 	static final URL OSXNetworkPreferences = Images.class.getResource("OSXNetworkPreferences.png");
 	
@@ -14,7 +14,7 @@ public class Images {
 	
 	static final URL OSXDockIcon = Images.class.getResource("DockIcon.png");
 	
-	static final URL GoogleSearchPage = Images.class.getResource("Google.png");
+	public static final URL GoogleSearchPage = Images.class.getResource("Google.png");
 	static final URL GoogleSearchButton = Images.class.getResource("GoogleSearchButton.png");
 	static final URL GoogleSearchFeelingLuckyButton = Images.class.getResource("GoogleSearchFeelingLuckyButton.png");
 	static final URL GoogleMicrophoneIcon = Images.class.getResource("microphone.png");

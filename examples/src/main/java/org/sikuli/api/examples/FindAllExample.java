@@ -9,13 +9,15 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
+import org.sikuli.api.visual.DesktopDrawingCanvas;
+import org.sikuli.api.visual.DrawingCanvas;
 import org.sikuli.api.visual.ScreenPainter;
 
 public class FindAllExample {
 	
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static DrawingCanvas canvas = new DesktopDrawingCanvas();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
@@ -34,10 +36,11 @@ public class FindAllExample {
 		List<ScreenRegion> rs = s.findAll(imageTarget);
 		int no = 1;
 		for (ScreenRegion r : rs){
-			painter.box(r, 3000);
+			canvas.addBox(r);
 			String labelText = String.format("(%d):%1.3f", no, r.getScore());
-			painter.label(r, labelText, 3000);
+			canvas.addLabel(r, labelText);
 			no += 1;
 		}
+		canvas.display(3);
 	}
 }

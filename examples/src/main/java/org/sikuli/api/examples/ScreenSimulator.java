@@ -37,8 +37,15 @@ public class ScreenSimulator {
 				ScreenSimulator.this.run();
 			}
 		};
-		t.start();
+		t.setDaemon(true);
+		t.start();		
 		wait(1000);
+	}
+	
+	public void showImage(BufferedImage image){		
+		frame.image.setImage(image);
+		frame.setSize(image.getWidth(),image.getHeight());
+		frame.repaint();
 	}
 	
 	public void showImage(URL url) {
