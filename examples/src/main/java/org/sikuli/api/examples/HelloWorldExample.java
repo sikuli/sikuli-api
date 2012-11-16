@@ -6,7 +6,8 @@ import java.net.URL;
 import org.sikuli.api.*;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopMouse;
-import org.sikuli.api.visual.ScreenPainter;
+import org.sikuli.api.visual.DesktopDrawingCanvas;
+import org.sikuli.api.visual.DrawingCanvas;
 
 import static org.sikuli.api.API.*;
 
@@ -30,8 +31,8 @@ public class HelloWorldExample {
 		ScreenRegion r = s.wait(imageTarget,5000);
 				
 		// Display "Hello World" next to the found target for 3 seconds
-		ScreenPainter painter = new ScreenPainter();
-		painter.label(r, "Hello World", 3000);
+		DrawingCanvas canvas = new DesktopDrawingCanvas();
+		canvas.addLabel(r, "Hello World").display(3000);
 		
 		// Click the center of the found target
 		Mouse mouse = new DesktopMouse();
