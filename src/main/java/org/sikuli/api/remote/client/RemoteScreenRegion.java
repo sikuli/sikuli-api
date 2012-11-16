@@ -67,14 +67,16 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 	public List<ScreenRegion> findAll(Target target) {
 		if (target instanceof ImageTarget){
 			URL url = ((ImageTarget) target).getURL();
-			List<ScreenRegion> foundRegions = (new FindAll()).call(remote, ImmutableMap.of("imageUrl", url.toString()));
+			Map<String,?> params = 	ImmutableMap.of("imageUrl", url.toString(), "bounds", rectangleToMap(getBounds()));
+			List<ScreenRegion> foundRegions = (new FindAll()).call(remote, params);
 
 			int counter = 0;
 			for (ScreenRegion foundRegion : foundRegions){				
 				logger.info("{} {}", counter++, foundRegion);
 			}			
+			return foundRegions;
 		}
-		return null;
+		return Lists.newArrayList();
 	}
 
 
@@ -232,9 +234,9 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 		@Override
 		protected List<ScreenRegion> execute(Map<String,?> parameterMap){
 			String imageUrl = (String) parameterMap.get("imageUrl");
+			Rectangle r = mapToRectangle((Map<String,?>) parameterMap.get("bounds"));
 
-
-			ScreenRegion s = new DesktopScreenRegion();			
+			ScreenRegion s = new DesktopScreenRegion(r.x,r.y,r.width,r.height);			
 			Target imageTarget;
 			try {
 				imageTarget = new ImageTarget(new URL(imageUrl));

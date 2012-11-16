@@ -36,9 +36,14 @@ public class ScreenRegionCanvas extends DrawingCanvas {
 		
 		if (canvasScreenRegion.getScreen() instanceof RemoteScreen ){
 			
+			Rectangle r = canvasScreenRegion.getBounds();
+			
+			String title = String.format("RemoteScreenRegion (%d,%d) %dx%d", r.x,r.y,r.width,r.height);
+			
 			BufferedImage image = createImage();
 			viewer = Objects.firstNonNull(viewer, new ImageViewer());
 			viewer.updateImage(image);
+			viewer.setTitle(title);
 			viewer.setVisible(true);
 			
 			try {

@@ -17,8 +17,6 @@ public class ImageViewer extends JFrame {
 
 	public ImageViewer() throws HeadlessException {
 		super();
-	
-		
 		
 		canvas = new PSwingCanvas();
 		imageNode = new PImage();		
@@ -26,20 +24,23 @@ public class ImageViewer extends JFrame {
 		canvas.getLayer().addChild(imageNode);		
 		add(canvas);
 		
-		//double scale = image.getScale();
-//		/updateImage(image);	
-		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
+		setLocation(50,50);
+		//setLocationRelativeTo(null);
 	}
 	
 	
 	public void updateImage(BufferedImage newImage){		
 		currentImage = newImage;
 		imageNode.setImage(newImage);		
-		setSize((int) (scale * currentImage.getWidth()), (int) (scale * currentImage.getHeight()));
-		setLocationRelativeTo(null);
 		canvas.invalidate();
+		
+		setSize((int) (scale * currentImage.getWidth()), (int) (scale * currentImage.getHeight()));
+//		setSize((int) imageNode.getWidth(), (int) imageNode.getHeight());
+//		canvas.setBounds(0,0, (int) imageNode.getWidth(), (int) imageNode.getHeight());
+//		pack();
+		//setLocationRelativeTo(null);		
+		
 	}
 	
 	
