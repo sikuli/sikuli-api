@@ -119,10 +119,8 @@ class PNodeFactory {
 
 abstract public class DrawingCanvas {
 
-	protected final List<Element> elements = 	Lists.newArrayList();;
-
-
-
+	private final List<Element> elements = 	Lists.newArrayList();;
+	
 	public class StyleBuilder {
 
 		final private Element element;
@@ -174,18 +172,22 @@ abstract public class DrawingCanvas {
 	}
 
 	private StyleBuilder addElement(Element element){
-		elements.add(element);
+		getElements().add(element);
 		return new StyleBuilder(element);
 	}
 
 
 	public DrawingCanvas clear() {
-		elements.clear();
+		getElements().clear();
 		return this;
 	}
 
 	
 	abstract public void display(int seconds);
 	abstract public BufferedImage createImage();
+
+	protected List<Element> getElements() {
+		return elements;
+	}
 
 }
