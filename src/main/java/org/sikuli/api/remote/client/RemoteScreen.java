@@ -50,7 +50,7 @@ public class RemoteScreen implements Screen {
 
 		@Override
 		public String getName(){
-			return GET_SIZE;
+			return "/screen/size";
 		}
 
 		@Override
@@ -78,7 +78,7 @@ public class RemoteScreen implements Screen {
 
 		@Override
 		public String getName(){
-			return GET_SCREENSHOT;
+			return "/screen/screenshot";
 		}
 
 		@Override

@@ -5,10 +5,6 @@ import java.awt.image.BufferedImage;
 
 public interface Screen {
 	
-	public String GET_SCREENSHOT = "/screen/screenshot";
-	public String GET_SIZE = "/screen/size";
-	
-	
 	// x, y, width, height should be within the bounds
 	public BufferedImage getScreenshot(int x, int y, int width, int height);
 	

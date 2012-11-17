@@ -160,6 +160,10 @@ abstract public class DrawingCanvas {
 		newElement.height = r.height;			
 		return addElement(newElement);
 	}
+	
+	public StyleBuilder addLabel(ScreenRegion screenRegion, String labelText){
+		return addLabel(screenRegion.getCenter(), labelText);
+	}
 
 	public StyleBuilder addLabel(ScreenLocation screenLocation, String labelText){
 		LabelElement newElement = new LabelElement();

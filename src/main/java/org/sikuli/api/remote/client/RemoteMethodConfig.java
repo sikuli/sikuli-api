@@ -17,6 +17,9 @@ public class RemoteMethodConfig {
 				new RemoteScreen.GetScreenshot(),
 				new RemoteMouse.Click(),
 				new RemoteMouse.DoubleClick(),
-				new RemoteMouse.RightClick());
+				new RemoteMouse.RightClick(),
+				new RemoteKeyboard.Paste(),
+				new RemoteKeyboard.Type()				
+				);
 	}
 }

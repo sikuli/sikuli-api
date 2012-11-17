@@ -1,6 +1,7 @@
 package org.sikuli.api.robot;
 
 public interface Keyboard {
+	
 	public void paste(String text);
 	public void type(String text);
 

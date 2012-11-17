@@ -74,9 +74,7 @@ public class RemoteMouse implements Mouse {
 		protected Void execute(Map<String, ?> allParameters){
 			int x = ((Long) allParameters.get("x")).intValue();
 			int y = ((Long) allParameters.get("y")).intValue();
-
-			Mouse mouse = new DesktopMouse();
-			mouse.rightClick(new DefaultScreenLocation(new DesktopScreen(0), x, y));
+			execute(x,y);			
 			return null;
 		}		
 		

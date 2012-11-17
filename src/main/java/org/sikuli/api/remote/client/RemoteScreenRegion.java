@@ -213,7 +213,13 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 			int y = ((Long) map.get("y")).intValue();			
 			int width = ((Long) map.get("width")).intValue();
 			int height = ((Long) map.get("height")).intValue();
-			double score = ((Double) map.get("score")).doubleValue();
+			double score;
+			if (map.get("score") instanceof Long){
+				 score = ((Long) map.get("score")).intValue();				
+			}else{
+				 score = ((Double) map.get("score")).doubleValue();
+			}
+			
 			ScreenRegion ret = new RemoteScreenRegion(remote);
 			ret.setBounds(new Rectangle(x,y,width,height));		
 			ret.setScore(score);
@@ -228,7 +234,7 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 
 		@Override
 		public String getName(){
-			return FIND_ALL;
+			return "/screen/findAll";
 		}
 
 		@Override
@@ -283,7 +289,7 @@ public class RemoteScreenRegion extends AbstractScreenRegion implements ScreenRe
 
 		@Override
 		public String getName(){
-			return FIND;
+			return "/screen/find";
 		}
 
 		@Override
