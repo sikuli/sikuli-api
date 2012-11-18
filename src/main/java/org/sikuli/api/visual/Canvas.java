@@ -12,6 +12,7 @@ import org.sikuli.api.ScreenRegion;
 import com.google.common.collect.Lists;
 
 import edu.umd.cs.piccolo.PNode;
+import edu.umd.cs.piccolo.nodes.PImage;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolox.nodes.PShadow;
@@ -26,6 +27,7 @@ class Element {
 	public Color lineColor = Color.red;
 	public Color color = Color.black;
 	public int lineWidth = 2;
+	public float fontSize = 12;
 
 	public PNode createPNode(){
 		return new PNode();
@@ -35,10 +37,16 @@ class Element {
 class BoxElement extends Element {
 }
 
+class CircleElement extends Element {
+}
+
 class LabelElement extends Element {
 	public String text;
 }
 
+class ImageElement extends Element {
+	public BufferedImage image;
+}
 
 class PNodeFactory {
 
@@ -48,6 +56,10 @@ class PNodeFactory {
 			return createFrom((LabelElement)element);
 		}else if (clazz == BoxElement.class){
 			return createFrom((BoxElement) element);
+		}else if (clazz == CircleElement.class){
+			return createFrom((CircleElement) element);
+		}else if (clazz == ImageElement.class){
+			return createFrom((ImageElement) element);
 		}	
 		return new PNode();
 	}
@@ -57,6 +69,7 @@ class PNodeFactory {
 		txt.setTextPaint(Color.black);
 		txt.setPaint(Color.yellow);
 		txt.setTextPaint(element.color);
+		txt.setFont(txt.getFont().deriveFont(element.fontSize));
 
 		PNode labelNode = new PNode();
 		labelNode.setPaint(Color.yellow);
@@ -69,6 +82,23 @@ class PNodeFactory {
 		labelNode.setOffset(element.x, element.y);
 		return addShadow(labelNode);
 	}
+	
+	static public PNode createFrom(CircleElement element){
+		PPath p = PPath.createEllipse(1,1,element.width,element.height);
+		p.setStrokePaint(element.lineColor);
+		p.setPaint(null);		
+		p.setStroke(new BasicStroke(element.lineWidth));
+
+		PNode foregroundNode = new PNode();
+		foregroundNode.addChild(p);
+		foregroundNode.setHeight(p.getHeight()+4);
+		foregroundNode.setWidth(p.getWidth()+4);
+		p.setOffset(2,2);
+
+		foregroundNode.setOffset(element.x, element.y);
+
+		return addShadow(foregroundNode);
+	}
 
 	static public PNode createFrom(BoxElement element){
 		PPath p = PPath.createRectangle(1,1,element.width,element.height);
@@ -76,6 +106,20 @@ class PNodeFactory {
 		p.setPaint(null);		
 		p.setStroke(new BasicStroke(element.lineWidth));
 
+
+		PNode foregroundNode = new PNode();
+		foregroundNode.addChild(p);
+		foregroundNode.setHeight(p.getHeight()+4);
+		foregroundNode.setWidth(p.getWidth()+4);
+		p.setOffset(2,2);
+
+		foregroundNode.setOffset(element.x, element.y);
+
+		return addShadow(foregroundNode);
+	}
+	
+	static public PNode createFrom(ImageElement element){
+		PImage p = new PImage(element.image);
 
 		PNode foregroundNode = new PNode();
 		foregroundNode.addChild(p);
@@ -117,7 +161,7 @@ class PNodeFactory {
 }
 
 
-abstract public class DrawingCanvas {
+abstract public class Canvas {
 
 	private final List<Element> elements = 	Lists.newArrayList();;
 	
@@ -137,6 +181,12 @@ abstract public class DrawingCanvas {
 			element.color = color;
 			return this;
 		}
+		
+		public StyleBuilder withFontSize(int size){
+			element.fontSize = size;
+			return this;
+		}
+
 
 		public StyleBuilder withLineWidth(int width){
 			element.lineWidth = width;
@@ -144,9 +194,26 @@ abstract public class DrawingCanvas {
 		}
 		
 		public void display(int seconds){
-			DrawingCanvas.this.display(seconds);
+			Canvas.this.display(seconds);
 		}
 
+	}
+	
+	public StyleBuilder addCircle(ScreenLocation screenLocation){		
+		CircleElement newElement = new CircleElement();		
+		newElement.x = screenLocation.getX() - 10;
+		newElement.y = screenLocation.getY() - 10;
+		newElement.width = 20;
+		newElement.height = 20;			
+		return addElement(newElement);
+	}
+	
+	public StyleBuilder addImage(ScreenLocation screenLocation, BufferedImage image){		
+		ImageElement newElement = new ImageElement();		
+		newElement.x = screenLocation.getX();
+		newElement.y = screenLocation.getY();
+		newElement.image = image;
+		return addElement(newElement);
 	}
 
 	public StyleBuilder addBox(ScreenRegion screenRegion){
@@ -177,7 +244,7 @@ abstract public class DrawingCanvas {
 	}
 
 
-	public DrawingCanvas clear() {
+	public Canvas clear() {
 		getElements().clear();
 		return this;
 	}

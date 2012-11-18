@@ -17,7 +17,7 @@ import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.nodes.PImage;
 import edu.umd.cs.piccolo.util.PBounds;
 
-public class ScreenRegionCanvas extends DrawingCanvas {
+public class ScreenRegionCanvas extends Canvas {
 
 	private ScreenRegion screenRegion;
 
