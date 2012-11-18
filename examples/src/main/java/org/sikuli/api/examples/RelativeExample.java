@@ -11,12 +11,14 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 import org.sikuli.api.visual.ScreenPainter;
 
 public class RelativeExample {
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static Canvas canvas = new DesktopCanvas();
 	
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
@@ -33,17 +35,19 @@ public class RelativeExample {
 		Target imageTarget = new ImageTarget(imageURL);
 		ScreenRegion r = s.find(imageTarget);		
 		
-		painter.box(Relative.to(r).right(100).getScreenRegion(), 3000);
-		painter.label(Relative.to(r).right(100).center().getScreenLocation(), "right", 3000);
+		canvas.addBox(Relative.to(r).right(100).getScreenRegion());
+		canvas.addLabel(Relative.to(r).right(100).center().getScreenLocation(), "right");
 
-		painter.box(Relative.to(r).left(100).getScreenRegion(), 3000);
-		painter.label(Relative.to(r).left(100).center().getScreenLocation(), "left", 3000);
+		canvas.addBox(Relative.to(r).left(100).getScreenRegion());
+		canvas.addLabel(Relative.to(r).left(100).center().getScreenLocation(), "left");
 
-		painter.box(Relative.to(r).above(100).getScreenRegion(), 3000);
-		painter.label(Relative.to(r).above(100).center().getScreenLocation(), "above", 3000);
+		canvas.addBox(Relative.to(r).above(100).getScreenRegion());
+		canvas.addLabel(Relative.to(r).above(100).center().getScreenLocation(), "above");
 
-		painter.box(Relative.to(r).below(100).getScreenRegion(), 3000);
-		painter.label(Relative.to(r).below(100).center().getScreenLocation(), "below", 3000);
+		canvas.addBox(Relative.to(r).below(100).getScreenRegion());
+		canvas.addLabel(Relative.to(r).below(100).center().getScreenLocation(), "below");
+		
+		canvas.display(3);
 
 		mouse.click(Relative.to(r).center().getScreenLocation());
 		mouse.click(Relative.to(r).topLeft().getScreenLocation());

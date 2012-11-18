@@ -38,7 +38,8 @@ public class VisualExample {
 
 		ScreenRegionCanvas canvas = new ScreenRegionCanvas(s);
 		canvas.addBox(thumb);
-		canvas.addLabel(Relative.to(thumb).topLeft().above(20).getScreenLocation(), "thumb");
+		canvas.addLabel(Relative.to(thumb).topLeft().above(20).getScreenLocation(), "ImageTarget:");
+		canvas.addImage(Relative.to(thumb).topLeft().above(25).right(85).getScreenLocation(), ImageIO.read(Images.ThumbIcon));
 		canvas.display(3);
 
 		Target target = new ImageTarget(Images.UncheckedCheckbox);		

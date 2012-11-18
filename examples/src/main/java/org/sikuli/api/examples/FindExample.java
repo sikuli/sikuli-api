@@ -9,15 +9,15 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
-import org.sikuli.api.visual.DesktopDrawingCanvas;
-import org.sikuli.api.visual.DrawingCanvas;
+import org.sikuli.api.visual.DesktopCanvas;
+import org.sikuli.api.visual.Canvas;
 import org.sikuli.api.visual.ScreenPainter;
 
 public class FindExample {
 	
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static DrawingCanvas canvas = new DesktopDrawingCanvas();
+	static Canvas canvas = new DesktopCanvas();
 	
 	// Create a screen simulator running in the background
 	// that will show the image of Google's search page and
