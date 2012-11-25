@@ -26,6 +26,10 @@ public class ScreenRegionCanvas extends Canvas {
 	}
 
 	public void display(int seconds){
+		display((double)seconds);
+	}
+	
+	public void display(double seconds){
 
 		List<ScreenDisplayable> displayableList = Lists.newArrayList();
 		for (Element element : getElements()){
@@ -37,7 +41,7 @@ public class ScreenRegionCanvas extends Canvas {
 		}
 
 		try {
-			Thread.sleep(seconds*1000);
+			Thread.sleep((long)seconds*1000);
 		} catch (InterruptedException e) {
 		}
 
@@ -78,7 +82,6 @@ public class ScreenRegionCanvas extends Canvas {
 
 		PLayer layer = canvas.getLayer();
 		Rectangle r = getScreenRegion().getBounds();
-		System.out.println(getScreenRegion());
 		PLayer foregroundLayer = new PLayer();		
 		layer.addChild(foregroundLayer);		
 		foregroundLayer.setGlobalTranslation(new Point(-r.x,-r.y));

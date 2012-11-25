@@ -251,6 +251,7 @@ abstract public class Canvas {
 
 	
 	abstract public void display(int seconds);
+	abstract public void display(double seconds);
 	abstract public BufferedImage createImage();
 
 	protected List<Element> getElements() {
