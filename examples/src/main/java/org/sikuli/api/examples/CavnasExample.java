@@ -16,7 +16,7 @@ import org.sikuli.api.Target;
 import org.sikuli.api.visual.ImageViewer;
 import org.sikuli.api.visual.ScreenRegionCanvas;
 
-public class VisualExample {
+public class CavnasExample {
 
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
