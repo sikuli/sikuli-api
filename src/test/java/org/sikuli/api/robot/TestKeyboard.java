@@ -21,10 +21,9 @@ public class TestKeyboard {
 			public void run() {
 				cs.setVisible(true);
 			}});
-		// Dodgy attempt to make sure that the JFame is completely up before we attempt any test
-		while (!cs.isFocused())
-			Thread.sleep(500);
-		Thread.sleep(500);
+		// make sure that the JFame is completely up before we attempt any test
+		while (!cs.isReady())
+			Thread.sleep(100);
 		kb = new DesktopKeyboard();
 	}
 	

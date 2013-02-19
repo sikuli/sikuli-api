@@ -7,6 +7,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Simple JFrame so that we have something to copy text from in the test
@@ -21,7 +25,20 @@ public class CopySource extends JFrame {
 	private JTextField textField2;
 	private JLabel lblField_2;
 	private JTextField textField3;
+	private FocusListener focusSelector = new FocusAdapter() {
+		@Override
+		public void focusGained(FocusEvent event) {
+			JTextField target = (JTextField) event.getComponent();
+			target.selectAll();
+			isReady.set(true);
+		}
+	};
+	private final AtomicBoolean isReady = new AtomicBoolean(false);
 
+	public boolean isReady() {
+		return isReady.get();
+	}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -38,6 +55,7 @@ public class CopySource extends JFrame {
 		}
 		{
 			textField1 = new JTextField();
+			textField1.addFocusListener(focusSelector);
 			textField1.setText("hello");
 			contentPane.add(textField1);
 			textField1.setColumns(10);
@@ -48,6 +66,7 @@ public class CopySource extends JFrame {
 		}
 		{
 			textField2 = new JTextField();
+			textField2.addFocusListener(focusSelector);
 			textField2.setText("world");
 			contentPane.add(textField2);
 			textField2.setColumns(10);
@@ -58,6 +77,7 @@ public class CopySource extends JFrame {
 		}
 		{
 			textField3 = new JTextField();
+			textField3.addFocusListener(focusSelector);
 			textField3.setText("test ü");
 			contentPane.add(textField3);
 			textField3.setColumns(10);
