@@ -31,6 +31,60 @@ class Clipboard {
 
    private Clipboard() {
    }
+   
+   /**
+    * Empty the current clipboard so that future attempts to fetch text will fail.
+    */
+   public static void clear() {
+	   // from http://www.jroller.com/alexRuiz/entry/clearing_the_system_clipboard
+	   getSystemClipboard().setContents(new Transferable() {
+	        public DataFlavor[] getTransferDataFlavors() {
+	            return new DataFlavor[0];
+	          }
+
+	          public boolean isDataFlavorSupported(DataFlavor flavor) {
+	            return false;
+	          }
+
+	          public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException {
+	            throw new UnsupportedFlavorException(flavor);
+	          }
+	        }, null);
+   }
+   
+   /**
+    * Get the contents of the clipboard as a String.
+    * If they cannot be converted to a String or some other problem prevents the operation, return <code>null</code>
+    * @return the clipboard contents as a String, or <code>null</code>
+    */
+   public static String getText() {
+	   Transferable clipboardContents = getSystemClipboard().getContents(Clipboard.class);
+	   DataFlavor[] flavors = clipboardContents.getTransferDataFlavors();
+	   DataFlavor textFlavor = DataFlavor.selectBestTextFlavor(flavors);
+	   Reader clipboardReader = null;
+	   try {
+		   clipboardReader = textFlavor.getReaderForText(clipboardContents);
+
+		   // This block could be replaced with apache-commons-io's IOUtils
+		   StringBuffer sb = new StringBuffer();
+		   char[] cbuf = new char[4096];
+		   int rcount = clipboardReader.read(cbuf);
+		   while (rcount != -1) {
+			   sb.append(cbuf, 0, rcount);
+			   rcount = clipboardReader.read(cbuf);
+		   }
+		   return sb.toString();
+	   } catch (UnsupportedFlavorException e) {
+		   return null;  // got the clipboard, but it couldn't be made into text
+	   } catch (IOException e) {
+		   return null;  // misc error
+	   } finally {
+		   if (clipboardReader != null)
+			   try {
+				   clipboardReader.close();
+			   } catch (IOException e) {}
+	   }
+   }
 
    /**
     * Dumps a given text (either String or StringBuffer) into the Clipboard, with a default MIME type
@@ -142,5 +196,4 @@ class Clipboard {
          return dataClass.getName();
       }
    }
-
 }
