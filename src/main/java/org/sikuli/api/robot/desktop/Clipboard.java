@@ -60,7 +60,11 @@ class Clipboard {
    public static String getText() {
 	   Transferable clipboardContents = getSystemClipboard().getContents(Clipboard.class);
 	   DataFlavor[] flavors = clipboardContents.getTransferDataFlavors();
+	   if (flavors.length == 0)
+		   return null;
 	   DataFlavor textFlavor = DataFlavor.selectBestTextFlavor(flavors);
+	   if (textFlavor == null)
+		   return null;
 	   Reader clipboardReader = null;
 	   try {
 		   clipboardReader = textFlavor.getReaderForText(clipboardContents);
