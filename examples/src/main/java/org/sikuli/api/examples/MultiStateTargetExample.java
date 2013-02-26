@@ -12,13 +12,15 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 import org.sikuli.api.visual.ScreenPainter;
 
 public class MultiStateTargetExample {
 
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static Canvas canvas = new DesktopCanvas();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
@@ -51,8 +53,9 @@ public class MultiStateTargetExample {
 			// get the state of each checkbox
 			String state = (String) c.getState();
 			// display the state next to each checkbox to visualize
-			ScreenLocation labelLocation = Relative.to(c).topLeft().left(70).getScreenLocation();
-			painter.label(labelLocation, state, 3000);
+			ScreenLocation labelLocation = Relative.to(c).topLeft().left(70).below(10).getScreenLocation();
+			canvas.addLabel(labelLocation, state);
 		}
+		canvas.display(3);
 	}
 }
