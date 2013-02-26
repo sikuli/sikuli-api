@@ -36,7 +36,7 @@ public class ScreenRegionRecordExample {
 		Rectangle b = simulator.getBounds(); 
 		DesktopScreenRegion s = new DesktopScreenRegion(b.x,b.y,b.width,b.height);	
 		painter.box(s, 50000);
-		s.record(new File("ScreenRegionRecordExampleVideo.mov"), 5000);
+		//s.record(new File("ScreenRegionRecordExampleVideo.mov"), 5000);
 		
 	}
 }
