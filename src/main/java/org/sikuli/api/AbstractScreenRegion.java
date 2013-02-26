@@ -20,6 +20,15 @@ abstract public class AbstractScreenRegion implements ScreenRegion {
 		setHeight(screen.getSize().height);
 		setScreen(screen);
 	}
+	
+	public AbstractScreenRegion(Screen screen, int x, int y, int width, int height) {
+		setX(x);
+		setY(y);
+		setWidth(width);
+		setHeight(height);
+		setScreen(screen);
+	}
+
 
 	
 	@Override

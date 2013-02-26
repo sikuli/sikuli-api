@@ -15,9 +15,8 @@ class AWTMouse {
 	}
 	
 	private void _moveTo(ScreenLocation screenLoc){				
-		Point o = robot.getOrigin();
-		// TODO: figure out why the offset is applied negatively 
-		robot.smoothMove(new Point(-o.x+screenLoc.getX(), -o.y+screenLoc.getY()));
+		// fix suggested by Oliver Fladda <zwergmatrix@me.com>
+		robot.smoothMove(new Point(screenLoc.getX(), screenLoc.getY()));
 		robot.waitForIdle();
 	}
 	
@@ -41,7 +40,6 @@ class AWTMouse {
 	}
 		
 	public void drop(ScreenLocation screenLoc) {
-//        APILogger.getLogger().dropPerformed(screenLoc);
 		_moveTo(screenLoc);
 		int delay = 1;
         robot.delay((int)(delay*1000));
@@ -50,21 +48,22 @@ class AWTMouse {
 	}
 	
 	public void rightClick(ScreenLocation screenLoc) {		
-		APILogger.getLogger().rightClickPerformed(screenLoc);
 		_moveTo(screenLoc);
 		_click(InputEvent.BUTTON3_MASK, 0, false);
 	}
 	
 	public void doubleClick(ScreenLocation screenLoc) {		
-		APILogger.getLogger().doubleClickPerformed(screenLoc);
 		_moveTo(screenLoc);
 		_click(InputEvent.BUTTON1_MASK, 0, true);
 	}
 	
 	public void click(ScreenLocation screenLoc) {		
-		APILogger.getLogger().clickPerformed(screenLoc);
 		_moveTo(screenLoc);
 		_click(InputEvent.BUTTON1_MASK, 0, false);		
+	}
+	
+	public void hover(ScreenLocation screenLoc){
+		_moveTo(screenLoc);
 	}
 	
 	public void wheel(int direction, int steps){
@@ -73,6 +72,7 @@ class AWTMouse {
 			robot.delay(50);
 		}
 	}
+	
 
 	public void mouseDown(int buttons) {
 		_hold_buttons = buttons;

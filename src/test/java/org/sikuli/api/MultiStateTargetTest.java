@@ -19,9 +19,8 @@ public class MultiStateTargetTest extends BaseTest {
 	public void setUp() throws IOException{
 		Target enabled = new ImageTarget(getClass().getResource("ApplyButtonEnabled.png"));
 		Target disabled = new ImageTarget(getClass().getResource("ApplyButtonDisabled.png"));
-		//		
 
-		applyButtonTarget = new MultiStateTarget();//checkedCheckbox, unchckedCheckbox);
+		applyButtonTarget = new MultiStateTarget();
 		applyButtonTarget.addState(enabled, "enabled");
 		applyButtonTarget.addState(disabled, "disabled");
 		

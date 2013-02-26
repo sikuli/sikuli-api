@@ -26,7 +26,7 @@ import edu.umd.cs.piccolo.nodes.PImage;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolox.nodes.PShadow;
-
+@Deprecated
 public class APILogger {
 
 	//apiLogger = 

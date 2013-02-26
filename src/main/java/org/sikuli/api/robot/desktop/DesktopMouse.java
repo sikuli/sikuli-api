@@ -1,5 +1,7 @@
 package org.sikuli.api.robot.desktop;
 
+import java.awt.event.InputEvent;
+
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.robot.Mouse;
 
@@ -11,6 +13,10 @@ public class DesktopMouse implements Mouse {
 	
 	private AWTMouse getCurrentAWTMouse(){
 		 return AWTDesktop.getCurrentMouse();
+	}
+	
+	public void hover(ScreenLocation screenLoc){
+		getAWTMouse(screenLoc).hover(screenLoc);
 	}
 	
 	public void drag(ScreenLocation screenLoc) {
@@ -32,6 +38,23 @@ public class DesktopMouse implements Mouse {
 	public void click(ScreenLocation screenLoc) {		
 		getAWTMouse(screenLoc).click(screenLoc);
 	}
+	
+	public void press(){
+		getCurrentAWTMouse().mouseDown(InputEvent.BUTTON1_MASK);
+	}
+	
+	public void rightPress(){
+		getCurrentAWTMouse().mouseDown(InputEvent.BUTTON3_MASK);
+	}
+	
+	public void release(){
+		getCurrentAWTMouse().mouseUp(InputEvent.BUTTON1_MASK);
+	}
+	
+	public void rightRelease(){
+		getCurrentAWTMouse().mouseUp(InputEvent.BUTTON3_MASK);
+	}
+
 	
 	public void wheel(int direction, int steps){
 		getCurrentAWTMouse().wheel(direction, steps);

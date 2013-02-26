@@ -27,14 +27,17 @@ public class ColorImageTarget extends ImageTarget {
 		super(targetImage);
 	}	
 	
+	public ColorImageTarget(File file) {
+		super(file);
+	}
+
 	@Override
 	protected double getDefaultMinScore(){		
-		return 0.9;
+		return 0.9;	
 	}
 	
 	@Override
-	protected List<ScreenRegion> getUnordredMatches(
-			ScreenRegion screenRegion){
+	protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion){
 		ImageSearcher searcher = new ImageSearcher(screenRegion.capture());
 		ImageQuery query = new ColorImageQuery(targetImage);
 		ScoreFilter<RegionMatch> filter = new ScoreFilter<RegionMatch>(getMinScore());

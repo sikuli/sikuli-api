@@ -46,11 +46,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	}
 	
 	public DefaultScreenRegion(Screen screen, int x, int y, int width, int height) {
-		super(screen);
-		setX(x);
-		setY(y);
-		setWidth(width);
-		setHeight(height);
+		super(screen, x, y, width, height);
 	}
 
 	@Override
@@ -62,7 +58,6 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	@Override
 	public ScreenRegion find(Target target){
 		ScreenRegion result = _find(target);		
-		APILogger.getLogger().findPerformed(this, target, result);
 		return result;
 	}	
 
@@ -83,9 +78,11 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	}
 
 
+	static private int POLL_INTERVAL = 500;
+	
 	class RepeatFind{
 
-		private volatile boolean timeout = false;	
+		private volatile boolean timeout = false;		
 
 		private Target target;
 		private int duration;
@@ -105,19 +102,24 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 				}				
 			});
 			t.start();
+			t.setRepeats(false);
 
 			while (r == null && !timeout){
-				r = _find(target);	            
+				r = _find(target);				
+				try {
+					Thread.sleep(POLL_INTERVAL);
+				} catch (InterruptedException e1) {
+				}
 			}
+			t.stop();
 			return r;
 		}
-	}
+	}	
 
 	@Override
 	public ScreenRegion wait(final Target target, int mills){
 		RepeatFind ru = new RepeatFind(target, mills);
 		ScreenRegion result = ru.run();
-		APILogger.getLogger().waitPerformed(this, target, mills, result);
 		return result;
 	}
 	
