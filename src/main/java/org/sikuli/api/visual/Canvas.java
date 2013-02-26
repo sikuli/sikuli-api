@@ -2,9 +2,14 @@ package org.sikuli.api.visual;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
@@ -194,6 +199,10 @@ abstract public class Canvas {
 		}
 		
 		public void display(int seconds){
+			Canvas.this.display(seconds);
+		}
+
+		public void display(double seconds){
 			Canvas.this.display(seconds);
 		}
 

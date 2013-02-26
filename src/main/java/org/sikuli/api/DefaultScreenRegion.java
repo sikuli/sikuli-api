@@ -6,7 +6,6 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -198,21 +197,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 		ScreenRegion r = new DefaultScreenRegion(new StaticScreen(this), getX(), getY(), getWidth(), getHeight());
 		return r;
 	}
-
-
-	/**
-	 * Records a video within this screen region for a certain duration (in milliseconds). 
-	 * The video is written to a given output file. This method is non-blocking.
-	 * Only one recording can take place for the same ScreenRegion object. 
-	 * 
-	 * @param output	the file to write the movie to	(must carries a .mov extension)
-	 * @param duration	the duration to record (in milliseconds)
-	 */
-	public void record(File output, int duration) {		
-		ScreenRegionRecorder recorder = new ScreenRegionRecorder(this,output);
-		recorder.start(duration);
-	}
-
+	
 	@Override
 	public void addStateChangeEventListener(StateChangeListener listener) {
 		VisualEventManager.getSingleton().addStateChangeEventListener(this, listener);		
