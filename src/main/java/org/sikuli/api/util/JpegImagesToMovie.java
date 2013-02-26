@@ -1,4 +1,4 @@
-package org.sikuli.api;
+package org.sikuli.api.util;
 /*
  * @(#)JpegImagesToMovie.java	1.3 01/03/13
  *

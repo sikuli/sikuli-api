@@ -1,4 +1,4 @@
-package org.sikuli.api;
+package org.sikuli.api.util;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.media.MediaLocator;
 import javax.swing.Timer;
 
+import org.sikuli.api.ScreenRegion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
