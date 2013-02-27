@@ -8,6 +8,7 @@ import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.audio.DesktopSpeaker;
 import org.sikuli.api.audio.Speaker;
+import org.sikuli.api.audio.SpeakerPlayable;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
@@ -44,9 +45,7 @@ public class SpeakerExample {
 		mouse.click(r.getCenter());		
 		
 		canvas.clear().addBox(r);
-		canvas.show();
-		speaker.play(clickhere);
-		canvas.hide();
+		canvas.displayWhile(new SpeakerPlayable(clickhere));
 
 		imageURL = Images.GoogleMicrophoneIcon;                
 		imageTarget = new ImageTarget(imageURL);    			
@@ -54,9 +53,7 @@ public class SpeakerExample {
 		mouse.rightClick(r.getCenter());
 
 		canvas.clear().addBox(r);
-		canvas.show();
-		speaker.play(clickhere);
-		canvas.hide();
+		canvas.displayWhile(new SpeakerPlayable(clickhere));
 
 		imageURL = Images.GoogleSearchFeelingLuckyButton;                
 		imageTarget = new ImageTarget(imageURL);    			
@@ -64,9 +61,6 @@ public class SpeakerExample {
 		mouse.doubleClick(r.getCenter());
 
 		canvas.clear().addBox(r);
-		canvas.show();
-		speaker.play(clickhere);
-		canvas.hide();
-
+		canvas.displayWhile(new SpeakerPlayable(clickhere));
 	}
 }
