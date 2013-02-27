@@ -10,7 +10,7 @@ import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.visual.Canvas;
 import org.sikuli.api.visual.DesktopCanvas;
 
-public class DesktopMouseExample {
+public class MouseExample {
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
 	static Canvas canvas = new DesktopCanvas();
