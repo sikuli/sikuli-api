@@ -38,8 +38,14 @@ public class ScreenRegionCanvas extends Canvas {
 		hide();
 	}
 	
+	public void displayWhile(Runnable runnable){
+		show();
+		runnable.run();
+		hide();
+	}
+	
 	List<ScreenDisplayable> displayableList = Lists.newArrayList();	
-	public void show(){
+	private void show(){
 		for (Element element : getElements()){
 			displayableList.add(createScreenDisplayable(element));
 		}
@@ -49,7 +55,7 @@ public class ScreenRegionCanvas extends Canvas {
 		}
 	}
 	
-	public void hide(){
+	private void hide(){
 		for (ScreenDisplayable d : displayableList){
 			d.hideFromScreen();
 		}
