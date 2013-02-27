@@ -28,10 +28,18 @@ public class ScreenRegionCanvas extends Canvas {
 	public void display(int seconds){
 		display((double)seconds);
 	}
-	
-	public void display(double seconds){
 
-		List<ScreenDisplayable> displayableList = Lists.newArrayList();
+	public void display(double seconds){
+		show();
+		try {
+			Thread.sleep((long)seconds*1000);
+		} catch (InterruptedException e) {
+		}
+		hide();
+	}
+	
+	List<ScreenDisplayable> displayableList = Lists.newArrayList();	
+	public void show(){
 		for (Element element : getElements()){
 			displayableList.add(createScreenDisplayable(element));
 		}
@@ -39,18 +47,14 @@ public class ScreenRegionCanvas extends Canvas {
 		for (ScreenDisplayable d : displayableList){
 			d.displayOnScreen();
 		}
-
-		try {
-			Thread.sleep((long)seconds*1000);
-		} catch (InterruptedException e) {
-		}
-
+	}
+	
+	public void hide(){
 		for (ScreenDisplayable d : displayableList){
 			d.hideFromScreen();
 		}
-
+		displayableList.clear();
 	}
-
 
 
 	protected ScreenDisplayable createScreenDisplayable(Element element) {
