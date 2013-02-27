@@ -14,19 +14,15 @@ import java.util.Map;
 import org.sikuli.core.draw.ImageRenderer;
 import org.sikuli.core.draw.PiccoloImageRenderer;
 import org.sikuli.core.logging.ImageExplainer;
-import org.sikuli.core.search.ImageQuery;
 import org.sikuli.core.search.ImageSearcher;
-import org.sikuli.core.search.Query;
 import org.sikuli.core.search.RegionMatch;
-import org.sikuli.core.search.ScoredItem;
-import org.sikuli.core.search.TopMatches;
+import org.sikuli.core.search.algorithm.TemplateMatcher;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.nodes.PPath;
-import edu.umd.cs.piccolo.nodes.PText;
 
 public class VisualModelFinder {
 	
@@ -133,17 +129,21 @@ public class VisualModelFinder {
 		
 		ImageSearcher search = new ImageSearcher(testImage);	
 		
-		Query q = new ImageQuery(model.getTopLeft().getImage());
-		final List<RegionMatch> tms1 = search.search(q, null, 40);
+		
+		double minSimilarity = 0.7;
+		int numMatches = 40;
+		
+		final List<RegionMatch> tms1 = 
+				TemplateMatcher.findMatchesByGrayscaleAtOriginalResolution(testImage, model.getTopLeft().getImage(), numMatches, minSimilarity);
 
-		q = new ImageQuery(model.getBottomRight().getImage());
-		final List<RegionMatch> tms3 = search.search(q, null, 40);
+		final List<RegionMatch> tms3 = 
+				TemplateMatcher.findMatchesByGrayscaleAtOriginalResolution(testImage, model.getBottomRight().getImage(), numMatches, minSimilarity);
 
-		q = new ImageQuery(model.getTopRight().getImage());
-		final List<RegionMatch> tms2 = search.search(q, null, 40);
+		final List<RegionMatch> tms2 = 
+				TemplateMatcher.findMatchesByGrayscaleAtOriginalResolution(testImage, model.getTopRight().getImage(), numMatches, minSimilarity);
 
-		q = new ImageQuery(model.getBottomLeft().getImage());
-		final List<RegionMatch> tms4 = search.search(q, null, 40);
+		final List<RegionMatch> tms4 = 
+				TemplateMatcher.findMatchesByGrayscaleAtOriginalResolution(testImage, model.getBottomLeft().getImage(), numMatches, minSimilarity);
 		
 		ImageRenderer matchedPartsRenderer = new PiccoloImageRenderer(testImage){
 			@Override

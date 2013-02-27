@@ -1,6 +1,7 @@
 package org.sikuli.api;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.net.URL;
 import java.util.List;
 
@@ -10,6 +11,10 @@ public class StyledRectangleTarget extends ImageTarget {
 	
 	public StyledRectangleTarget(URL url) {
 		super(url);
+	}
+
+	public StyledRectangleTarget(File file) {
+		super(file);
 	}
 	
 	public StyledRectangleTarget(BufferedImage image) {
