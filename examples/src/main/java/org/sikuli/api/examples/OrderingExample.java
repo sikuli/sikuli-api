@@ -2,8 +2,8 @@ package org.sikuli.api.examples;
 import java.awt.Rectangle;
 import java.util.List;
 
-import org.sikuli.api.ImageTarget;
 import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.ImageTarget;
 import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.StyledRectangleTarget;
@@ -12,20 +12,19 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
-import org.sikuli.api.visual.ScreenPainter;
-
-import static org.sikuli.api.API.*;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 
 public class OrderingExample {
 
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static Canvas canvas = new DesktopCanvas();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.OSXSharingPreferences);
-			wait(20000);
+			wait(12000);
 			close();
 		}
 	};
@@ -49,15 +48,14 @@ public class OrderingExample {
 		
 		rs = s.findAll(target);
 		
-		painter.label(s, "Unchecked checkboxes found in bottom-up ordering", 3000);
+		canvas.addLabel(Relative.to(s).topLeft().getScreenLocation(), "Unchecked checkboxes found in bottom-up ordering");
 		for (int i=0; i < rs.size(); ++i){
 			ScreenRegion r = rs.get(i);
-			painter.box(r, 3000);			
-			painter.label(Relative.to(r).topLeft().left(20).getScreenLocation(), ""+(i+1), 3000);
+			canvas.addBox(r);
+			canvas.addLabel(Relative.to(r).topLeft().left(20).getScreenLocation(), ""+(i+1));
 		}
-		
-		pause(5000);
-		
+		canvas.display(5);
+				
 		// find all styled rectangles (e.g., buttons) ordered from left to right
 	
 		target = new StyledRectangleTarget(Images.ButtonOptions);
@@ -65,12 +63,13 @@ public class OrderingExample {
 		
 		rs = s.findAll(target);
 		
-		painter.label(s, "Rectangles found in left-right ordering", 3000);
+		canvas.clear().addLabel(Relative.to(s).topLeft().getScreenLocation(), "Rectangles found in left-right ordering");
 		for (int i=0; i < rs.size(); ++i){
 			ScreenRegion r = rs.get(i);
-			painter.box(r,3000);
-			painter.label(Relative.to(r).topLeft().left(20).getScreenLocation(), ""+(i+1), 3000);
+			canvas.addBox(r);
+			canvas.addLabel(Relative.to(r).topLeft().left(20).getScreenLocation(), ""+(i+1));
 		}
+		canvas.display(5);
 
 	}
 }
