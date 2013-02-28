@@ -29,7 +29,7 @@ public class EnterTextExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showComponent(new TextFieldPanel());
-			wait(6000);
+			wait(6);
 			close();
 		}
 	};

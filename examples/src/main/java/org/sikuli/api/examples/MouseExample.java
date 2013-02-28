@@ -32,7 +32,7 @@ public class MouseExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showComponent(new TwoImageButtons());
-			wait(10000);
+			wait(10);
 			close();
 		}
 	};	

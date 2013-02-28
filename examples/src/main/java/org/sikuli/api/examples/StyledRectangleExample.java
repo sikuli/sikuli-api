@@ -35,7 +35,7 @@ public class StyledRectangleExample {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-			wait(10000);
+			wait(10);
 			close();
 		}
 	};

@@ -24,7 +24,7 @@ public class MultiStateTargetExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.OSXDockPreferences);
-			wait(5000);
+			wait(5);
 			close();
 		}
 	};

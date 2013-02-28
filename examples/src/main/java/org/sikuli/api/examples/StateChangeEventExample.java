@@ -22,15 +22,15 @@ public class StateChangeEventExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.SceneEmpty);
-			wait(3000);
+			wait(3);
 			showImage(Images.SceneCat1);
-			wait(3000);
+			wait(3);
 			showImage(Images.SceneDog);
-			wait(3000);
+			wait(3);
 			showImage(Images.SceneCat1);
-			wait(3000);
+			wait(3);
 			showImage(Images.SceneEmpty);
-			wait(3000);
+			wait(3);
 			close();
 		}
 	};

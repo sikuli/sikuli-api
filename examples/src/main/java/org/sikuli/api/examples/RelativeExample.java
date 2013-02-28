@@ -22,7 +22,7 @@ public class RelativeExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.GoogleSearchPage);
-			wait(20000);
+			wait(20);
 			close();
 		}
 	};

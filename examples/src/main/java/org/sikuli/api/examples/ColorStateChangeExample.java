@@ -25,15 +25,15 @@ public class ColorStateChangeExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.PersonStatusGreen);
-			wait(5000);
+			wait(5);
 			showImage(Images.PersonStatusRed);
-			wait(3000);
+			wait(3);
 			showImage(Images.PersonStatusSilver);
-			wait(3000);
+			wait(3);
 			showImage(Images.PersonStatusRed);
-			wait(3000);        				
+			wait(3);        				
 			showImage(Images.PersonStatusGreen);
-			wait(3000);
+			wait(3);
 			close();
 		}
 	};

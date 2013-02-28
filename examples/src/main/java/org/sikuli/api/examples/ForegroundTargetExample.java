@@ -23,7 +23,7 @@ public class ForegroundTargetExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.SceneDogCat2);			
-			wait(8000);
+			wait(8);
 			close();
 		}
 	};

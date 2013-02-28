@@ -26,7 +26,7 @@ public class TextTargetExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.SkypeCallsPreferences);
-			wait(15000);
+			wait(15);
 			close();
 		}
 	};

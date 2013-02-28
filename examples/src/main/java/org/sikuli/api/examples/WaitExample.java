@@ -20,7 +20,7 @@ public class WaitExample {
 			showImage(Images.OSXSystemPreferences);
 			waitForClick();
 			showImage(Images.OSXDockPreferences);
-			wait(10000);
+			wait(10);
 			close();
 		}
 	};

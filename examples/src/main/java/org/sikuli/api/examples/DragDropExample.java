@@ -116,6 +116,7 @@ public class DragDropExample {
 	}
 
 
+	// TODO: this is not working yet
 	public static void main(String[] args) throws IOException, InterruptedException {
 		URL backgroundImage = Images.GoogleSearchPage;
 		URL dragTargetImage = Images.OSXDockIcon;

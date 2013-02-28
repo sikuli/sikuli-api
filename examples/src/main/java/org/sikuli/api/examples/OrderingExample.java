@@ -24,7 +24,7 @@ public class OrderingExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.OSXSharingPreferences);
-			wait(12000);
+			wait(12);
 			close();
 		}
 	};

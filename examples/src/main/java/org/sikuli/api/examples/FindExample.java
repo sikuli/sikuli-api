@@ -24,7 +24,7 @@ public class FindExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.GoogleSearchPage);
-			wait(8000);
+			wait(8);
 			close();
 		}
 	};
