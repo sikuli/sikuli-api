@@ -13,13 +13,14 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
-import org.sikuli.api.visual.ScreenPainter;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 
 public class ColorStateChangeExample {
 	
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static Canvas canvas = new DesktopCanvas();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
@@ -44,7 +45,7 @@ public class ColorStateChangeExample {
 		Rectangle b = simulator.getBounds();
 		
 		ScreenRegion s = new DesktopScreenRegion(b.x, b.y, b.width, b.height);
-		painter.box(s, 2000);                
+		canvas.addBox(s).display(2);                
 
 		StateChangeListener l = new StateChangeListener(){       				
 
@@ -57,15 +58,15 @@ public class ColorStateChangeExample {
 				
 				String txt = event.getOldState() + "->" + event.getNewState();
 				ScreenLocation labelLocation = Relative.to(event.getScreenRegion()).topLeft().above(20).getScreenLocation();
-				painter.label(labelLocation,txt, 1000);
+				canvas.clear().addLabel(labelLocation,txt).display(1);
 			}					
 		};
 
-		ScreenRegion personIcon = s.wait(new ImageTarget(Images.PersonIcon),1000);
-		painter.box(personIcon, 1000);
-
+		ScreenRegion personIcon = s.wait(new ImageTarget(Images.PersonIcon),1000);		
+		canvas.clear().addBox(personIcon).display(1);
+		
 		ScreenRegion statusIcon = Relative.to(personIcon).right(30).getScreenRegion();
-		painter.box(statusIcon, 1000);
+		canvas.clear().addBox(personIcon).display(1);		
 
 		statusIcon.addState(new ColorImageTarget(Images.GreenBullet), "GREEN");
 		statusIcon.addState(new ColorImageTarget(Images.RedBullet), "RED");
