@@ -4,26 +4,28 @@ import java.util.List;
 
 import org.sikuli.api.ColorImageTarget;
 import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
-import org.sikuli.api.visual.ScreenPainter;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 
 public class ColorImageTargetExample {
 
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static Canvas canvas = new DesktopCanvas();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.ColorStars);
-			wait(5000);
+			pause();
 			showImage(Images.ColorBullets);
-			wait(5000);
+			pause();
 			close();
 		}
 	};
@@ -35,7 +37,7 @@ public class ColorImageTargetExample {
 		Rectangle b = simulator.getBounds();
 		
 		final DesktopScreenRegion s = new DesktopScreenRegion(b.x, b.y, b.width, b.height);
-		painter.box(s, 10000);
+
 
 		// Finding color stars
 
@@ -48,34 +50,42 @@ public class ColorImageTargetExample {
 		List<ScreenRegion> redTargetRegions = s.findAll(redTarget);
 		
 		for (ScreenRegion r : blueTargetRegions){
-			painter.box(r, 3000);
-			painter.label(r, "blue", 3000);
+			canvas.addBox(r);
+			canvas.addLabel(r, "blue");			
 		}
 
 		for (ScreenRegion r : redTargetRegions){
-			painter.box(r, 3000);
-			painter.label(r, "red", 3000);
+			canvas.addBox(r);
+			canvas.addLabel(r, "red");			
 		}
 
 		for (ScreenRegion r : greenTargetRegions){
-			painter.box(r, 3000);
-			painter.label(r, "green", 3000);
+			canvas.addBox(r);
+			canvas.addLabel(r, "green");			
 		}
-
-
+		canvas.display(3);
+		
+		simulator.resume();
+		
+		canvas.clear();
+		
 		// Finding color bullets
 		ScreenRegion greenBullet = s.wait(new ColorImageTarget(Images.GreenBullet),10000);
 		ScreenRegion redBullet = s.find(new ColorImageTarget(Images.RedBullet));
 		ScreenRegion silverBullet = s.find(new ColorImageTarget(Images.SilverBullet));
 		
-		painter.box(greenBullet, 3000);
-		painter.label(greenBullet, "g", 3000);
+		canvas.addBox(greenBullet);		
+		canvas.addLabel(Relative.to(greenBullet).topLeft().above(20).getScreenLocation(), "green");
 		
-		painter.box(redBullet, 3000);
-		painter.label(redBullet, "r", 3000);
+		canvas.addBox(redBullet);
+		canvas.addLabel(Relative.to(redBullet).topLeft().above(20).getScreenLocation(), "red");
 		
-		painter.box(silverBullet, 3000);
-		painter.label(silverBullet, "s", 3000);
+		canvas.addBox(silverBullet);
+		canvas.addLabel(Relative.to(silverBullet).topLeft().above(20).getScreenLocation(), "silver");
+		
+		canvas.display(3);
+		
+		simulator.resume();
 
 	}
 }

@@ -10,13 +10,14 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
-import org.sikuli.api.visual.ScreenPainter;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 
 public class TargetEventExample {
-	
+
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static Canvas canvas = new DesktopCanvas();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
@@ -35,7 +36,7 @@ public class TargetEventExample {
 			close();
 		}
 	};
-	
+
 	public static void main(String[] args) {
 
 		simulator.start();       			
@@ -49,23 +50,26 @@ public class TargetEventExample {
 			public void targetAppeared(TargetEvent event) {
 				System.out.println(event.getTarget() + " has appeared within " + event.getScreenRegion() + 
 						" at " + Relative.to(event.getTargetRegion()).topLeft().getScreenLocation());	
-				painter.box(event.getTargetRegion(), 1000);
-				painter.label(event.getTargetRegion(), "appeared", 1000);
+				canvas.clear().addBox(event.getTargetRegion());
+				canvas.addLabel(event.getTargetRegion(),"appeared");
+				canvas.display(1);
 			}
 
 			@Override
 			public void targetVanished(TargetEvent event) {
 				System.out.println(event.getTarget() + " has vanished from " + event.getScreenRegion());
-				painter.box(event.getTargetRegion(), 1000);
-				painter.label(event.getTargetRegion(), "vanished", 1000);
+				canvas.clear().addBox(event.getTargetRegion());
+				canvas.addLabel(event.getTargetRegion(),"vanished");
+				canvas.display(1);
 			}
 
 			@Override
 			public void targetMoved(TargetEvent event) {
 				System.out.println(event.getTarget() + " has moved to " + 
 						Relative.to(event.getTargetRegion()).topLeft().getScreenLocation());
-				painter.box(event.getTargetRegion(), 1000);
-				painter.label(event.getTargetRegion(), "moved", 1000);
+				canvas.clear().addBox(event.getTargetRegion());
+				canvas.addLabel(event.getTargetRegion(),"moved");
+				canvas.display(1);
 			}					
 		};
 
@@ -73,8 +77,6 @@ public class TargetEventExample {
 		Target cat = new ImageTarget(Images.Cat);
 		Target dog = new ImageTarget(Images.Dog);
 		smallRegion.addTargetEventListener(dog, l);       			
-		smallRegion.addTargetEventListener(cat, l);       				
-		painter.box(smallRegion, 10000);
-
+		smallRegion.addTargetEventListener(cat, l); 
 	}
 }

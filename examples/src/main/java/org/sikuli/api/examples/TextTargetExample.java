@@ -11,7 +11,8 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
-import org.sikuli.api.visual.ScreenPainter;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 import org.sikuli.core.cv.TextMap;
 import org.sikuli.core.logging.ImageExplainer;
 import org.sikuli.core.logging.ImageExplainer.Level;
@@ -20,7 +21,7 @@ public class TextTargetExample {
 	
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static Canvas canvas = new DesktopCanvas();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
@@ -30,6 +31,8 @@ public class TextTargetExample {
 		}
 	};
 	
+	
+	// TODO: This example is still not working ...
 	public static void main(String[] args) {
 		
 //		simulator.setSize(800,800);
@@ -64,9 +67,9 @@ public class TextTargetExample {
 		for (String stringToFind : stringsToFind){		
 			Target textTarget = new TextTarget(stringToFind);
 			ScreenRegion r = s.find(textTarget);
-			painter.box(r,3000);
-			painter.label(r, stringToFind, 3000);		
-			mouse.click(r.getCenter());			
+			canvas.addBox(r);
+			canvas.addLabel(r, stringToFind);		
 		}		
+		canvas.display(5);
 	}
 }

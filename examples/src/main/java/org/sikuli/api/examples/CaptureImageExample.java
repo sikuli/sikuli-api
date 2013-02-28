@@ -10,17 +10,18 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
-import org.sikuli.api.visual.ScreenPainter;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 
 public class CaptureImageExample {
 	
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static Canvas canvas = new DesktopCanvas();
 
 	public static void main(String[] args) throws IOException {
 		DesktopScreenRegion smallRegion = new DesktopScreenRegion(500,500,400,200);
-		painter.box(smallRegion, 1000);
+		canvas.addBox(smallRegion).display(1);
 		
 		BufferedImage capturedImage = smallRegion.capture();
 		ImageIO.write(capturedImage, "png", new File("SavedCaptuedImage.png"));

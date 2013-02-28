@@ -64,5 +64,8 @@ public class Images {
 	static final URL EclipsePreferences2 = Images.class.getResource("EclipsePreferences2.png");
 	
 	static final URL ButtonOptions = Images.class.getResource("ButtonOptions.png");
+	
+	static final URL Calculator = Images.class.getResource("Calculator.png");
+	static final URL CalculatorButton = Images.class.getResource("CalculatorButton.png");
 
 }

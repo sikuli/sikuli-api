@@ -10,13 +10,14 @@ import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
-import org.sikuli.api.visual.ScreenPainter;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 
 public class StateChangeEventExample {
 
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+	static Canvas canvas = new DesktopCanvas();
 
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
@@ -63,6 +64,7 @@ public class StateChangeEventExample {
 		// TODO: test if remove works
 		//smallRegion.removeState(cat);
 
-		painter.box(smallRegion,10000);
+		canvas.addBox(smallRegion).display(10);
+		
 	}
 }

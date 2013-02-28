@@ -15,7 +15,6 @@ import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.visual.DesktopCanvas;
 import org.sikuli.api.visual.Canvas;
-import org.sikuli.api.visual.ScreenPainter;
 
 public class SpeakerExample {
 	

@@ -9,18 +9,17 @@ import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.robot.desktop.DesktopScreen;
-import org.sikuli.api.visual.ScreenPainter;
 
 public class MultiScreenExample {
 	
 	static Mouse mouse = new DesktopMouse();
 	static Keyboard keyboard = new DesktopKeyboard();
-	static ScreenPainter painter = new ScreenPainter();
+//	static ScreenPainter painter = new ScreenPainter();
 	
 	static ScreenSimulator simulator1 = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.GoogleSearchPage);
-			wait(10000);
+			wait(1);
 			close();
 		}
 	};
@@ -28,7 +27,7 @@ public class MultiScreenExample {
 	static ScreenSimulator simulator2 = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.OSXSystemPreferences);
-			wait(10000);
+			wait(1);
 			close();
 		}
 	};
@@ -55,18 +54,18 @@ public class MultiScreenExample {
 		DesktopScreenRegion s1 = new DesktopScreenRegion(30,30,800,500);
 		s1.setScreen(screen1);
 		
-		painter.box(s0, 10000);
-		painter.box(s1, 10000);
-		
+//		painter.box(s0, 10000);
+//		painter.box(s1, 10000);
+//		
 				
 		ScreenRegion r0 = s0.find(new ImageTarget(Images.GoogleSearchButton));
 		ScreenRegion r1 = s1.find(new ImageTarget(Images.OSXDockIcon));
 
-		painter.box(r0, 5000);
-		painter.box(r1, 5000);
-		
-		painter.label(r0,"Target in Screen0", 5000);
-		painter.label(r1,"Target in Screen1", 5000);
+//		painter.box(r0, 5000);
+//		painter.box(r1, 5000);
+//		
+//		painter.label(r0,"Target in Screen0", 5000);
+//		painter.label(r1,"Target in Screen1", 5000);
 				
 		
 	}
