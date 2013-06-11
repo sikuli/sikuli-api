@@ -16,6 +16,22 @@ public class DesktopKeyboard implements Keyboard {
 	static private AWTRobot getRobot(){
 		return AWTDesktop.getCurrentRobot();
 	}
+	
+
+	public String copy() {
+		Clipboard.clear();
+
+		int mod = Env.getHotkeyModifier();
+		AWTRobot robot = getRobot();
+		robot.keyPress(mod);
+		robot.keyPress(KeyEvent.VK_C);
+		robot.keyRelease(KeyEvent.VK_C);
+		robot.keyRelease(mod);
+
+		String text = Clipboard.getText();
+		APILogger.getLogger().copyPerformed(text);
+		return text;
+	}
 
 	
 	public void paste(String text){

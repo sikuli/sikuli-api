@@ -2,6 +2,16 @@ package org.sikuli.api.robot;
 
 public interface Keyboard {
 	
+	/**
+	 * Clears the clipboard, performs the "copy" keyboard shortcut, then attempts to return the 
+	 * clipboard contents as a String. 
+	 * 
+	 * Returns <code>null</code> if the clipboard couldn't be converted to a string or was empty.
+	 * 
+	 * @return The clipboard contents converted to a String or <code>null</code>
+	 */
+	public String copy();
+	
 	public void paste(String text);
 	public void type(String text);
 
