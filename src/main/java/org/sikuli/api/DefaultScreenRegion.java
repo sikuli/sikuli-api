@@ -26,7 +26,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenRegion {
-	
+
 	private BufferedImage lastCapturedImage;
 	private Map<Target, Object> states = new ConcurrentHashMap<Target, Object>();
 	private ImageMask mask = null;
@@ -35,7 +35,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	public DefaultScreenRegion(Screen screen){
 		super(screen);
 	}
-	
+
 	public DefaultScreenRegion(ScreenRegion parent, int x, int y, int width, int height) {
 		super(parent.getScreen());
 		setX(parent.getBounds().x + x);
@@ -43,7 +43,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 		setWidth(width);
 		setHeight(height);
 	}
-	
+
 	public DefaultScreenRegion(Screen screen, int x, int y, int width, int height) {
 		super(screen, x, y, width, height);
 	}
@@ -78,7 +78,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 
 
 	static private int POLL_INTERVAL = 500;
-	
+
 	class RepeatFind{
 
 		private volatile boolean timeout = false;		
@@ -121,7 +121,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 		ScreenRegion result = ru.run();
 		return result;
 	}
-	
+
 	@Override
 	public BufferedImage capture() {
 		lastCapturedImage = getScreen().getScreenshot(getX(), getY(), getWidth(), getHeight());
@@ -161,26 +161,26 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	public void removeTargetEventListener(Target target, TargetEventListener listener) {
 		VisualEventManager.getSingleton().removeTargetEventListener(this,  target, listener);		
 	}
-	
-	
+
+
 	static class StaticScreen implements Screen {
-		
+
 		static private BufferedImage crop(BufferedImage src, int x, int y, int width, int height){
-		    BufferedImage dest = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-		    Graphics g = dest.getGraphics();
-		    g.drawImage(src, 0, 0, width, height, x, y, x + width, y + height, null);
-		    g.dispose();
-		    return dest;
+			BufferedImage dest = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+			Graphics g = dest.getGraphics();
+			g.drawImage(src, 0, 0, width, height, x, y, x + width, y + height, null);
+			g.dispose();
+			return dest;
 		}
-		
+
 		final BufferedImage fullScreenshot;
 		final Dimension screenSize;
-		
+
 		StaticScreen(ScreenRegion screenRegion){
 			screenSize = screenRegion.getScreen().getSize();
 			fullScreenshot = screenRegion.getScreen().getScreenshot(0, 0, screenSize.width, screenSize.height);
 		}
-		
+
 		@Override
 		public BufferedImage getScreenshot(int x, int y, int width, int height) {
 			return crop(fullScreenshot, x, y, width, height);
@@ -197,7 +197,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 		ScreenRegion r = new DefaultScreenRegion(new StaticScreen(this), getX(), getY(), getWidth(), getHeight());
 		return r;
 	}
-	
+
 	@Override
 	public void addStateChangeEventListener(StateChangeListener listener) {
 		VisualEventManager.getSingleton().addStateChangeEventListener(this, listener);		
@@ -231,7 +231,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 		return ImmutableList.copyOf(rois);
 	}
 
-	
+
 	public Integer extractInteger() {
 		List<RecognizedDigit> digits = DigitRecognizer.recognize(capture());
 		Collections.sort(digits, new Comparator<RecognizedDigit>(){

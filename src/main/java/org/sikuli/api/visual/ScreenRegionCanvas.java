@@ -55,7 +55,7 @@ public class ScreenRegionCanvas extends Canvas {
 	}
 	
 	List<ScreenDisplayable> displayableList = Lists.newArrayList();	
-	private void show(){
+	public void show(){
 		for (Element element : getElements()){
 			displayableList.add(createScreenDisplayable(element));
 		}
@@ -65,7 +65,7 @@ public class ScreenRegionCanvas extends Canvas {
 		}
 	}
 	
-	private void hide(){
+	public void hide(){
 		for (ScreenDisplayable d : displayableList){
 			d.hideFromScreen();
 		}

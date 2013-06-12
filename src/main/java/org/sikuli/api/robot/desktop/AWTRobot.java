@@ -6,6 +6,8 @@
 package org.sikuli.api.robot.desktop;
 
 
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.HeadlessException;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -44,47 +46,6 @@ class AWTRobot extends Robot {
 	public Point getOrigin(){
 		return gdev.getDefaultConfiguration().getBounds().getLocation();
 	}
-
-	public static Point getMouseLocation() throws HeadlessException{
-		Point loc = MouseInfo.getPointerInfo().getLocation();
-		return loc;
-	}
-
-	public static float MoveMouseDelay = 0.5f; // in seconds
-
-	public void smoothMove(Point dest){
-		smoothMove(getMouseLocation(), dest, (long)(MoveMouseDelay*1000L));
-	}
-
-	public void smoothMove(Point src, Point dest, long ms){
-		if(ms == 0){
-			mouseMove(dest.x, dest.y);
-			return;
-		}
-
-		Animator aniX = new TimeBasedAnimator(
-				new OutQuarticEase((float)src.x, (float)dest.x, ms));
-		Animator aniY = new TimeBasedAnimator(
-				new OutQuarticEase((float)src.y, (float)dest.y, ms));
-		while(aniX.running()){
-			float x = aniX.step();
-			float y = aniY.step();
-			mouseMove((int)x, (int)y);
-			delay(50);
-		}		
-	}
-
-	public void dragDrop(Point start, Point end, int steps, long ms, int buttons){
-		mouseMove(start.x, start.y);
-		mousePress(buttons);
-		delay((int)(DelayAfterDrag*1000));
-		waitForIdle();
-		smoothMove(start, end, ms);
-		delay((int)(DelayBeforeDrop*1000));
-		mouseRelease(buttons);
-		waitForIdle();
-	}
-
 
 	public void delay(int ms){
 		if(ms<0)

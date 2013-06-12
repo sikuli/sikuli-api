@@ -23,7 +23,7 @@ public class StyledRectangleTarget extends ImageTarget {
 
 
 	@Override
-	protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion){
+	protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion){
 		BufferedImage exampleImage = getImage();
 		FourCornerModel buttonModel = FourCornerModel.learnFrom(exampleImage);
 		List<RegionMatch> matches = VisualModelFinder.searchButton(buttonModel, 

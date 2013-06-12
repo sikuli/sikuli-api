@@ -37,7 +37,7 @@ public class ColorImageTarget extends ImageTarget {
 	}
 	
 	@Override
-	protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion){
+	protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion){
 		ImageSearcher searcher = new ImageSearcher(screenRegion.capture());
 		ImageQuery query = new ColorImageQuery(targetImage);
 		ScoreFilter<RegionMatch> filter = new ScoreFilter<RegionMatch>(getMinScore());

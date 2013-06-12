@@ -15,7 +15,7 @@ public class ForegroundTarget extends DefaultTarget implements Target {
 	}
 
 	@Override
-	protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion) {
+	protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion) {
 		
 		BufferedImage image = screenRegion.capture();
 		IplImage foregroundMask = VisionUtils.computeForegroundMaskOf(IplImage.createFrom(image));

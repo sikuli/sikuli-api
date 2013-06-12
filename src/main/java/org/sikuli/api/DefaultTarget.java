@@ -75,7 +75,7 @@ abstract public class DefaultTarget implements Target {
 	private Ordering ordering = Ordering.DEFAULT;
 	
 	
-	abstract protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion);
+	abstract protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion);
 	
 	protected static List<ScreenRegion> convertToScreenRegions(ScreenRegion parent, List<RegionMatch> rms) {
 		List<ScreenRegion> irs = Lists.newArrayList();		
@@ -90,7 +90,7 @@ abstract public class DefaultTarget implements Target {
 	@Override
 	public List<ScreenRegion> doFindAll(ScreenRegion screenRegion) {
 		// get raw results
-		List<ScreenRegion> ScreenRegions = getUnordredMatches(screenRegion);
+		List<ScreenRegion> ScreenRegions = getUnorderedMatches(screenRegion);
 
 		// sorting
 		if (ordering == Ordering.TOP_DOWN){

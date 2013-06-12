@@ -16,7 +16,7 @@ public class MultiStateTarget extends DefaultTarget implements Target {
 	Map<Target, Object> states = new HashMap<Target, Object>();
 	
 	@Override
-	protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion){
+	protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion){
 		final BufferedImage image = screenRegion.capture();
 		
 		// get matches for each state and add them to a combined list

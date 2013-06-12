@@ -6,4 +6,5 @@ public class DesktopCanvas extends ScreenRegionCanvas {
 	public DesktopCanvas() {
 		super(new DesktopScreenRegion());
 	}
+
 }

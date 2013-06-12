@@ -12,11 +12,13 @@ import javax.imageio.ImageIO;
 
 import org.sikuli.api.Screen;
 
+import com.google.common.base.Objects;
+
 public class DesktopScreen implements Screen {
 	final private int screenId;
 	
 	public DesktopScreen(int screenId){
-		// TODO: throws an exception on invliad screen Id
+		// TODO: throws an exception on invalid screen Id
 		this.screenId = screenId;
 	}
 	
@@ -50,5 +52,38 @@ public class DesktopScreen implements Screen {
 	public Rectangle getBounds(){
 		return AWTDesktop.getScreenBounds(getId());
 	}
+
+	
+	/**
+	 *
+	 * @author ente
+	 */
+	/*
+	 * determines the ScreenID related to some coordinates X and Y
+	 * returns null if coordinates reside outside of all available screens
+	 */
+	public static DesktopScreen getScreenAtCoord(int x, int y) {
+		DesktopScreen _screen=null;
+		for (Integer i=0; i< AWTDesktop.getNumberScreens(); i++) {
+			if (AWTDesktop.getScreenBounds(i).contains(x, y)) {
+				_screen=new DesktopScreen(i);
+			}
+		}
+		return _screen;
+	}
+	
+	public String toString(){
+		return Objects.toStringHelper(getClass().getName()).add("id",screenId).toString();
+	}
+	
+	/**
+	 * Get the number of screens available on the desktop
+	 * 
+	 * @return
+	 */
+	public static int getNumberScreens() {
+        return AWTDesktop.getNumberScreens();
+}
+
 
 }

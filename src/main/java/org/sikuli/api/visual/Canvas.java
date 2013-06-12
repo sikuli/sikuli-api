@@ -114,6 +114,8 @@ abstract public class Canvas {
 	
 	abstract public void display(double seconds);
 	abstract public void displayWhile(Runnable runnable);
+	abstract public void show();
+	abstract public void hide();
 	
 	abstract public BufferedImage createImage();
 

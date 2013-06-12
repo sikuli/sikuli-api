@@ -25,12 +25,19 @@ public class Relative{
 		public RelativeScreenRegionBuilder below(int amount){
 			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(0, screenRegion.getBounds().height, screenRegion.getBounds().width, amount));
 		}
+		public RelativeScreenRegionBuilder shorter(int amount){
+			return taller(-amount);
+		}
 		public RelativeScreenRegionBuilder taller(int amount){
 			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(0, -amount/2, screenRegion.getBounds().width, screenRegion.getBounds().height + amount));
 		}
+		public RelativeScreenRegionBuilder narrower(int amount){
+			return wider(-amount);
+		}		
 		public RelativeScreenRegionBuilder wider(int amount){
 			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(-amount/2, 0, screenRegion.getBounds().width + amount, screenRegion.getBounds().height));
 		}
+		
 		
 		
 		//

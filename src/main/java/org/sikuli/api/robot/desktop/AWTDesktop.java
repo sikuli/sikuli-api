@@ -28,8 +28,8 @@ class AWTDesktop {
 		initRobots();
 		initScreens();
 	}
-	
-	
+
+
 	private static void initScreens(){
 		_screens = Lists.newArrayList();
 		for(int i=0;i<_gdev.length;i++){
@@ -57,36 +57,37 @@ class AWTDesktop {
 		}
 	}
 
-	
+
 	static class ScreenDevice {
-		
+
 		int id;
 		GraphicsDevice gdev;
 		AWTRobot robot;
 		AWTMouse mouse;
 		DesktopScreen screen;
-		
+
 		Rectangle getBounds(){
 			return gdev.getDefaultConfiguration().getBounds();
 		}
-		
+
 		AWTRobot getRobot(){
 			return robot; 
 		}		
 	}
-	
+
 	public static ScreenLocation getCurrentMouseScreenLocation(){		
 		Point p = MouseInfo.getPointerInfo().getLocation();		
-		Screen screen = getCurrentScreenDevice().screen;		
-		ScreenLocation screenLocation = new DefaultScreenLocation(screen, p.x, p.y);
+		Screen screen = getCurrentScreenDevice().screen;
+		Rectangle bounds = getCurrentScreenDevice().getBounds();
+		ScreenLocation screenLocation = new DefaultScreenLocation(screen, p.x - bounds.x, p.y - bounds.y);
 		screenLocation.setScreen(screen);
 		return screenLocation;
 	}
-	
+
 	static AWTMouse getCurrentMouse(){
 		return getCurrentScreenDevice().mouse;
 	}
-	
+
 	static ScreenDevice getCurrentScreenDevice(){
 		GraphicsDevice currentGraphicsDevice = MouseInfo.getPointerInfo().getDevice();
 		for (ScreenDevice s : _screens){
@@ -103,21 +104,21 @@ class AWTDesktop {
 		}
 		return null;
 	}
-	
+
 	public static AWTRobot getCurrentRobot() {
 		return getCurrentScreenDevice().getRobot();
 	}	
-	
+
 	static AWTMouse getMouse(ScreenLocation location){
 		int id = ((DesktopScreen) location.getScreen()).getId();
 		return _screens.get(id).mouse;
 	}
-	
+
 	static AWTRobot getRobot(ScreenLocation location){
 		int id = ((DesktopScreen) location.getScreen()).getId();
 		return _screens.get(id).robot;
 	}
-	
+
 	public static Rectangle getScreenBounds(int screenId){
 		return getScreenDevice(screenId).getBounds();
 	}
@@ -125,5 +126,15 @@ class AWTDesktop {
 	public static BufferedImage captureScreenshot(int screenId, int x, int y, int width, int height) {
 		return _robots[screenId].captureScreen(new Rectangle(x,y,width,height));
 	}
+
+
+	/*
+	 * retrieves the number of available screens
+	 */
+	public static int getNumberScreens() {
+	        return _screens.size();
+	}
+
+	
 
 }

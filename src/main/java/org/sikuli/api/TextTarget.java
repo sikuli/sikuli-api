@@ -239,7 +239,7 @@ public class TextTarget extends DefaultTarget implements Target {
 		 return ret;
 	 }
 
-	protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion) {
+	protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion) {
 		List<TextMatch> matches = findMatches(screenRegion, text);
 		return covertToScreenRegions(screenRegion, matches);
 	}

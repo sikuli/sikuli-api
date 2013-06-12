@@ -107,7 +107,7 @@ public class ImageTarget extends DefaultTarget implements Target {
 	}
 
 	@Override
-	protected List<ScreenRegion> getUnordredMatches(ScreenRegion screenRegion){
+	protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion){
 		Rectangle screenRegionBounds = screenRegion.getBounds();
 		if (screenRegionBounds.width < targetImage.getWidth() || screenRegionBounds.height < targetImage.getHeight()){
 			// if screen region is smaller than the target, no target can be found
