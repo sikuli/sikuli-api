@@ -66,6 +66,9 @@ public class APILogger {
 	public void typePerformed(String text){
 	}
 
+	public void copyPerformed(String text) {	
+	}
+
 	public void pastePerformed(String text){
 	}	
 	
@@ -76,9 +79,7 @@ public class APILogger {
 	
 	static public APILogger createVisualLogger(ScreenRegion screenRegion, File outputDir){
 		return new ScreenRegionImageLogger(screenRegion, outputDir);
-	}
-
-	
+	}	
 }
 
 class StdoutLogger extends DefaultLogger {
@@ -260,6 +261,11 @@ class DefaultLogger extends APILogger {
 	@Override
 	public void typePerformed(String text){
 		out(now() + "\t" + "Type " + text);
+	}
+	
+	@Override
+	public void copyPerformed(String text) {
+		out(now() + "\t" + (text==null?"could not copy text":"Copy text "+text));
 	}
 	
 	@Override
