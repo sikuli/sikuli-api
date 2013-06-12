@@ -1,8 +1,5 @@
 package org.sikuli.api.examples;
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -13,7 +10,6 @@ import org.sikuli.api.ImageTarget;
 import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
-import org.sikuli.api.visual.ImageViewer;
 import org.sikuli.api.visual.ScreenRegionCanvas;
 
 public class CavnasExample {
@@ -21,15 +17,12 @@ public class CavnasExample {
 	static ScreenSimulator simulator = new ScreenSimulator(){
 		public void run(){
 			showImage(Images.OSXDockPreferences);
-			//			wait(8000);
-			//			close();
 		}
 	};
 
 	public static void main(String[] args) throws IOException {
 		simulator.start();
 
-		Rectangle b = simulator.getBounds();
 		ScreenRegion s = new DesktopScreenRegion();
 		
 		Target imageTarget = new ImageTarget(Images.ThumbIcon);
@@ -54,6 +47,8 @@ public class CavnasExample {
 			no++;
 		}
 		canvas.display(3);
+		
+		simulator.close();
 		
 	}
 }
