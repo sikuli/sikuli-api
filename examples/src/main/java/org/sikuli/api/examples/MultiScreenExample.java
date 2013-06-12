@@ -18,7 +18,8 @@ public class MultiScreenExample {
 	public static void main(String[] args) throws IOException  {
 		Mouse mouse = new DesktopMouse();
 		
-		// iterate through each screen
+		// iterate through each screen, the mouse cursor will traverse along the edges
+		// of a rectangle centered on each screen clockwise, and then clicks on the dog image
 		int numOfScreens = DesktopScreen.getNumberScreens();
 		for (int screenId = 0; screenId < numOfScreens; screenId++){
 			
@@ -39,7 +40,7 @@ public class MultiScreenExample {
 			mouse.hover(Relative.to(innerRegion).bottomLeft().getScreenLocation());
 			
 			// find the dog and click on it
-			ScreenRegion dog = screenRegion.find(new ImageTarget(Images.Dog));
+			ScreenRegion dog = innerRegion.find(new ImageTarget(Images.Dog));
 			mouse.click(dog.getCenter());
 			
 			c.hide();
