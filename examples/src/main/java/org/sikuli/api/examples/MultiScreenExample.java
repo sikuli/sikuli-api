@@ -1,72 +1,51 @@
 package org.sikuli.api.examples;
-import java.awt.Rectangle;
+import java.io.IOException;
 
-import org.sikuli.api.ImageTarget;
+import javax.imageio.ImageIO;
+
 import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.ImageTarget;
+import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenRegion;
-import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
-import org.sikuli.api.robot.desktop.DesktopKeyboard;
 import org.sikuli.api.robot.desktop.DesktopMouse;
 import org.sikuli.api.robot.desktop.DesktopScreen;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.ScreenRegionCanvas;
 
 public class MultiScreenExample {
-	
-	static Mouse mouse = new DesktopMouse();
-	static Keyboard keyboard = new DesktopKeyboard();
-//	static ScreenPainter painter = new ScreenPainter();
-	
-	static ScreenSimulator simulator1 = new ScreenSimulator(){
-		public void run(){
-			showImage(Images.GoogleSearchPage);
-			wait(1);
-			close();
-		}
-	};
 
-	static ScreenSimulator simulator2 = new ScreenSimulator(){
-		public void run(){
-			showImage(Images.OSXSystemPreferences);
-			wait(1);
-			close();
-		}
-	};
-
-	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException  {
+		Mouse mouse = new DesktopMouse();
+		
+		// iterate through each screen
+		int numOfScreens = DesktopScreen.getNumberScreens();
+		for (int screenId = 0; screenId < numOfScreens; screenId++){
 			
-		DesktopScreen screen0 = new DesktopScreen(0);
-		DesktopScreen screen1 = new DesktopScreen(1);
-				
-		// position the simulators on two different screens
-		Rectangle b0 = screen0.getBounds();
-		Rectangle b1 = screen1.getBounds();
+			ScreenRegion screenRegion = new DesktopScreenRegion(screenId);
+			ScreenRegion innerRegion = Relative.to(screenRegion).shorter(100).narrower(100).getScreenRegion();
 
-		simulator1.setLocation(b0.x+50, b0.y+50);
-		simulator2.setLocation(b1.x+50, b1.y+50);
+			// create a canvas to draw visualization on the screen
+			Canvas c = new ScreenRegionCanvas(screenRegion);
+			c.addBox(innerRegion);
+			c.addLabel(innerRegion.getCenter(), "Screen " + screenId).withFontSize(30);
+			c.addImage(Relative.to(innerRegion).center().above(200).getScreenLocation(), ImageIO.read(Images.Dog));
+			c.show();
+			
+			// hover the mouse cursor to each corner of the inner circle 
+			mouse.hover(Relative.to(innerRegion).topLeft().getScreenLocation());
+			mouse.hover(Relative.to(innerRegion).topRight().getScreenLocation());
+			mouse.hover(Relative.to(innerRegion).bottomRight().getScreenLocation());
+			mouse.hover(Relative.to(innerRegion).bottomLeft().getScreenLocation());
+			
+			// find the dog and click on it
+			ScreenRegion dog = screenRegion.find(new ImageTarget(Images.Dog));
+			mouse.click(dog.getCenter());
+			
+			c.hide();
+		}
 		
-		simulator1.start();
-		simulator2.start();
-		
-		DesktopScreenRegion s0 = new DesktopScreenRegion(30,30,800,500);
-		s0.setScreen(screen0);
-		
-		DesktopScreenRegion s1 = new DesktopScreenRegion(30,30,800,500);
-		s1.setScreen(screen1);
-		
-//		painter.box(s0, 10000);
-//		painter.box(s1, 10000);
-//		
-				
-		ScreenRegion r0 = s0.find(new ImageTarget(Images.GoogleSearchButton));
-		ScreenRegion r1 = s1.find(new ImageTarget(Images.OSXDockIcon));
-
-//		painter.box(r0, 5000);
-//		painter.box(r1, 5000);
-//		
-//		painter.label(r0,"Target in Screen0", 5000);
-//		painter.label(r1,"Target in Screen1", 5000);
-				
-		
+	
 	}
+	
 }
