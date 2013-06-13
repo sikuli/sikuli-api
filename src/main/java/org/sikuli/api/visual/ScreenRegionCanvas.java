@@ -57,7 +57,7 @@ public class ScreenRegionCanvas extends Canvas {
 	List<ScreenDisplayable> displayableList = Lists.newArrayList();	
 	public void show(){
 		for (Element element : getElements()){
-			displayableList.add(createScreenDisplayable(element));
+			displayableList.add(createScreenDisplayable(element));		
 		}
 
 		for (ScreenDisplayable d : displayableList){
@@ -65,16 +65,24 @@ public class ScreenRegionCanvas extends Canvas {
 		}
 	}
 	
-	public void hide(){
+	public void hide(){		
 		for (ScreenDisplayable d : displayableList){
 			d.hideFromScreen();
+			ScreenOverlayWindow w = (ScreenOverlayWindow) d;
+			// do this to release all references to graphical objects, such as PShadow,
+			// which holds references to BufferedImages
+			// this deals with the memory leak problem related to the use
+			// of ScreenRegionCanvas
+			PCanvas canvas = w.getCanvas();
+			canvas.removeAll();
 		}
 		displayableList.clear();
-	}
-
+		
+		// force garbage collection
+		System.gc();
+	}	
 
 	protected ScreenDisplayable createScreenDisplayable(Element element) {
-
 		Rectangle screenBounds = ((DesktopScreen) getScreenRegion().getScreen()).getBounds();
 
 		ScreenOverlayWindow overlayWindow = new ScreenOverlayWindow();
@@ -227,10 +235,10 @@ class PNodeFactory {
 
 		PShadow shadowNode = new PShadow(contentNode.toImage(), SHADOW_PAINT, blurRadius );		
 		contentNode.setOffset(tx, ty);
-		shadowNode.setOffset(tx - (2 * blurRadius) + 1.0d, ty - (2 * blurRadius) + 1.0d);
-
+		shadowNode.setOffset(tx - (2 * blurRadius) + 1.0d, ty - (2 * blurRadius) + 1.0d);	
 		contentNodeWithShadow.addChild(shadowNode);
 		contentNodeWithShadow.addChild(contentNode);		      
+		contentNodeWithShadow.removeChild(shadowNode);
 		contentNodeWithShadow.setOffset(xoffset - tx  - blurRadius, yoffset - ty - blurRadius);
 		contentNodeWithShadow.setBounds(0,0, contentNode.getWidth() + 2*blurRadius + tx, contentNode.getHeight() + 2*blurRadius + ty);
 		return contentNodeWithShadow;

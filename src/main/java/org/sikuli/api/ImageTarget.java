@@ -117,21 +117,13 @@ public class ImageTarget extends DefaultTarget implements Target {
 		
 		List<RegionMatch> matches;
 		
+		BufferedImage screenImage = screenRegion.capture();		
 		List<Rectangle> rois = screenRegion.getROIs();
 		if (rois.isEmpty()){		
-			matches = TemplateMatcher.findMatchesByGrayscaleAtOriginalResolution(screenRegion.capture(), targetImage, getLimit(), getMinScore());
+			matches = TemplateMatcher.findMatchesByGrayscaleAtOriginalResolution(screenImage, targetImage, getLimit(), getMinScore());
 		}else{
-			matches = TemplateMatcher.findMatchesByGrayscaleAtOriginalResolutionWithROIs(screenRegion.capture(), targetImage, getLimit(), getMinScore(), rois);			
+			matches = TemplateMatcher.findMatchesByGrayscaleAtOriginalResolutionWithROIs(screenImage, targetImage, getLimit(), getMinScore(), rois);			
 		}
-//		SearchByGrayscaleAtOriginalResolution alg = new SearchByGrayscaleAtOriginalResolution(screenRegion.getImage(),targetImage);
-//		alg.execute();
-//		List<RegionMatch> matches = alg.fetchAll(getLimit(), getMinScore());
-		
-
-//		ImageSearcher searcher = new ImageSearcher(screenRegion.getImage());
-//		ImageQuery query = new ImageQuery(targetImage);
-//		ScoreFilter<RegionMatch> filter = new ScoreFilter<RegionMatch>(getMinScore());
-//		List<RegionMatch> topMatches = searcher.search(query, filter, getLimit());
 		return convertToScreenRegions(screenRegion, matches);
 	}
 	
