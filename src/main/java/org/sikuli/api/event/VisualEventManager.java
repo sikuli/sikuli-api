@@ -3,115 +3,13 @@ package org.sikuli.api.event;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.sikuli.api.Relative;
-import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 
-interface EventDetectionTask {
-	public void run();
-}
-
-class TargetEventDetectionTask implements EventDetectionTask{
-
-
-	/* 
-	 * equal when all fields refer to same object instances
-	 */
-	@Override
-	public boolean equals(Object o) {
-		TargetEventDetectionTask w = (TargetEventDetectionTask) o;
-		return screenRegion == w.screenRegion &&
-				target == w.target &&
-				listener == w.listener;
-	}
-
-	public TargetEventDetectionTask(ScreenRegion screenRegion, Target target,
-			TargetEventListener listener) {
-		super();
-		this.screenRegion = screenRegion;
-		this.target = target;
-		this.listener = listener;
-		this.lastTargetRegion = null;
-	}
-	public void setLastTargetRegion(ScreenRegion lastTargetRegion) {
-		this.lastTargetRegion = lastTargetRegion;
-	}
-	public TargetEvent createTargetEvent(){
-		return new TargetEvent(target, screenRegion, lastTargetRegion);
-	}
-
-	final private ScreenRegion screenRegion;
-	final private Target target;
-	final private TargetEventListener listener;
-	private ScreenRegion lastTargetRegion;
-
-
-	public void run(){
-		ScreenRegion currentTargetRegion = null;
-		if (lastTargetRegion == null){					
-
-			currentTargetRegion = screenRegion.find(target);
-			if (currentTargetRegion != null){
-				// appear
-				setLastTargetRegion(currentTargetRegion);	
-				listener.targetAppeared(createTargetEvent());
-				//System.out.println(watchedTarget.getTarget() + " has appeared");
-			}else{
-				// still vanished
-			}
-
-
-		}else{				
-
-			if (isTargetStillAtTheLastLocation()){
-				// still appearing at the same location
-
-			}else{
-
-				currentTargetRegion = screenRegion.find(target);
-
-				if (currentTargetRegion == null){
-					// vanished
-					listener.targetVanished(createTargetEvent());
-					setLastTargetRegion(null);
-					//System.out.println(watchedTarget.getTarget() + " has vanished");
-				}else{
-					// moved
-					setLastTargetRegion(currentTargetRegion);
-					listener.targetMoved(createTargetEvent());
-					//System.out.println(watchedTarget.getTarget() + " has moved to " + currentMatch.getTopLeft());
-
-				}
-			}
-		}
-
-	}
-
-
-
-	private boolean isTargetStillAtTheLastLocation(){
-
-		if (lastTargetRegion == null)
-			return false;
-
-		// TODO: only need to find in a small area around the last location
-		ScreenRegion r = screenRegion.find(target);
-		if (r == null)
-			return false;		
-
-		ScreenLocation newLocation = Relative.to(r).topLeft().getScreenLocation();
-		ScreenLocation lastLocation = Relative.to(lastTargetRegion).topLeft().getScreenLocation();
-
-		boolean isXClose = Math.abs(newLocation.getX() - lastLocation.getX()) < 3;
-		boolean isYClose = Math.abs(newLocation.getY() - lastLocation.getY()) < 3;
-
-		return isXClose && isYClose;
-	}
-}
-
-
 public class VisualEventManager {
+
+	// interval between two detections in ms
+	private static final int DETECTION_INTERVAL = 500;
 
 	// update is rare, could be done by any user thread that adds or removes items
 	// iteration is often, but only done on the single thread, the event manager thread
@@ -151,6 +49,7 @@ public class VisualEventManager {
 	// Singlton
 	class TargetEventDispatherThread extends Thread {
 
+
 		@Override
 		// TODO: should sleep instead of spinning when list is empty
 		// use a producer/consumer
@@ -166,7 +65,7 @@ public class VisualEventManager {
 			while (true){
 
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(DETECTION_INTERVAL);
 				} catch (InterruptedException e) {
 
 				}
@@ -175,13 +74,10 @@ public class VisualEventManager {
 					task.run();
 				}
 			}
-
-
-
 		}
 
 	}
 
 
-	
+
 }
