@@ -1,7 +1,5 @@
 package org.sikuli.api;
 
-import org.sikuli.api.robot.desktop.DesktopScreen;
-
 import com.google.common.base.Objects;
 
 public class DefaultScreenLocation implements ScreenLocation {
@@ -19,21 +17,6 @@ public class DefaultScreenLocation implements ScreenLocation {
 		setX(x);
 		setY(y);
 		screen = screenRef;
-	}
-
-	/**
-	 * Create a new screen location based on the coordinates. The screen
-	 * relating to those coordinates will be determined automatically and
-	 * defaults to screen 0 in case those coordinates are outside of all
-	 * screens.
-	 */
-	public DefaultScreenLocation(int x, int y) {
-		this.x=x;
-		this.y=y;
-		this.screen= DesktopScreen.getScreenAtCoord(x, y);
-		if (this.screen==null) {
-			this.screen=new DesktopScreen(0);
-		}
 	}
 
 	public DefaultScreenLocation(ScreenLocation loc){
