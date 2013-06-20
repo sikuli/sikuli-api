@@ -2,10 +2,12 @@ package org.sikuli.api.visual;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.robot.desktop.DesktopScreen;
@@ -73,13 +75,22 @@ public class ScreenRegionCanvas extends Canvas {
 			// which holds references to BufferedImages
 			// this deals with the memory leak problem related to the use
 			// of ScreenRegionCanvas
-			PCanvas canvas = w.getCanvas();
-			canvas.removeAll();
+			PCanvas canvas = w.getCanvas();			
+			removeAllChildrenRecursively(canvas.getLayer());
 		}
 		displayableList.clear();
 		
 		// force garbage collection
 		System.gc();
+	}	
+	
+	static private void removeAllChildrenRecursively(PNode node){
+		ListIterator it = node.getChildrenIterator();
+		while (it.hasNext()){
+			PNode n = (PNode) it.next();
+			removeAllChildrenRecursively(n);
+		}
+		node.removeAllChildren();
 	}	
 
 	protected ScreenDisplayable createScreenDisplayable(Element element) {
@@ -238,7 +249,6 @@ class PNodeFactory {
 		shadowNode.setOffset(tx - (2 * blurRadius) + 1.0d, ty - (2 * blurRadius) + 1.0d);	
 		contentNodeWithShadow.addChild(shadowNode);
 		contentNodeWithShadow.addChild(contentNode);		      
-		contentNodeWithShadow.removeChild(shadowNode);
 		contentNodeWithShadow.setOffset(xoffset - tx  - blurRadius, yoffset - ty - blurRadius);
 		contentNodeWithShadow.setBounds(0,0, contentNode.getWidth() + 2*blurRadius + tx, contentNode.getHeight() + 2*blurRadius + ty);
 		return contentNodeWithShadow;
