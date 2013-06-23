@@ -35,20 +35,20 @@ public class TestKeyboard {
 		kb = null;
 	}
 	
-	@Test
+//	@Test
 	public void testCopyFirst() throws InterruptedException, InvocationTargetException {
 		String s = kb.copy();
 		assertEquals("hello", s);
 	}
 	
-	@Test
+//	@Test
 	public void testCopySecond() {
 		kb.type(Key.TAB);
 		String s = kb.copy();
 		assertEquals("world", s);
 	}
 
-	@Test
+//	@Test
 	public void testCopyThird() {
 		kb.type(Key.TAB);
 		kb.type(Key.TAB);
