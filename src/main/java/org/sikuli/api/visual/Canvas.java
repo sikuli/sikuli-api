@@ -1,6 +1,5 @@
 package org.sikuli.api.visual;
 
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -9,6 +8,7 @@ import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.visual.element.BoxElement;
 import org.sikuli.api.visual.element.CircleElement;
+import org.sikuli.api.visual.element.DotElement;
 import org.sikuli.api.visual.element.Element;
 import org.sikuli.api.visual.element.ImageElement;
 import org.sikuli.api.visual.element.LabelElement;
@@ -19,44 +19,6 @@ abstract public class Canvas {
 
 	private final List<Element> elements = 	Lists.newArrayList();;
 	
-	public class StyleBuilder {
-
-		final private Element element;
-		public StyleBuilder(Element element) {
-			this.element = element;
-		}
-
-		public StyleBuilder withLineColor(Color color){
-			element.lineColor = color;
-			return this;
-		}
-
-		public StyleBuilder withColor(Color color){
-			element.color = color;
-			return this;
-		}
-		
-		public StyleBuilder withFontSize(int size){
-			element.fontSize = size;
-			return this;
-		}
-
-
-		public StyleBuilder withLineWidth(int width){
-			element.lineWidth = width;
-			return this;
-		}
-		
-		public void display(int seconds){
-			Canvas.this.display(seconds);
-		}
-
-		public void display(double seconds){
-			Canvas.this.display(seconds);
-		}
-
-	}
-	
 	public StyleBuilder addCircle(ScreenLocation screenLocation){		
 		CircleElement newElement = new CircleElement();		
 		newElement.x = screenLocation.getX() - 10;
@@ -65,6 +27,16 @@ abstract public class Canvas {
 		newElement.height = 20;			
 		return addElement(newElement);
 	}
+	
+	public StyleBuilder addDot(ScreenLocation screenLocation) {
+		DotElement newElement = new DotElement();		
+		newElement.x = screenLocation.getX();
+		newElement.y = screenLocation.getY();
+		newElement.width = 0;
+		newElement.height = 0;			
+		return addElement(newElement);
+	}
+
 	
 	public StyleBuilder addImage(ScreenLocation screenLocation, BufferedImage image){		
 		ImageElement newElement = new ImageElement();		
@@ -98,7 +70,7 @@ abstract public class Canvas {
 
 	private StyleBuilder addElement(Element element){
 		getElements().add(element);
-		return new StyleBuilder(element);
+		return new StyleBuilder(this, element);
 	}
 
 

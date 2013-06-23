@@ -2,6 +2,8 @@ package org.sikuli.api;
 
 import java.awt.Rectangle;
 
+import org.sikuli.api.Relative.RelativeScreenLocationBuilder;
+
 public class Relative{
 	
 	static public class RelativeScreenRegionBuilder{	
@@ -51,6 +53,11 @@ public class Relative{
 			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(0,0));
 		}
 
+		public RelativeScreenLocationBuilder topCenter() {
+			Rectangle r = screenRegion.getBounds();
+			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(r.width/2,0));
+		}
+		
 		public RelativeScreenLocationBuilder topRight(){
 			Rectangle r = screenRegion.getBounds();
 			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(r.width,0));
@@ -60,15 +67,32 @@ public class Relative{
 			Rectangle r = screenRegion.getBounds();
 			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(r.width,r.height));
 		}
+		
+		public RelativeScreenLocationBuilder bottomCenter(){
+			Rectangle r = screenRegion.getBounds();
+			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(r.width/2,r.height));
+		}		
 
 		public RelativeScreenLocationBuilder bottomLeft(){
 			Rectangle r = screenRegion.getBounds();
 			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(0,r.height));
 		}
+		
+		public RelativeScreenLocationBuilder middleLeft() {
+			Rectangle r = screenRegion.getBounds();
+			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(0,r.height/2));
+		}
+		
+		public RelativeScreenLocationBuilder middleRight() {
+			Rectangle r = screenRegion.getBounds();
+			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(r.width,r.height/2));
+		}
+		
 						
 		public ScreenRegion getScreenRegion(){
 			return screenRegion;
 		}
+
 	}
 	
 
