@@ -26,7 +26,13 @@ public class CanvasElementsStylingExample {
 		canvas.addBox(r).withLineColor(Color.green);
 		r = Relative.to(r).shorter(30).narrower(30).getScreenRegion();
 		canvas.addBox(r).withLineWidth(5);
-		canvas.display(3);	
+		canvas.display(3);
+		
+		canvas.clear();
+		canvas.addCircle(r.getCenter(), 10);
+		canvas.addCircle(r.getCenter(), 30).withLineColor(Color.green).withLineWidth(5);
+		canvas.addCircle(r.getCenter(), 50).withLineColor(Color.blue).withLineWidth(7).withTransparency(0.5f);
+		canvas.display(3);
 		
 		ScreenLocation q = new DesktopScreenLocation(400,150);
 		
@@ -40,6 +46,8 @@ public class CanvasElementsStylingExample {
 		canvas.addLabel(q,"different background color").withBackgroundColor(Color.green);
 		q = Relative.to(q).below(50).getScreenLocation();
 		canvas.addLabel(q,"line 1\nline 2\nline 3");
+		q = Relative.to(q).below(50).getScreenLocation();
+		canvas.addLabel(q,"transparent").withTransparency(0.5f);
 		canvas.display(3);		
 
 		// Vertical / Horizontal Alignment wrt a location
