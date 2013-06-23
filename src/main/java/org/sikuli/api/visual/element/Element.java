@@ -1,9 +1,6 @@
 package org.sikuli.api.visual.element;
 
 import java.awt.Color;
-
-import org.sikuli.api.visual.element.Element.VerticalAlignment;
-
 import edu.umd.cs.piccolo.PNode;
 
 public class Element {
@@ -30,7 +27,7 @@ public class Element {
 	public float fontSize = 12;
 	public VerticalAlignment verticalAlignment = VerticalAlignment.TOP;
 	public HorizontalAlignment horizontalAlignment = HorizontalAlignment.LEFT;
-
+	public float transparency = 1f;
 	public PNode createPNode(){
 		return new PNode();
 	}

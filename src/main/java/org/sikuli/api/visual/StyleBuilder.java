@@ -28,6 +28,11 @@ public class StyleBuilder {
 		return this;
 	}		
 	
+	public StyleBuilder withTransparency(float f) {
+		element.transparency = f;
+		return this;
+	}
+	
 	public StyleBuilder withFontSize(int size){
 		element.fontSize = size;
 		return this;
@@ -75,6 +80,7 @@ public class StyleBuilder {
 	public void display(double seconds){
 		canvas.display(seconds);
 	}
+
 
 
 }

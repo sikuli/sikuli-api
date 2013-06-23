@@ -19,12 +19,12 @@ abstract public class Canvas {
 
 	private final List<Element> elements = 	Lists.newArrayList();;
 	
-	public StyleBuilder addCircle(ScreenLocation screenLocation){		
+	public StyleBuilder addCircle(ScreenLocation screenLocation, int radius){		
 		CircleElement newElement = new CircleElement();		
-		newElement.x = screenLocation.getX() - 10;
-		newElement.y = screenLocation.getY() - 10;
-		newElement.width = 20;
-		newElement.height = 20;			
+		newElement.x = screenLocation.getX() - radius;
+		newElement.y = screenLocation.getY() - radius;
+		newElement.width = 2 * radius;
+		newElement.height = 2 * radius;			
 		return addElement(newElement);
 	}
 	

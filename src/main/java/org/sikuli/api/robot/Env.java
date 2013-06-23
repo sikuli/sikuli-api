@@ -5,21 +5,10 @@
  */
 package org.sikuli.api.robot;
 
-import java.io.*;
-import java.awt.*;
-import java.awt.datatransfer.*;
-import java.awt.event.*;
-import java.awt.MouseInfo;
-import java.lang.reflect.Constructor;
-
-import org.sikuli.api.ScreenLocation;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 public class Env {
-
-//   public static Point getMouseLocation() throws HeadlessException{
-//      Point loc = MouseInfo.getPointerInfo().getLocation();
-//      return loc;
-//   }
 
    public static String getOSVersion(){
       return System.getProperty("os.version");
@@ -54,47 +43,6 @@ public class Env {
       return ":";
    }
 
-//   public static String getClipboard(){
-//      Transferable content = Clipboard.getSystemClipboard().getContents(null);
-//      try{
-//         if(content.isDataFlavorSupported(DataFlavor.stringFlavor))
-//            return content.getTransferData(DataFlavor.stringFlavor).toString();
-//      }
-//      catch(UnsupportedFlavorException e){
-//         //Debug.error("UnsupportedFlavorException: " + content);
-//      }
-//      catch(IOException e){
-//         e.printStackTrace();
-//      }
-//      return "";
-//   }
-//   
-//   static String getOSUtilClass(){
-//      String pkg = "org.sikuli.script.";
-//      switch(getOS()){
-//         case MAC:       return pkg+"MacUtil";
-//         case WINDOWS:   return pkg+"Win32Util";
-//         case LINUX:     return pkg+"LinuxUtil";
-//         default:
-////            Debug.error("Warning: Sikuli doesn't fully support your OS.");
-//            return pkg+"DummyUtil";
-//      }
-//   }
-
-//   static OSUtil _osUtil = null;
-//   public static OSUtil getOSUtil(){
-//      if(_osUtil == null){
-//         try{
-//            Class c = Class.forName(getOSUtilClass());
-//            Constructor constr = c.getConstructor();
-//            _osUtil = (OSUtil)constr.newInstance();
-//         }
-//         catch(Exception e){
-//            Debug.error("Can't create OS Util: " + e.getMessage());
-//         }
-//      }
-//      return _osUtil;
-//   }
 
    public static boolean isLockOn(char key){
       Toolkit tk = Toolkit.getDefaultToolkit();
@@ -114,46 +62,4 @@ public class Env {
          return KeyEvent.VK_CONTROL;
    }
 
-//   static String getSikuliDataPath(){
-//      String home, sikuliPath;
-//      if(isWindows()){
-//         home = System.getenv("APPDATA");  
-//         sikuliPath = "Sikuli";
-//      }
-//      else if(isMac()){
-//         home = System.getProperty("user.home") + 
-//                "/Library/Application Support";
-//         sikuliPath = "Sikuli";
-//      }
-//      else{
-//         home = System.getProperty("user.home");
-//         sikuliPath = ".sikuli";
-//      }
-//      File fHome = new File(home, sikuliPath);
-//      return fHome.getAbsolutePath();
-//   }
-//
-//   public static String getSikuliVersion(){
-//      return SikuliVersion;
-//   }
-
-//   public static boolean addHotkey(String key, int modifiers, HotkeyListener listener){
-//      return HotkeyManager.getInstance().addHotkey(key, modifiers, listener);
-//   }
-//
-//   public static boolean addHotkey(char key, int modifiers, HotkeyListener listener){
-//      return HotkeyManager.getInstance().addHotkey(key, modifiers, listener);
-//   }
-//
-//   public static boolean removeHotkey(String key, int modifiers){
-//      return HotkeyManager.getInstance().removeHotkey(key, modifiers);
-//   }
-//
-//   public static boolean removeHotkey(char key, int modifiers){
-//      return HotkeyManager.getInstance().removeHotkey(key, modifiers);
-//   }
-//
-//   public static void cleanUp(){
-//      HotkeyManager.getInstance().cleanUp();
-//   }
 }

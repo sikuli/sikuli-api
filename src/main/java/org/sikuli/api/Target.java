@@ -1,13 +1,6 @@
 package org.sikuli.api;
 
-import java.awt.image.BufferedImage;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
-import org.sikuli.core.search.RegionMatch;
-
-import com.google.common.collect.Lists;
 
 /**
  * The Target interface allows you to specify what targets to find or wait for 
@@ -17,7 +10,7 @@ import com.google.common.collect.Lists;
  * <p>
  * The Target class is an abstract base class. As such, you should not use this 
  * class directly. Instead, you should use one of the concrete classes inheriting 
- * from this class, such as {@link ImageTarget} or {@link ModelTextTarget}.
+ * from this class, such as {@link ImageTarget}.
  *  
  * 
  * @author Tom Yeh (tom.yeh@colorado.edu)

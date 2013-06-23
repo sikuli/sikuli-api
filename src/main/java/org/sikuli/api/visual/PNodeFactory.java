@@ -48,12 +48,9 @@ class PNodeFactory {
 		labelNode.setWidth(txt.getWidth()+4);
 		txt.setOffset(2,1);
 		
-		applyAlignment(labelNode, element);
-		
-		return addShadow(labelNode);		
-	}
-	
-
+		applyAlignment(labelNode, element);		
+		return applyTransparencyAndShadow(labelNode, element);
+	}	
 	
 	static public PNode createFrom(DotElement element){
 		PPath p = PPath.createEllipse(0,0,4,4);
@@ -66,7 +63,9 @@ class PNodeFactory {
 		foregroundNode.setHeight(p.getHeight());
 		foregroundNode.setWidth(p.getWidth());
 		foregroundNode.setOffset(element.x-2, element.y-2);		
-		return addShadow(foregroundNode);
+
+		return applyTransparencyAndShadow(foregroundNode, element);
+
 	}
 	
 	static public PNode createFrom(CircleElement element){
@@ -81,7 +80,7 @@ class PNodeFactory {
 		foregroundNode.setWidth(p.getWidth());		
 		foregroundNode.setOffset(element.x, element.y);
 
-		return addShadow(foregroundNode);
+		return applyTransparencyAndShadow(foregroundNode, element);
 	}
 
 	static public PNode createFrom(BoxElement element){
@@ -96,7 +95,7 @@ class PNodeFactory {
 		foregroundNode.setWidth(p.getWidth());
 		foregroundNode.setOffset(element.x, element.y);
 
-		return addShadow(foregroundNode);
+		return applyTransparencyAndShadow(foregroundNode, element);
 	}
 	
 	static public PNode createFrom(ImageElement element){
@@ -109,7 +108,7 @@ class PNodeFactory {
 		foregroundNode.setOffset(element.x, element.y);
 
 		applyAlignment(foregroundNode, element);		
-		return addShadow(foregroundNode);
+		return applyTransparencyAndShadow(foregroundNode, element);
 	}
 
 	static private void applyAlignment(PNode node, Element element){
@@ -137,6 +136,13 @@ class PNodeFactory {
 		node.setOffset(x,y);
 	}
 
+	static private PNode applyTransparencyAndShadow(PNode node, Element element){
+		PNode shadowedNode = addShadow(node);		
+		shadowedNode.setTransparency(element.transparency);
+		return shadowedNode;
+	}
+
+	
 	static private final Color SHADOW_PAINT = new Color(10, 10, 10, 200);
 	static private PNode addShadow(PNode contentNode){
 

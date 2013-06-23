@@ -2,8 +2,6 @@ package org.sikuli.api;
 
 import java.awt.Rectangle;
 
-import org.sikuli.api.Relative.RelativeScreenLocationBuilder;
-
 public class Relative{
 	
 	static public class RelativeScreenRegionBuilder{	

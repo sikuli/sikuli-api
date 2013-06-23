@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.awt.event.KeyEvent;
 
-import org.sikuli.api.APILogger;
 import org.sikuli.api.robot.Env;
 import org.sikuli.api.robot.Keyboard;
 
@@ -29,14 +28,12 @@ public class DesktopKeyboard implements Keyboard {
 		robot.keyRelease(mod);
 
 		String text = Clipboard.getText();
-		APILogger.getLogger().copyPerformed(text);
 		return text;
 	}
 
 	
 	public void paste(String text){
 		checkNotNull(text);
-		APILogger.getLogger().pastePerformed(text);
 
 		Clipboard.putText(Clipboard.PLAIN, Clipboard.UTF8, 
 				Clipboard.BYTE_BUFFER, text);
@@ -50,7 +47,6 @@ public class DesktopKeyboard implements Keyboard {
 
 	public void type(String text){
 		checkNotNull(text);
-		APILogger.getLogger().typePerformed(text);
 
 		AWTRobot robot = getRobot();
 		for(int i=0; i < text.length(); i++){

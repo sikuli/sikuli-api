@@ -2,20 +2,14 @@ package org.sikuli.api;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import org.sikuli.core.search.ColorImageQuery;
 import org.sikuli.core.search.ImageQuery;
 import org.sikuli.core.search.ImageSearcher;
 import org.sikuli.core.search.RegionMatch;
 import org.sikuli.core.search.ScoreFilter;
-import org.sikuli.core.search.ScoredItem;
-
-import com.google.common.collect.Lists;
 
 public class ColorImageTarget extends ImageTarget {
 	

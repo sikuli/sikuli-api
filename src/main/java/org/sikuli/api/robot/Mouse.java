@@ -4,7 +4,19 @@ import org.sikuli.api.ScreenLocation;
 
 public interface Mouse {
 	
+	
+	/**
+	 * Drag at a given screen location
+	 * 
+	 * @param screenLoc the screen location to drag 
+	 */	
 	public void drag(ScreenLocation screenLoc);
+
+	/**
+	 * Drop at a given screen location
+	 * 
+	 * @param screenLoc the screen location to drop 
+	 */	
 	public void drop(ScreenLocation screenLoc);
 
 	/**

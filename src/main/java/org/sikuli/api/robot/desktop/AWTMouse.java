@@ -3,7 +3,6 @@ package org.sikuli.api.robot.desktop;
 import java.awt.Point;
 import java.awt.event.InputEvent;
 
-import org.sikuli.api.APILogger;
 import org.sikuli.api.ScreenLocation;
 
 class AWTMouse {	

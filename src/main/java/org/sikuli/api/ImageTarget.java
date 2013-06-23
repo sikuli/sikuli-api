@@ -9,12 +9,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import org.sikuli.core.cv.ImagePreprocessor;
-import org.sikuli.core.search.ImageQuery;
-import org.sikuli.core.search.ImageSearcher;
 import org.sikuli.core.search.RegionMatch;
-import org.sikuli.core.search.ScoreFilter;
-import org.sikuli.core.search.algorithm.SearchByGrayscaleAtOriginalResolution;
 import org.sikuli.core.search.algorithm.TemplateMatcher;
 
 import com.google.common.collect.Lists;
