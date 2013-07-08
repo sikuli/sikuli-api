@@ -14,32 +14,32 @@ public class StyleBuilder {
 	}
 
 	public StyleBuilder withLineColor(Color color){
-		element.lineColor = color;
+		element.setLineColor(color);
 		return this;
 	}
 
 	public StyleBuilder withColor(Color color){
-		element.color = color;
+		element.setColor(color);
 		return this;
 	}
 	
 	public StyleBuilder withBackgroundColor(Color color) {
-		element.backgroundColor = color;
+		element.setBackgroundColor(color);
 		return this;
 	}		
 	
 	public StyleBuilder withTransparency(float f) {
-		element.transparency = f;
+		element.setTransparency(f);
 		return this;
 	}
 	
 	public StyleBuilder withFontSize(int size){
-		element.fontSize = size;
+		element.setFontSize(size);
 		return this;
 	}
 
 	public StyleBuilder withLineWidth(int width){
-		element.lineWidth = width;
+		element.setLineWidth(width);
 		return this;
 	}
 	

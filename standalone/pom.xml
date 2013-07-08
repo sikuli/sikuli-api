@@ -4,7 +4,7 @@
 
 	<groupId>org.sikuli</groupId>
 	<artifactId>sikuli-api.standalone</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3-Pre-1</version>
 	<packaging>jar</packaging>
 
 	<name>Sikuli Java API Standalone Jar</name>

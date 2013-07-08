@@ -4,8 +4,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import org.sikuli.api.ScreenLocation;
-import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.Location;
+import org.sikuli.api.Region;
 import org.sikuli.api.visual.element.BoxElement;
 import org.sikuli.api.visual.element.CircleElement;
 import org.sikuli.api.visual.element.DotElement;
@@ -19,7 +19,7 @@ abstract public class Canvas {
 
 	private final List<Element> elements = 	Lists.newArrayList();;
 	
-	public StyleBuilder addCircle(ScreenLocation screenLocation, int radius){		
+	public StyleBuilder addCircle(Location screenLocation, int radius){		
 		CircleElement newElement = new CircleElement();		
 		newElement.x = screenLocation.getX() - radius;
 		newElement.y = screenLocation.getY() - radius;
@@ -28,7 +28,7 @@ abstract public class Canvas {
 		return addElement(newElement);
 	}
 	
-	public StyleBuilder addDot(ScreenLocation screenLocation) {
+	public StyleBuilder addDot(Location screenLocation) {
 		DotElement newElement = new DotElement();		
 		newElement.x = screenLocation.getX();
 		newElement.y = screenLocation.getY();
@@ -38,7 +38,7 @@ abstract public class Canvas {
 	}
 
 	
-	public StyleBuilder addImage(ScreenLocation screenLocation, BufferedImage image){		
+	public StyleBuilder addImage(Location screenLocation, BufferedImage image){		
 		ImageElement newElement = new ImageElement();		
 		newElement.x = screenLocation.getX();
 		newElement.y = screenLocation.getY();
@@ -46,7 +46,7 @@ abstract public class Canvas {
 		return addElement(newElement);
 	}
 
-	public StyleBuilder addBox(ScreenRegion screenRegion){
+	public StyleBuilder addBox(Region screenRegion){
 		Rectangle r = screenRegion.getBounds();
 		BoxElement newElement = new BoxElement();		
 		newElement.x = r.x;
@@ -56,15 +56,20 @@ abstract public class Canvas {
 		return addElement(newElement);
 	}
 	
-	public StyleBuilder addLabel(ScreenRegion screenRegion, String labelText){
-		return addLabel(screenRegion.getCenter(), labelText);
-	}
-
-	public StyleBuilder addLabel(ScreenLocation screenLocation, String labelText){
+	public StyleBuilder addLabel(Region region, String labelText){
+		Rectangle r = region.getBounds();
 		LabelElement newElement = new LabelElement();
 		newElement.text = labelText;
-		newElement.x = screenLocation.getX();
-		newElement.y = screenLocation.getY();
+		newElement.x = r.x + r.width/2;
+		newElement.y = r.y + r.height/2;
+		return addElement(newElement);
+	}
+	
+	public StyleBuilder addLabel(Location location, String labelText){
+		LabelElement newElement = new LabelElement();
+		newElement.text = labelText;
+		newElement.x = location.getX();
+		newElement.y = location.getY();
 		return addElement(newElement);
 	}
 

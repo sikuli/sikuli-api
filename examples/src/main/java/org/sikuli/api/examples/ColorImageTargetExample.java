@@ -51,17 +51,17 @@ public class ColorImageTargetExample {
 		
 		for (ScreenRegion r : blueTargetRegions){
 			canvas.addBox(r);
-			canvas.addLabel(r, "blue");			
+			canvas.addLabel(r.getCenter(), "blue");			
 		}
 
 		for (ScreenRegion r : redTargetRegions){
 			canvas.addBox(r);
-			canvas.addLabel(r, "red");			
+			canvas.addLabel(r.getCenter(), "red");			
 		}
 
 		for (ScreenRegion r : greenTargetRegions){
 			canvas.addBox(r);
-			canvas.addLabel(r, "green");			
+			canvas.addLabel(r.getCenter(), "green");			
 		}
 		canvas.display(3);
 		

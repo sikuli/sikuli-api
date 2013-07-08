@@ -28,7 +28,7 @@
 	<artifactId>sikuli-api</artifactId>
 	<name>sikuli-api</name>
 	<url>http://www.sikuli.org</url>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.9-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>org.sikuli</groupId>
 			<artifactId>sikuli-core</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.media</groupId>

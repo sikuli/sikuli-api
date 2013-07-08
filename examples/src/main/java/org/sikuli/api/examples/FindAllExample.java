@@ -37,7 +37,7 @@ public class FindAllExample {
 		for (ScreenRegion r : rs){
 			canvas.addBox(r);
 			String labelText = String.format("(%d):%1.3f", no, r.getScore());
-			canvas.addLabel(r, labelText);
+			canvas.addLabel(r.getCenter(), labelText);
 			no += 1;
 		}
 		canvas.display(3);

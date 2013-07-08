@@ -37,12 +37,12 @@ class PNodeFactory {
 	static public PNode createFrom(LabelElement element){
 		final PText txt = new PText(element.text);
 		txt.setTextPaint(Color.black);
-		txt.setPaint(element.backgroundColor);
-		txt.setTextPaint(element.color);
-		txt.setFont(txt.getFont().deriveFont(element.fontSize));
+		txt.setPaint(element.getBackgroundColor());
+		txt.setTextPaint(element.getColor());
+		txt.setFont(txt.getFont().deriveFont(element.getFontSize()));
 
 		PNode labelNode = new PNode();
-		labelNode.setPaint(element.backgroundColor);		
+		labelNode.setPaint(element.getBackgroundColor());		
 		labelNode.addChild(txt);
 		labelNode.setHeight(txt.getHeight()+2);
 		labelNode.setWidth(txt.getWidth()+4);
@@ -54,9 +54,9 @@ class PNodeFactory {
 	
 	static public PNode createFrom(DotElement element){
 		PPath p = PPath.createEllipse(0,0,4,4);
-		p.setStrokePaint(element.lineColor);
-		p.setPaint(element.lineColor);		
-		p.setStroke(new BasicStroke(element.lineWidth));
+		p.setStrokePaint(element.getColor());
+		p.setPaint(element.getColor());		
+		p.setStroke(new BasicStroke(element.getLineWidth()));
 		
 		PNode foregroundNode = new PNode();
 		foregroundNode.addChild(p);
@@ -70,9 +70,9 @@ class PNodeFactory {
 	
 	static public PNode createFrom(CircleElement element){
 		PPath p = PPath.createEllipse(0,0,element.width,element.height);
-		p.setStrokePaint(element.lineColor);
+		p.setStrokePaint(element.getLineColor());
 		p.setPaint(null);		
-		p.setStroke(new BasicStroke(element.lineWidth));
+		p.setStroke(new BasicStroke(element.getLineWidth()));
 
 		PNode foregroundNode = new PNode();
 		foregroundNode.addChild(p);
@@ -85,9 +85,9 @@ class PNodeFactory {
 
 	static public PNode createFrom(BoxElement element){
 		PPath p = PPath.createRectangle(0,0,element.width,element.height);
-		p.setStrokePaint(element.lineColor);
+		p.setStrokePaint(element.getLineColor());
 		p.setPaint(null);		
-		p.setStroke(new BasicStroke(element.lineWidth));
+		p.setStroke(new BasicStroke(element.getLineWidth()));
 
 		PNode foregroundNode = new PNode();
 		foregroundNode.addChild(p);
@@ -138,7 +138,7 @@ class PNodeFactory {
 
 	static private PNode applyTransparencyAndShadow(PNode node, Element element){
 		PNode shadowedNode = addShadow(node);		
-		shadowedNode.setTransparency(element.transparency);
+		shadowedNode.setTransparency(element.getTransparency());
 		return shadowedNode;
 	}
 

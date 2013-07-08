@@ -68,7 +68,7 @@ public class TextTargetExample {
 			Target textTarget = new TextTarget(stringToFind);
 			ScreenRegion r = s.find(textTarget);
 			canvas.addBox(r);
-			canvas.addLabel(r, stringToFind);		
+			canvas.addLabel(r.getCenter(), stringToFind);		
 		}		
 		canvas.display(5);
 	}

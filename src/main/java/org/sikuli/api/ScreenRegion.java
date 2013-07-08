@@ -8,15 +8,11 @@ import java.util.Map;
 import org.sikuli.api.event.StateChangeListener;
 import org.sikuli.api.event.TargetEventListener;
 
-public interface ScreenRegion {
+public interface ScreenRegion extends Region {
 			
 	public Screen getScreen();
 	public void setScreen(Screen screen);
-
 	
-	public Rectangle getBounds();
-	public void setBounds(Rectangle newBounds);
-
 	public ScreenRegion getRelativeScreenRegion(int xoffset, int yoffset, int width, int height);
 	public ScreenLocation getRelativeScreenLocation(int xoffset, int yoffset);
 

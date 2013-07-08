@@ -51,7 +51,7 @@ public class TargetEventExample {
 				System.out.println(event.getTarget() + " has appeared within " + event.getScreenRegion() + 
 						" at " + Relative.to(event.getTargetRegion()).topLeft().getScreenLocation());	
 				canvas.clear().addBox(event.getTargetRegion());
-				canvas.addLabel(event.getTargetRegion(),"appeared");
+				canvas.addLabel(event.getTargetRegion().getCenter(),"appeared");
 				canvas.display(1);
 			}
 
@@ -59,7 +59,7 @@ public class TargetEventExample {
 			public void targetVanished(TargetEvent event) {
 				System.out.println(event.getTarget() + " has vanished from " + event.getScreenRegion());
 				canvas.clear().addBox(event.getTargetRegion());
-				canvas.addLabel(event.getTargetRegion(),"vanished");
+				canvas.addLabel(event.getTargetRegion().getCenter(),"vanished");
 				canvas.display(1);
 			}
 
@@ -68,7 +68,7 @@ public class TargetEventExample {
 				System.out.println(event.getTarget() + " has moved to " + 
 						Relative.to(event.getTargetRegion()).topLeft().getScreenLocation());
 				canvas.clear().addBox(event.getTargetRegion());
-				canvas.addLabel(event.getTargetRegion(),"moved");
+				canvas.addLabel(event.getTargetRegion().getCenter(),"moved");
 				canvas.display(1);
 			}					
 		};
