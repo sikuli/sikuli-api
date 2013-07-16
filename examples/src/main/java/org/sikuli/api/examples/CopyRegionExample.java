@@ -1,13 +1,8 @@
-/**
-Khalid
-*/
 package org.sikuli.api.examples;
 
 import static org.sikuli.api.API.browse;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.Relative;
@@ -36,8 +31,9 @@ public class CopyRegionExample {
 		// Specify the region to be copied
 		ScreenRegion copyRegion = Relative.to(r).right(310).below(20).above(10).getScreenRegion();
 		
-		// Display canvas next to the region to be copied for 3 seconds
+		// Display canvas on the region to be copied for 3 seconds
 		Canvas canvas = new DesktopCanvas();
+		canvas.addBox(copyRegion);
 		canvas.addLabel(copyRegion, "region to be copied.");
 		canvas.display(3);
 		
