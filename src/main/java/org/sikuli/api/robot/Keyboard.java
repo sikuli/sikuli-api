@@ -1,5 +1,7 @@
 package org.sikuli.api.robot;
 
+import org.sikuli.api.ScreenRegion;
+
 public interface Keyboard {
 	
 	/**
@@ -11,6 +13,14 @@ public interface Keyboard {
 	 * @return The clipboard contents converted to a String or <code>null</code>
 	 */
 	public String copy();
+	
+	/**
+	 * Copies the content of a screen region into the clipboard. It highlights the content of the given 
+	 * screen region by clicking on its upper-left corner and moving the mouse to the lower-right corner, 
+	 * then it performs the keyboard shortcut to copy the content of the screen region.
+	 * @param screenRegion The screen region to be copied
+	 */
+	public void copyRegion(ScreenRegion screenRegion);
 	
 	public void paste(String text);
 	public void type(String text);
