@@ -19,6 +19,34 @@ public interface ScreenRegion {
 
 	public ScreenRegion getRelativeScreenRegion(int xoffset, int yoffset, int width, int height);
 	public ScreenLocation getRelativeScreenLocation(int xoffset, int yoffset);
+	
+	/**
+	 * Gets the upper-left corner of this screen region
+	 * 
+	 * @return a Location object corresponding to the upper-left corner of the screen region
+	 */
+	public abstract ScreenLocation getUpperLeftCorner();
+	
+	/**
+	 * Gets the lower-left corner of this screen region
+	 * 
+	 * @return a Location object corresponding to the lower-left corner of the screen region
+	 */
+	public abstract ScreenLocation getLowerLeftCorner();
+	
+	/**
+	 * Gets the upper-right corner of this screen region
+	 * 
+	 * @return a Location object corresponding to the upper-right corner of the screen region
+	 */
+	public abstract ScreenLocation getUpperRightCorner();
+	
+	/**
+	 * Gets the lower-right corner of this screen region
+	 * 
+	 * @return a Location object corresponding to the lower-right corner of the screen region
+	 */
+	public abstract ScreenLocation getLowerRightCorner();
 
 	/**
 	 * Gets the center of this screen region 

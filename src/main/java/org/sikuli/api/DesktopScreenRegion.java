@@ -35,5 +35,23 @@ public class DesktopScreenRegion extends DefaultScreenRegion implements ScreenRe
 			this.setScreen(_screen);
 		}
 	}
+	
+	/**
+	 * Create a screen region based on X, Y, width and height.
+	 * The related screen will be determined automatically based on the
+	 * center of the rectangle and default to the given screen id in case the center is
+	 * outside of all available screens.
+	 */
+	public DesktopScreenRegion(int id, int x, int y, int width, int height) {
+		super(new DesktopScreen(id));
+		setX(x);
+		setY(y);
+		setWidth(width);
+		setHeight(height);
+		DesktopScreen _screen= DesktopScreen.getScreenAtCoord(x+width/2,y+height/2);
+		if (_screen!=null) {
+			this.setScreen(_screen);
+		}
+	}
 		
 }

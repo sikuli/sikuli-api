@@ -146,6 +146,26 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 			lastCapturedImage = capture();
 		return lastCapturedImage;
 	}
+	
+	@Override
+	public ScreenLocation getUpperLeftCorner() {
+		return new DefaultScreenLocation(getScreen(), getX(), getY());
+	}
+	
+	@Override
+	public ScreenLocation getLowerLeftCorner() {
+		return new DefaultScreenLocation(getScreen(), getX(), getY() + getHeight());
+	}
+	
+	@Override
+	public ScreenLocation getUpperRightCorner() {
+		return new DefaultScreenLocation(getScreen(), getX() + getWidth(), getY());
+	}
+	
+	@Override
+	public ScreenLocation getLowerRightCorner() {
+		return new DefaultScreenLocation(getScreen(), getX() + getWidth(), getY() + getHeight());
+	}
 
 	@Override
 	public ScreenLocation getCenter() {

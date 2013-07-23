@@ -5,8 +5,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.awt.event.KeyEvent;
 
 import org.sikuli.api.APILogger;
+import org.sikuli.api.ScreenLocation;
+import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.robot.Env;
 import org.sikuli.api.robot.Keyboard;
+import org.sikuli.api.robot.Mouse;
 
 
 public class DesktopKeyboard implements Keyboard {
@@ -32,7 +35,17 @@ public class DesktopKeyboard implements Keyboard {
 		APILogger.getLogger().copyPerformed(text);
 		return text;
 	}
-
+	
+	public void copyRegion(ScreenRegion screenRegion){
+		Mouse mouse = new DesktopMouse();
+		ScreenLocation start = screenRegion.getUpperLeftCorner();
+		ScreenLocation end = screenRegion.getLowerRightCorner();
+		mouse.move(start);
+		mouse.press();
+		mouse.move(end);
+		copy();
+		mouse.release();
+	}
 	
 	public void paste(String text){
 		checkNotNull(text);
