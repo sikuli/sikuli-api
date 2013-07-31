@@ -1,7 +1,10 @@
 package org.sikuli.api;
 
 import java.awt.Rectangle;
-
+/**
+ * 
+ *
+ */
 public class Relative{
 	
 	static public class RelativeScreenRegionBuilder{	
@@ -13,15 +16,35 @@ public class Relative{
 		//
 		// Utility methods for obtaining relative regions
 		//
+		/**
+		 * Returns a new RelativeScreenRegionBuilder object to the right of this ScreenRegion.
+		 * @param amount the amount to go to the right.
+		 * @return a new RelativeScreenRegionBuilder object to the right of this ScreenRegion.
+		 */
 		public RelativeScreenRegionBuilder right(int amount){
 			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(screenRegion.getBounds().width, 0, amount, screenRegion.getBounds().height));
 		}
+		/**
+		 * Returns a new RelativeScreenRegionBuilder object to the left of this ScreenRegion.
+		 * @param amount the amount to go to the left.
+		 * @return a new RelativeScreenRegionBuilder object to the left of this ScreenRegion.
+		 */
 		public RelativeScreenRegionBuilder left(int amount){
 			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(-amount, 0, amount, screenRegion.getBounds().height));
 		}
+		/**
+		 * Returns a new RelativeScreenRegionBuilder object above the specified amount.
+		 * @param amount the amount to go above.
+		 * @return a new RelativeScreenRegionBuilder object above the given amount.
+		 */
 		public RelativeScreenRegionBuilder above(int amount){
 			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(0, -amount, screenRegion.getBounds().width, amount));
 		}
+		/**
+		 * Returns a new RelativeScreenRegionBuilder object below the specified amount.
+		 * @param amount the amount to go below.
+		 * @return a new RelativeScreenRegionBuilder object below the given amount.
+		 */
 		public RelativeScreenRegionBuilder below(int amount){
 			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(0, screenRegion.getBounds().height, screenRegion.getBounds().width, amount));
 		}
@@ -116,11 +139,21 @@ public class Relative{
 			return new RelativeScreenLocationBuilder(screenLocation.getRelativeScreenLocation(amount, 0));		
 		}		
 	}
-		
+	/**
+	 * Returns a new RelativeScreenRegionBuilder object using the specified ScreenRegion object.
+	 * 
+	 * @param screenRegion the original ScreenRegion object for which a relative screen region will be created.
+	 * @return RelativeScreenRegionBuilder object used for creating relative regions.
+	 */
 	public static RelativeScreenRegionBuilder to(ScreenRegion screenRegion){
 		return new RelativeScreenRegionBuilder(screenRegion);
 	}
-	
+	/**
+	 * Returns a new RelativeScreenLocationBuilder object using the specified ScreenLocation object.
+	 * 
+	 * @param screenLocation the original ScreenLocation object for which a relative screen location will be created.
+	 * @return RelativeScreenLocationBuilder object used for creating relative regions.
+	 */
 	public static RelativeScreenLocationBuilder to(ScreenLocation screenLocation){
 		return new RelativeScreenLocationBuilder(screenLocation);
 	}
