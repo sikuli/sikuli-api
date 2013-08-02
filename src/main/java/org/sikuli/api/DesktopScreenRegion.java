@@ -2,7 +2,7 @@ package org.sikuli.api;
 
 import org.sikuli.api.robot.desktop.DesktopScreen;
 /**
- * This class describes a region of any DesktopScreen.
+ * A DesktopScreenRegion object is used to describe a region of any DesktopScreen.
  *
  */
 public class DesktopScreenRegion extends DefaultScreenRegion implements ScreenRegion {
