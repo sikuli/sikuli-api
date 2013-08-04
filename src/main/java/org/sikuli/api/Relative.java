@@ -2,7 +2,7 @@ package org.sikuli.api;
 
 import java.awt.Rectangle;
 /**
- * 
+ *  The Relative class provides new regions relative to the region of a screen region object.
  *
  */
 public class Relative{
