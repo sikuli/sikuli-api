@@ -2,7 +2,7 @@ package org.sikuli.api.visual;
 
 import org.sikuli.api.DesktopScreenRegion;
 /**
- * The DesktopCanvas class represents a canvas or frame to be displayed on a screen region.
+ * The DesktopCanvas class represents a canvas (frame) to be displayed on a screen region.
  *
  */
 public class DesktopCanvas extends ScreenRegionCanvas {

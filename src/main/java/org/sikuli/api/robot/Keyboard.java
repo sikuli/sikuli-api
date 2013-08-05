@@ -1,7 +1,10 @@
 package org.sikuli.api.robot;
 
 import org.sikuli.api.ScreenRegion;
-
+/**
+ * Keyboard interface provides definitions for generating native keyboard events.
+ *
+ */
 public interface Keyboard {
 	
 	/**
