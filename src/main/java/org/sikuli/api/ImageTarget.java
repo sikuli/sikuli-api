@@ -28,10 +28,10 @@ public class ImageTarget extends DefaultTarget implements Target {
 	private URL url = null;
 	
 	/**
-	 * Creates an ImageTarget from an image at a given URL
+	 * Creates an ImageTarget from an image at a given URL.
 	 * 
-	 * @param url	url to load the image	
-	 * @throws IOException	thrown if the image can not be loaded
+	 * @param url the URL to load the image.
+	 * @throws IOException thrown if the image can not be loaded
 	 */
 	public ImageTarget(URL url) {
 		super();
@@ -43,16 +43,20 @@ public class ImageTarget extends DefaultTarget implements Target {
 		this.imageSource = url.toString();
 		this.url = url;
 	}
-	
+	/**
+	 * Returns the URL of the image for this ImageTarget.
+	 * 
+	 * @return the URL to load the image.
+	 */
 	public URL getURL(){
 		return url;
 	}
 	
 	/**
-	 * Creates an ImageTarget from a File object
+	 * Creates an ImageTarget from a File object.
 	 * 
-	 * @param file	the File to read image data from
-	 * @throws IOException	thrown if the File can not be read
+	 * @param file the File to read image data from.
+	 * @throws IOException	thrown if the File can not be read.
 	 */
 	public ImageTarget(File file) {
 		super();
@@ -66,24 +70,28 @@ public class ImageTarget extends DefaultTarget implements Target {
 
 
 	/**
-	 * Creates an ImageTarget from a BufferedImage
+	 * Creates an ImageTarget from a BufferedImage.
 	 * 
-	 * @param targetImage	the image representing this target 
+	 * @param targetImage the image representing this target. 
 	 */
 	public ImageTarget(BufferedImage targetImage){
 		super();
 		this.targetImage = targetImage;
 		this.imageSource = "[BufferedImage]";
 	}
-	
+	/**
+	 * Returns a String object representing this ImageTarget object's value.
+	 * 
+	 * @return a string representation of this ImageTarget.
+	 */
 	public String toString(){
 		return "[ImageTarget: " + imageSource + "]";
 	}
 	
 	/**
-	 * Gets the image describing the target
+	 * Returns the image describing this ImageTarget.
 	 * 
-	 * @return	a BufferedImage
+	 * @return	a BufferedImage representing this target.
 	 */
 	public BufferedImage getImage(){
 		return targetImage;
@@ -95,7 +103,9 @@ public class ImageTarget extends DefaultTarget implements Target {
 		return targetImage;
 	}
 
-
+	/**
+	 * @return returns 0.7 as the default minimum matching score for this ImageTarget.
+	 */
 	@Override
 	protected double getDefaultMinScore(){
 		return 0.7;

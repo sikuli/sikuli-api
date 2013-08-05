@@ -1,7 +1,10 @@
 package org.sikuli.api.robot;
 
 import org.sikuli.api.ScreenLocation;
-
+/**
+ * Mouse interface provides definitions for generating native mouse events.
+ *
+ */
 public interface Mouse {
 	
 	

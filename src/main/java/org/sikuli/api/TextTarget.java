@@ -28,7 +28,10 @@ import com.jgoodies.looks.Fonts;
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.nodes.PText;
-
+/**
+ * A TextTarget object describes a target using text.
+ *
+ */
 public class TextTarget extends DefaultTarget implements Target {
 
 	private static final int MAX_FONT_SIZE = 14;
@@ -37,7 +40,11 @@ public class TextTarget extends DefaultTarget implements Target {
 	static private Logger logger = LoggerFactory.getLogger(TextTarget.class);
 
 	final private String text;
-
+	/**
+	 * Constructs a new TextTarget from the specified text.
+	 * 
+	 * @param text the text string
+	 */
 	public TextTarget(String text) {
 		this.text = text;
 	}
