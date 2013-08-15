@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
 		<version>7</version>
 	</parent>
-
 	<licenses>
 		<license>
 			<name>MIT License</name>
@@ -15,7 +14,6 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
 	<developers>
 		<developer>
 			<id>doubleshow</id>
@@ -23,18 +21,15 @@
 			<email>tom.yeh@colorado.edu</email>
 		</developer>
 	</developers>
-
 	<groupId>org.sikuli</groupId>
 	<artifactId>sikuli-api</artifactId>
 	<name>sikuli-api</name>
 	<url>http://www.sikuli.org</url>
 	<version>1.0.9-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.sikuli</groupId>
@@ -64,20 +59,12 @@
 			<version>1.6.6</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-javadoc-plugin</artifactId>
-			<version>2.9.1</version>
-			<type>maven-plugin</type>
-		</dependency>
 	</dependencies>
-
 	<scm>
 		<connection>scm:git:git@bitbucket.org:doubleshow/sikuli-api.git</connection>
 		<developerConnection>scm:git:git@bitbucket.org:doubleshow/sikuli-api.git</developerConnection>
 		<url>git@bitbucket.org:doubleshow/sikuli-api.git</url>
 	</scm>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -89,7 +76,15 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+					<show>public</show>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>
