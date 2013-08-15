@@ -24,18 +24,35 @@ import org.sikuli.ocr.RecognizedDigit;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-
+/**
+ * This class provides manipulation methods that can be used by the default screen region.
+ *
+ */
 public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenRegion {
 
 	private BufferedImage lastCapturedImage;
 	private Map<Target, Object> states = new ConcurrentHashMap<Target, Object>();
 	private ImageMask mask = null;
 
-
+	/**
+	 * Constructs a new DefaultScreenRegion on the specified Screen object whose 
+	 * upper-left corner is at (0, 0) in the coordinate space.
+	 *  
+	 * @param screen The Screen to create a region from.
+	 */
 	public DefaultScreenRegion(Screen screen){
 		super(screen);
 	}
-
+	/**
+	 * Constructs a new DefaultScreenRegion object whose Screen is the same as the parent
+	 * ScreenRegion with the specified region values.
+	 * 
+	 * @param parent the parent of this ScreenRegion
+	 * @param x The X coordinate of the upper-left corner of the rectangular screen region.
+	 * @param y The Y coordinate of the upper-left corner of the rectangular screen region.
+	 * @param width The width of the rectangular screen region.
+	 * @param height The height of the rectangular screen region.
+	 */
 	public DefaultScreenRegion(ScreenRegion parent, int x, int y, int width, int height) {
 		super(parent.getScreen());
 		setX(parent.getBounds().x + x);
@@ -43,7 +60,15 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 		setWidth(width);
 		setHeight(height);
 	}
-
+	/**
+	 * Constructs a new DefaultScreenRegion object on the specified Screen and region values.
+	 * 
+	 * @param screen The Screen to create a region from.
+	 * @param x The X coordinate of the upper-left corner of the rectangular screen region.
+	 * @param y The Y coordinate of the upper-left corner of the rectangular screen region.
+	 * @param width The width of the rectangular screen region.
+	 * @param height The height of the rectangular screen region.
+	 */
 	public DefaultScreenRegion(Screen screen, int x, int y, int width, int height) {
 		super(screen, x, y, width, height);
 	}
@@ -137,9 +162,9 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	}
 
 	/**
-	 * Gets the screenshot last captured in this screen region
+	 * Returns the last captured screenshot in this screen region.
 	 * 
-	 * @return a BufferedImage that holds the screenshot last captured in this screen region
+	 * @return a BufferedImage that holds the last captured screenshot in this screen region.
 	 */
 	public BufferedImage getLastCapturedImage(){
 		if (lastCapturedImage == null)
@@ -222,11 +247,19 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	public void addStateChangeEventListener(StateChangeListener listener) {
 		VisualEventManager.getSingleton().addStateChangeEventListener(this, listener);		
 	}
-
+	/**
+	 * Returns the explicit masking of this DefaultScreenRegion.
+	 * 
+	 * @return the explicit masking of this DefaultScreenRegion.
+	 */
 	public ImageMask getMask() {
 		return mask;
 	}
-
+	/**
+	 * Sets the masking of this DefaultScreenRegion.
+	 * 
+	 * @param mask the masking of this DefaultScreenRegion.
+	 */
 	public void setMask(ImageMask mask) {
 		this.mask = mask;
 	}
@@ -251,7 +284,11 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 		return ImmutableList.copyOf(rois);
 	}
 
-
+	/**
+	 * Extracts an integer from this screen region.
+	 * 
+	 * @return the Integer this screen region contains.
+	 */
 	public Integer extractInteger() {
 		List<RecognizedDigit> digits = DigitRecognizer.recognize(capture());
 		Collections.sort(digits, new Comparator<RecognizedDigit>(){
@@ -268,11 +305,16 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	}
 
 
-
+	/**
+	 * Returns a map of {@link Target} objects and states, which can be any object, 
+	 * of this DefaultScreenRegion.
+	 * 
+	 * @return a map of Target objects and their states.
+	 */
 	public Map<Target, Object> getStates() {
 		return states;
 	}
-
+	
 	@Override
 	public void addState(Target target, Object state) {
 		states.put(target,  state);

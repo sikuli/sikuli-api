@@ -7,8 +7,8 @@ interface VisualEventListener extends EventListener{
 }
 
 /**
- * Interface for a screen region to register to receive notifications when a target has
- * appeared, vanished, or moved within this screen region
+ * Interface for a screen region to register and receive notifications when a target has
+ * appeared, vanished, or moved within this screen region.
  * 
  * @author Tom Yeh (tom.yeh@colorado.edu)
  *
@@ -16,36 +16,37 @@ interface VisualEventListener extends EventListener{
 public interface TargetEventListener extends VisualEventListener {
 	
 	/**
-	 * Invoked when a target has appeared in a screen region
+	 * Invoked when a target has appeared in a screen region.
 	 * 
-	 * event.getTarget() returns the target that has just appeared
-	 * event.getScreenRegion() returns the screen region where the target is being watched
-	 * event.getTargetRegion() returns the screen region currently occupied by the target
+	 * @param event the TargetEvent object for the target that might appear.<p>
+	 * event.getTarget() returns the target that has just appeared.<p>
+	 * event.getScreenRegion() returns the screen region where the target is being watched.<p>
+	 * event.getTargetRegion() returns the screen region currently occupied by the target.<p>
 	 * 
-	 * @param event
+	 * 
 	 */
 	public void targetAppeared(TargetEvent event);
 
 	/**
-	 * Invoked when a target has vanished from a screen region
+	 * Invoked when a target has vanished from a screen region.<p>
 	 * 
-	 * @param event
+	 * @param event the TargetEvent object for the target that might vanish.<p>
 	 * 
-	 * event.getTarget() returns the target that has just vanished
-	 * event.getScreenRegion() returns the screen region where the target is being watched
-	 * event.getTargetRegion() returns the screen region last occupied by the target before it vanished.
+	 * event.getTarget() returns the target that has just vanished.<p>
+	 * event.getScreenRegion() returns the screen region where the target is being watched.<p>
+	 * event.getTargetRegion() returns the screen region last occupied by the target before it vanished.<p>
 	 */
 	public void targetVanished(TargetEvent event);
 	
 	/**
-	 * Invoked when a target has moved to another location in a screen region
+	 * Invoked when a target has moved to another location in a screen region.<p>
 	 * 
-	 * @param event
+	 * @param event the TargetEvent object for the target that might move.<p>
 	 * 
-	 * event.getTarget() returns the target that has just moved
-	 * event.getScreenRegion() returns the screen region where the target is being watched
+	 * event.getTarget() returns the target that has just moved.<p>
+	 * event.getScreenRegion() returns the screen region where the target is being watched.<p>
 	 * event.getTargetRegion() returns the screen region currently occupied by the target (i.e., the region
-	 * the target has just moved to).
+	 * the target has just moved to).<p>
 	 * 
 	 */
 	public void targetMoved(TargetEvent event);

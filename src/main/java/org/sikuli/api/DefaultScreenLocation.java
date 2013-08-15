@@ -1,7 +1,10 @@
 package org.sikuli.api;
 
 import com.google.common.base.Objects;
-
+/**
+ * This class provides manipulation methods that can be used for the default screen location.
+ *
+ */
 public class DefaultScreenLocation implements ScreenLocation {
 
 	private int x = 0;
@@ -10,27 +13,38 @@ public class DefaultScreenLocation implements ScreenLocation {
 
 
 	/**
-	 * Create a new screen location on a given screen (screenRef)
-	 * at the coordinate specified by x and y.
+	 * Constructs a new screen location whose screen is the specified screen (screenRef), and whose 
+	 * (x,y) coordinates are specified by the arguments of the same name.
+	 * 
+	 * @param screenRef the specified screen or monitor. 
+	 * @param x the X location of the screen coordinate.
+	 * @param y the Y location of the screen coordinate.
 	 */
 	public DefaultScreenLocation(Screen screenRef, int x, int y){
 		setX(x);
 		setY(y);
 		screen = screenRef;
 	}
-
+	/**
+	 * Constructs a new screen location whose screen and (x,y) coordinates are specified by the ScreenLocation argument.
+	 * 
+	 * @param loc a ScreenLocation, specifying screen and (x,y) coordinates.
+	 */
 	public DefaultScreenLocation(ScreenLocation loc){
 		setX(loc.getX());
 		setY(loc.getY());
 		screen = loc.getScreen();
 	}
-
+	
 	public ScreenLocation getRelativeScreenLocation(int xoffset, int yoffset){
 		ScreenLocation loc =  new DefaultScreenLocation(screen, getX() + xoffset, getY() + yoffset);
 		loc.setScreen(screen);
 		return loc;
 	}
-
+	/**
+	 * Returns a String representation of this DefaultScreenLocation and its values.
+	 * @return a String representing this DefaultScreenLocation object's coordinate and screen values.
+	 */
 	public String toString(){
 		return Objects.toStringHelper(getClass().getName()).add("x",x).add("y",y)
 				.add("screen",screen).toString();

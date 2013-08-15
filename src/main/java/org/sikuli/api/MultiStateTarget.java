@@ -10,7 +10,12 @@ import java.util.Map;
 
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Doubles;
-
+/**
+ * The MultiStateTarget class defines a target that may look differently according its state. <p> 
+ * This class can be used to identify targets whose visual appearance change frequently. Examples
+ * include, but are not limited to, checkboxes and radio buttons.
+ *
+ */
 public class MultiStateTarget extends DefaultTarget implements Target {
 
 	Map<Target, Object> states = new HashMap<Target, Object>();
@@ -59,7 +64,13 @@ public class MultiStateTarget extends DefaultTarget implements Target {
 		
 		return results;
 	}
-
+	/**
+	 * Adds a new state to this MultiStateTarget object as represented by the presence
+	 * of the given target.
+	 * 
+	 * @param target the target whose presence indicates this state.
+	 * @param state	the state, which can be any object.
+	 */
 	public void addState(Target target, Object state){
 		states.put(target,  state);
 	}
