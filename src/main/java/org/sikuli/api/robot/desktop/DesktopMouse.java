@@ -64,9 +64,11 @@ public class DesktopMouse implements Mouse {
 	}
 
 	@Override
-	public void click(ScreenLocation screenLoc) {	
-		hover(screenLoc);
-		getAWTMouse(screenLoc).click();
+	public void click(ScreenLocation screenLoc) {
+		if (screenLoc != null){
+			hover(screenLoc);
+			getAWTMouse(screenLoc).click();
+		}
 	}
 
 	@Override

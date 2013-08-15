@@ -32,7 +32,7 @@ public class DefaultScreenLocation implements ScreenLocation {
 	}
 
 	public String toString(){
-		return Objects.toStringHelper(getClass().getName()).add("x",x).add("y",y)
+		return Objects.toStringHelper(this).add("x",x).add("y",y)
 				.add("screen",screen).toString();
 	}
 
@@ -65,4 +65,5 @@ public class DefaultScreenLocation implements ScreenLocation {
 	public void setY(int y) {
 		this.y = y;
 	}
+		
 }

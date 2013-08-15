@@ -1,6 +1,8 @@
 package org.sikuli.api.visual;
 
 import javax.swing.JWindow;
+import javax.swing.SwingUtilities;
+
 import com.sun.awt.AWTUtilities;
 import edu.umd.cs.piccolo.PCanvas;
 
@@ -24,14 +26,23 @@ public class ScreenOverlayWindow extends JWindow implements ScreenDisplayable {
 	
 	@Override
 	public void displayOnScreen() {
-		setVisible(true);
-		
+		SwingUtilities.invokeLater(new Runnable() {
+		    @Override
+		    public void run() {
+		    	setVisible(true);
+		    }
+		});
 	}
 
 	@Override
 	public void hideFromScreen() {
-		setVisible(false);
-		dispose();
+		SwingUtilities.invokeLater(new Runnable() {
+		    @Override
+		    public void run() {
+				setVisible(false);
+				dispose();
+		    }
+		});
 	}		
 
 }

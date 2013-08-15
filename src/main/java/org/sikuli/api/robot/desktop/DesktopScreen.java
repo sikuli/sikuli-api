@@ -46,7 +46,7 @@ public class DesktopScreen implements Screen {
 	}
 
 	public int getId() {
-		return screenId;
+		return getScreenId();
 	}
 	
 	public Rectangle getBounds(){
@@ -73,7 +73,7 @@ public class DesktopScreen implements Screen {
 	}
 	
 	public String toString(){
-		return Objects.toStringHelper(getClass().getName()).add("id",screenId).toString();
+		return Objects.toStringHelper(this).add("id",getScreenId()).toString();
 	}
 	
 	/**
@@ -84,6 +84,10 @@ public class DesktopScreen implements Screen {
 	public static int getNumberScreens() {
         return AWTDesktop.getNumberScreens();
 }
+
+	public int getScreenId() {
+		return screenId;
+	}
 
 
 }

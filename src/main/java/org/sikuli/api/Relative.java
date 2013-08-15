@@ -2,6 +2,8 @@ package org.sikuli.api;
 
 import java.awt.Rectangle;
 
+import org.sikuli.api.Relative.RelativeScreenRegionBuilder;
+
 public class Relative{
 	
 	static public class RelativeScreenRegionBuilder{	
@@ -13,6 +15,9 @@ public class Relative{
 		//
 		// Utility methods for obtaining relative regions
 		//
+		public RelativeScreenRegionBuilder offset(int x, int y){
+			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(x, y, screenRegion.getBounds().width, screenRegion.getBounds().height));
+		}
 		public RelativeScreenRegionBuilder right(int amount){
 			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(screenRegion.getBounds().width, 0, amount, screenRegion.getBounds().height));
 		}
@@ -37,8 +42,23 @@ public class Relative{
 		public RelativeScreenRegionBuilder wider(int amount){
 			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(-amount/2, 0, screenRegion.getBounds().width + amount, screenRegion.getBounds().height));
 		}
+		public RelativeScreenRegionBuilder region(Region region) {
+			Rectangle r = region.getBounds();
+			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(r.x,r.y,r.width,r.height));
+		}
 		
+		public RelativeScreenRegionBuilder region(int x, int y, int width, int height) {
+			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(x,y,width,height));
+		}
 		
+		public RelativeScreenRegionBuilder region(double x1, double y1, double x2, double y2){
+			Rectangle r = screenRegion.getBounds();
+			int x = (int) (1.0 * r.x + x1 * r.width);
+			int y = (int) (1.0 * r.y + y1 * r.height);
+			int w = (int) (1.0 * (x2 - x1) * r.width);
+			int h = (int) (1.0 * (y2 - y1) * r.height);
+			return new RelativeScreenRegionBuilder(screenRegion.getRelativeScreenRegion(x,y,w,h));
+		}
 		
 		//
 		// Utility methods for obtaining relative locations
@@ -85,12 +105,12 @@ public class Relative{
 			Rectangle r = screenRegion.getBounds();
 			return new RelativeScreenLocationBuilder(screenRegion.getRelativeScreenLocation(r.width,r.height/2));
 		}
-		
-						
+								
 		public ScreenRegion getScreenRegion(){
 			return screenRegion;
 		}
 
+		
 	}
 	
 

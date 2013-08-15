@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.swing.SwingUtilities;
+
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.robot.desktop.DesktopScreen;
 import org.sikuli.api.visual.element.Element;
@@ -39,41 +41,69 @@ public class ScreenRegionCanvas extends Canvas {
 		}
 		hide();
 	}
-	
+
 	public void displayWhile(Runnable runnable){
 		show();
 		runnable.run();
 		hide();
 	}
-	
+
 	List<ScreenDisplayable> displayableList = Lists.newArrayList();	
 	public void show(){
-		for (Element element : getElements()){
-			displayableList.add(createScreenDisplayable(element));		
-		}
 
-		for (ScreenDisplayable d : displayableList){
-			d.displayOnScreen();
-		}
+		SwingUtilities.invokeLater(new Runnable(){
+
+			@Override
+			public void run() {
+
+				for (Element element : getElements()){
+					displayableList.add(createScreenDisplayable(element));		
+				}
+
+				for (ScreenDisplayable d : displayableList){			
+					d.displayOnScreen();
+				}
+			}
+
+		});
+
 	}
-	
+
+	public void refresh() {
+		hide();
+		show();
+	}
+
+
 	public void hide(){		
-		for (ScreenDisplayable d : displayableList){
-			d.hideFromScreen();
-			ScreenOverlayWindow w = (ScreenOverlayWindow) d;
-			// do this to release all references to graphical objects, such as PShadow,
-			// which holds references to BufferedImages
-			// this deals with the memory leak problem related to the use
-			// of ScreenRegionCanvas
-			PCanvas canvas = w.getCanvas();			
-			removeAllChildrenRecursively(canvas.getLayer());
-		}
-		displayableList.clear();
-		
-		// force garbage collection
-		System.gc();
+
+		SwingUtilities.invokeLater(new Runnable(){
+
+			@Override
+			public void run() {
+
+
+				for (ScreenDisplayable d : displayableList){
+					d.hideFromScreen();
+					ScreenOverlayWindow w = (ScreenOverlayWindow) d;
+					// do this to release all references to graphical objects, such as PShadow,
+					// which holds references to BufferedImages
+					// this deals with the memory leak problem related to the use
+					// of ScreenRegionCanvas
+					PCanvas canvas = w.getCanvas();			
+					removeAllChildrenRecursively(canvas.getLayer());
+				}
+				displayableList.clear();
+
+				// force garbage collection
+				System.gc();
+
+			}
+
+		});
+
 	}	
-	
+
 	static private void removeAllChildrenRecursively(PNode node){
 		ListIterator it = node.getChildrenIterator();
 		while (it.hasNext()){

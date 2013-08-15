@@ -161,7 +161,7 @@ class PNodeFactory {
 		contentNodeWithShadow.addChild(shadowNode);
 		contentNodeWithShadow.addChild(contentNode);		      
 //		contentNodeWithShadow.setOffset(xoffset - tx  - blurRadius, yoffset - ty - blurRadius);
-		contentNodeWithShadow.setOffset(xoffset - tx - 1, yoffset - ty - 1);
+		contentNodeWithShadow.setOffset(xoffset - tx, yoffset - ty);
 		contentNodeWithShadow.setBounds(0,0, contentNode.getWidth() + 2*blurRadius + tx, contentNode.getHeight() + 2*blurRadius + ty);
 		return contentNodeWithShadow;
 	}

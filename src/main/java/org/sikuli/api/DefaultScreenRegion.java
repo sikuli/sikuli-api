@@ -104,7 +104,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 			t.setRepeats(false);
 
 			while (r == null && !timeout){
-				r = _find(target);				
+				r = _find(target);		
 				try {
 					Thread.sleep(POLL_INTERVAL);
 				} catch (InterruptedException e1) {

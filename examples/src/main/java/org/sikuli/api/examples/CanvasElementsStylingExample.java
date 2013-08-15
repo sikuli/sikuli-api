@@ -1,5 +1,6 @@
 package org.sikuli.api.examples;
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -16,6 +17,7 @@ public class CanvasElementsStylingExample {
 
 	public static void main(String[] args) throws IOException {
 
+		
 		Canvas canvas = new DesktopCanvas();
 				
 		ScreenRegion r = new DesktopScreenRegion(150,150,400,300);

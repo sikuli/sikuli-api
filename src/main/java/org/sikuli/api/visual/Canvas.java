@@ -17,8 +17,8 @@ import com.google.common.collect.Lists;
 
 abstract public class Canvas {
 
-	private final List<Element> elements = 	Lists.newArrayList();;
-	
+	private final List<Element> elements = 	Lists.newArrayList();
+
 	public StyleBuilder addCircle(Location screenLocation, int radius){		
 		CircleElement newElement = new CircleElement();		
 		newElement.x = screenLocation.getX() - radius;
@@ -27,7 +27,7 @@ abstract public class Canvas {
 		newElement.height = 2 * radius;			
 		return addElement(newElement);
 	}
-	
+
 	public StyleBuilder addDot(Location screenLocation) {
 		DotElement newElement = new DotElement();		
 		newElement.x = screenLocation.getX();
@@ -37,7 +37,7 @@ abstract public class Canvas {
 		return addElement(newElement);
 	}
 
-	
+
 	public StyleBuilder addImage(Location screenLocation, BufferedImage image){		
 		ImageElement newElement = new ImageElement();		
 		newElement.x = screenLocation.getX();
@@ -48,14 +48,17 @@ abstract public class Canvas {
 
 	public StyleBuilder addBox(Region screenRegion){
 		Rectangle r = screenRegion.getBounds();
+		if (r == null){
+			r = new Rectangle(0,0,0,0); 
+		}
 		BoxElement newElement = new BoxElement();		
 		newElement.x = r.x;
 		newElement.y = r.y;
 		newElement.width = r.width;
-		newElement.height = r.height;			
+		newElement.height = r.height;	
 		return addElement(newElement);
 	}
-	
+
 	public StyleBuilder addLabel(Region region, String labelText){
 		Rectangle r = region.getBounds();
 		LabelElement newElement = new LabelElement();
@@ -64,7 +67,7 @@ abstract public class Canvas {
 		newElement.y = r.y + r.height/2;
 		return addElement(newElement);
 	}
-	
+
 	public StyleBuilder addLabel(Location location, String labelText){
 		LabelElement newElement = new LabelElement();
 		newElement.text = labelText;
@@ -84,16 +87,16 @@ abstract public class Canvas {
 		return this;
 	}
 
-	
+
 	public void display(int seconds){
 		display((double)seconds);
 	}
-	
+
 	abstract public void display(double seconds);
 	abstract public void displayWhile(Runnable runnable);
 	abstract public void show();
 	abstract public void hide();
-	
+
 	abstract public BufferedImage createImage();
 
 	protected List<Element> getElements() {
