@@ -2,7 +2,7 @@ Sikuli Java API
 ===============
 
 Sikuli API for Java provides image-based GUI automation functionalities to Java programmers. 
-It is created and will be actively maintained by [Sikuli Lab](lab.sikuli.org). The effort of making this API is a 
+It is created and will be actively maintained by [Sikuli Lab](http://lab.sikuli.org). The effort of making this API is a 
 response to the desire of many Sikuli users to use Sikuli Script's functionalities directly in 
 their Java programs, rather than writing Jython scripts. This new Java library has a re-designed 
 API and includes several new functions that were not available in the original Sikuli Script. 
