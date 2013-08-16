@@ -10,14 +10,26 @@ import org.sikuli.core.search.RegionMatch;
 import com.google.common.collect.Lists;
 
 /**
- * 
+ *  DefaultTarget is the abstract base class for all targets.
+ *  
  * @author Tom Yeh (tom.yeh@colorado.edu)
  *
  */
 abstract public class DefaultTarget implements Target {
 
-
+	/**
+	 * Returns the default minimum matching score of this Target. 
+	 * This value controls how "fuzzy" the image matching should be.
+	 * 
+	 * @return returns 0 as the default minimum matching score value for this DefaultTarget, which 
+	 * means the least precise (most fuzzy) image recognition, and a match is only somehow similar acceptable.
+	 */
 	protected double getDefaultMinScore() { return 0;};
+	/**
+	 * Returns the default limit on the number of matched targets to return.
+	 * 
+	 * @return returns 100, the default limit on the number of matched targets to return.
+	 */
 	protected int getDefaultLimit() { return 100;};
 		
 	/**
@@ -28,7 +40,12 @@ abstract public class DefaultTarget implements Target {
 		setMinScore(getDefaultMinScore());
 		setLimit(getDefaultLimit());
 	}
-
+	/**
+	 * Returns the minimum matching score of this DefaultTarget. The score should be between
+	 * 0 and 1 where 1 is the best.
+	 * 
+	 * @return the minimum matching score value for a target to be considered a match.
+	 */
 	public double getMinScore() {
 		return minScore;
 	}	
@@ -43,7 +60,11 @@ abstract public class DefaultTarget implements Target {
 	public void setMinScore(double minScore) {
 		this.minScore = minScore;
 	}
-
+	/**
+	 * Returns the limit on the number of matched targets to return.
+	 * 
+	 * @return the limit on the number of matches to return.
+	 */
 	public int getLimit() {
 		return limit;
 	}
@@ -56,7 +77,10 @@ abstract public class DefaultTarget implements Target {
 	public void setLimit(int limit) {
 		this.limit = limit;
 	}
-	
+	/**
+	 * Returns the Ordering of matched targets this DefaultTarget uses. The Ordering value indicates 
+	 * how multiple targets are ordered by find related functions.
+	 */
 	public Ordering getOrdering() {
 		return ordering;
 	}
@@ -64,7 +88,7 @@ abstract public class DefaultTarget implements Target {
 	/**
 	 * Sets the ordering of the matched targets.
 	 * 
-	 * @param ordering
+	 * @param ordering the Ordering of the matched targets for this Target.
 	 */
 	public void setOrdering(Ordering ordering) {
 		this.ordering = ordering;
@@ -74,9 +98,20 @@ abstract public class DefaultTarget implements Target {
 	private int limit = 0;
 	private Ordering ordering = Ordering.DEFAULT;
 	
-	
+	/**
+	 * Returns an unsorted list of ScreenRegion objects compared to the target region.
+	 * @param screenRegion the screen region to be compared with this Target.
+	 * 
+	 * @return an unsorted list of ScreenRegion objects compared to the target region.
+	 */
 	abstract protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion);
-	
+	/**
+	 * Converts RegionMatch objects into ScreenRegion objects.
+	 * 
+	 * @param parent the parent ScreenRegion of the matched screen regions
+	 * @param rms the matched screen regions.
+	 * @return a new list of ScreenRegion objects that correspond to the matched regions.
+	 */
 	protected static List<ScreenRegion> convertToScreenRegions(ScreenRegion parent, List<RegionMatch> rms) {
 		List<ScreenRegion> irs = Lists.newArrayList();		
 		for (RegionMatch rm : rms){

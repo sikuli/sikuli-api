@@ -8,7 +8,10 @@ import javax.media.ControllerEvent;
 import javax.media.ControllerListener;
 import javax.media.Manager;
 import javax.media.Player;
-
+/**
+ * A DesktopSpeaker is used to play an audio clip.
+ *
+ */
 public class DesktopSpeaker implements Speaker{
 
 	public static void main(String[] args) throws Exception {
@@ -17,12 +20,18 @@ public class DesktopSpeaker implements Speaker{
 		sp.play(url);
 		sp.play(url);
 	}
-
+	/**
+	 * Plays the audio clip specified by the URL argument. This is a non-blocking method, meaning multiple
+	 *  audio clips can be playing at the same time.
+	 * 
+	 * @param url an absolute URL giving the location of the audio clip.
+	 * @see Applet#play(URL)
+	 */
 	public void play1(URL url){
 		AudioClip clip = Applet.newAudioClip(url);
 		clip.play();
 	}
-
+	
 	@Override
 	public void play(URL url)  {
 

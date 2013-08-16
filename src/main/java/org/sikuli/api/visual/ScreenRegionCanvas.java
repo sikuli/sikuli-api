@@ -24,7 +24,12 @@ import edu.umd.cs.piccolo.util.PBounds;
 public class ScreenRegionCanvas extends Canvas {
 
 	private ScreenRegion screenRegion;
-
+	/**
+	 * Constructs a new DesktopCanvas whose screen region is specified with the 
+	 * argument of the same name.
+	 * 
+	 * @param screenRegion the specified screen region of the Canvas.
+	 */
 	public ScreenRegionCanvas(ScreenRegion screenRegion){
 		this.setScreenRegion(screenRegion);
 	}
@@ -153,11 +158,19 @@ public class ScreenRegionCanvas extends Canvas {
 		}
 		return VisionUtils.createComponentImage(canvas);		
 	}
-
+	/**
+	 * Returns the ScreenRegion of this ScreenRegionCanvas object.
+	 * 
+	 * @return the ScreenRegion object.
+	 */
 	public ScreenRegion getScreenRegion() {
 		return screenRegion;
 	}
-
+	/**
+	 * Sets the ScreenRegion of this ScreenRegionCanvas object.
+	 * 
+	 * @param screenRegion the specified ScreenRegion.
+	 */
 	public void setScreenRegion(ScreenRegion screenRegion) {
 		this.screenRegion = screenRegion;
 	}
