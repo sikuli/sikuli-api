@@ -110,9 +110,9 @@ public class ScreenRegionCanvas extends Canvas {
 	}	
 
 	static private void removeAllChildrenRecursively(PNode node){
-		ListIterator it = node.getChildrenIterator();
+		ListIterator<PNode> it = node.getChildrenIterator();
 		while (it.hasNext()){
-			PNode n = (PNode) it.next();
+			PNode n = it.next();
 			removeAllChildrenRecursively(n);
 		}
 		node.removeAllChildren();

@@ -6,7 +6,7 @@ import javax.swing.SwingUtilities;
 import com.sun.awt.AWTUtilities;
 import edu.umd.cs.piccolo.PCanvas;
 
-public class ScreenOverlayWindow extends JWindow implements ScreenDisplayable {
+class ScreenOverlayWindow extends JWindow implements ScreenDisplayable {
 
 	private final PCanvas canvas;
 	public ScreenOverlayWindow() {

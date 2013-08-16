@@ -1,7 +1,6 @@
 package org.sikuli.api;
 
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -22,7 +21,6 @@ public class MultiStateTarget extends DefaultTarget implements Target {
 	
 	@Override
 	protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion){
-		final BufferedImage image = screenRegion.capture();
 		
 		// get matches for each state and add them to a combined list
 		List<ScreenRegion> allMatches = Lists.newArrayList();

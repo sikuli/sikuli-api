@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.imageio.ImageIO;
 
@@ -51,15 +50,6 @@ public class ImageCanvas extends Canvas {
 	public void hide(){
 	}	
 	
-	static private void removeAllChildrenRecursively(PNode node){
-		ListIterator it = node.getChildrenIterator();
-		while (it.hasNext()){
-			PNode n = (PNode) it.next();
-			removeAllChildrenRecursively(n);
-		}
-		node.removeAllChildren();
-	}	
-
 	public BufferedImage createImage(){
 		final PCanvas canvas = new PCanvas();
 		final PLayer layer = canvas.getLayer();

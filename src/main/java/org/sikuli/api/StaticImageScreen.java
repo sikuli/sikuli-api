@@ -5,8 +5,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import org.sikuli.api.Screen;
-
-class StaticImageScreen implements Screen {
+/**
+ * StaticImageScreen class implements a Screen that behaves as if it *always* displays a
+ * given image. All calls to getScreenshot returns the given image. It is useful
+ * for debugging the image search capabilities of the API.
+ */
+public class StaticImageScreen implements Screen {
 	
 	static private BufferedImage crop(BufferedImage src, int x, int y, int width, int height){
 	    BufferedImage dest = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
@@ -18,7 +22,7 @@ class StaticImageScreen implements Screen {
 
 	
 	final private BufferedImage image;
-	StaticImageScreen(BufferedImage image){
+	public StaticImageScreen(BufferedImage image){
 		this.image = image;
 	}
 	

@@ -154,13 +154,6 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 		return lastCapturedImage;
 	}
 
-	private BufferedImage applyMask(BufferedImage input){
-		if (mask != null){
-			return mask.createMaskedImage(input);
-		}
-		return input;
-	}
-
 	/**
 	 * Returns the last captured screenshot in this screen region.
 	 * 

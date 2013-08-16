@@ -24,7 +24,7 @@ import com.google.common.collect.Maps;
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.nodes.PPath;
 
-public class VisualModelFinder {
+class VisualModelFinder {
 	
 	final static ImageExplainer logger = ImageExplainer.getExplainer(VisualModelFinder.class); 
 	

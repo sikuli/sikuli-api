@@ -1,6 +1,5 @@
 package org.sikuli.api;
 
-import java.awt.Image;
 /**
  * The DefaultLocation class is used to describe a location on the screen coordinate.
  *

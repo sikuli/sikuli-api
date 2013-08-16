@@ -20,8 +20,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import org.sikuli.api.util.ScreenRegionRecorder;
-
 import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.event.PBasicInputEventHandler;
 import edu.umd.cs.piccolo.event.PInputEvent;
@@ -130,8 +128,6 @@ public class ScreenSimulator {
 	public void close(){
 		frame.setVisible(false);
 		frame.dispose();
-
-		ScreenRegionRecorder.awaitTermination();
 		System.exit(0);
 	}
 
