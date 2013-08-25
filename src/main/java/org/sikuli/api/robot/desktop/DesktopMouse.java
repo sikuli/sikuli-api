@@ -4,7 +4,10 @@ import java.awt.event.InputEvent;
 
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.robot.Mouse;
-
+/**
+ *  A DesktopMouse object is used to generate native mouse events.
+ *
+ */
 public class DesktopMouse implements Mouse {
 
 	private AWTMouse getAWTMouse(ScreenLocation screenLoc){

@@ -9,7 +9,10 @@ import org.sikuli.api.robot.Env;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 
-
+/**
+ *  A DesktopKeyboard object is used to generate native keyboard events.
+ *
+ */
 public class DesktopKeyboard implements Keyboard {
 	static private int modifiers;
 	static private String _hold_keys = "";

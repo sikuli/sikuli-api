@@ -22,17 +22,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.io.Files;
-
+/**
+ * The ScreenRegionRecorder class  is used to video record a screen region.
+ *
+ */
 public class ScreenRegionRecorder{
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	volatile boolean stopped = false;
+	/**
+	 * The default capture interval: 200 ms
+	 */
 	public int captureInterval = 200;
+	/**
+	 * The captured image file.
+	 */
 	public File store;
 
 	final private File output;
 	final private ScreenRegion screenRegion;
+	/**
+	 * Constructs a new ScreenRegionRecorder on the specified ScreenRegion.
+	 * 
+	 * @param screenRegion the screen region to be captured.
+	 * @param output the output file to save the screen recording in Quicktime format (.mov)
+	 */
 	public ScreenRegionRecorder(ScreenRegion screenRegion, File output) {
 		this.output = output;
 		this.screenRegion = screenRegion;
@@ -43,7 +58,9 @@ public class ScreenRegionRecorder{
 		ImageIO.write(image, "jpeg", new File(store, System.currentTimeMillis() + ".jpeg"));
 	}
 
-	// wait for all pending tasks to complete
+	/**
+	 *  Waits for all pending tasks to complete.
+	 */
 	public static void awaitTermination(){
 		// wait for all capturing threads to finish
 		for (Thread t : capturingThreads){
@@ -72,7 +89,9 @@ public class ScreenRegionRecorder{
 	private Thread capturingThread = null;
 	
 	volatile boolean recording = false; 
-	
+	/**
+	 * Stops capturing frames from this ScreenRegion.
+	 */
 	synchronized public void stop(){
 		stopped = true;
 	}
@@ -104,7 +123,11 @@ public class ScreenRegionRecorder{
 			submitMakeMovieJob();
 		}
 	};
-	
+	/**
+	 * Starts capturing frames from this ScreenRegion for the specified duration.
+	 * 
+	 * @param duration the recording duration in milliseconds.
+	 */
 	synchronized public void start(int duration){
 		if (capturingThread != null && capturingThread.isAlive())
 			return;
