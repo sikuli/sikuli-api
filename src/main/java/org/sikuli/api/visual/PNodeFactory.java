@@ -2,6 +2,7 @@ package org.sikuli.api.visual;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 import org.sikuli.api.visual.element.BoxElement;
 import org.sikuli.api.visual.element.CircleElement;
@@ -9,6 +10,7 @@ import org.sikuli.api.visual.element.DotElement;
 import org.sikuli.api.visual.element.Element;
 import org.sikuli.api.visual.element.ImageElement;
 import org.sikuli.api.visual.element.LabelElement;
+import org.sikuli.api.visual.element.RefreshableImageElement;
 
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.nodes.PImage;
@@ -30,12 +32,14 @@ class PNodeFactory {
 			return createFrom((ImageElement) element);
 		}else if (clazz == DotElement.class){
 			return createFrom((DotElement) element);
+		}else if (clazz == RefreshableImageElement.class){
+			return createFrom((RefreshableImageElement) element);
 		}
 		return new PNode();
 	}
 
 	static public PNode createFrom(LabelElement element){
-		final PText txt = new PText(element.text);
+		final PText txt = new PText(element.getText());
 		txt.setTextPaint(Color.black);
 		txt.setPaint(element.getBackgroundColor());
 		txt.setTextPaint(element.getColor());
@@ -48,6 +52,16 @@ class PNodeFactory {
 		labelNode.setWidth(txt.getWidth()+4);
 		txt.setOffset(2,1);
 		
+		element.addListener(new LabelElement.Listener(){
+			@Override
+			public void textUpdated(String newText){
+				txt.setText(newText);
+				txt.repaint();
+//				applyAlignment(labelNode, element);
+				//p.repaint();//invalidateFullBounds();
+			}			
+		});
+		
 		applyAlignment(labelNode, element);		
 		return applyTransparencyAndShadow(labelNode, element);
 	}	
@@ -58,14 +72,17 @@ class PNodeFactory {
 		p.setPaint(element.getColor());		
 		p.setStroke(new BasicStroke(element.getLineWidth()));
 		
-		PNode foregroundNode = new PNode();
+		final PNode foregroundNode = new PNode();
 		foregroundNode.addChild(p);
 		foregroundNode.setHeight(p.getHeight());
 		foregroundNode.setWidth(p.getWidth());
-		foregroundNode.setOffset(element.x-2, element.y-2);		
+		foregroundNode.setOffset(element.x-2, element.y-2);
+		System.out.println(foregroundNode.getOffset());
 
-		return applyTransparencyAndShadow(foregroundNode, element);
+		final PNode node = applyTransparencyAndShadow(foregroundNode, element);
+		System.out.println(node.getOffset());//());/
 
+		return node;
 	}
 	
 	static public PNode createFrom(CircleElement element){
@@ -86,7 +103,7 @@ class PNodeFactory {
 	static public PNode createFrom(BoxElement element){
 		PPath p = PPath.createRectangle(0,0,element.width,element.height);
 		p.setStrokePaint(element.getLineColor());
-		p.setPaint(null);		
+		p.setPaint(element.getBackgroundColor());		
 		p.setStroke(new BasicStroke(element.getLineWidth()));
 
 		PNode foregroundNode = new PNode();
@@ -98,17 +115,38 @@ class PNodeFactory {
 		return applyTransparencyAndShadow(foregroundNode, element);
 	}
 	
+//	static public PNode createFrom(ImageElement element){
+//		PImage p = new PImage(element.getImage());
+//
+//		PNode foregroundNode = new PNode();
+//		foregroundNode.addChild(p);
+//		foregroundNode.setHeight(p.getHeight());
+//		foregroundNode.setWidth(p.getWidth());
+//		foregroundNode.setOffset(element.x, element.y);
+//
+//		applyAlignment(foregroundNode, element);		
+//		return applyTransparencyAndShadow(foregroundNode, element);
+//	}
+	
 	static public PNode createFrom(ImageElement element){
-		PImage p = new PImage(element.image);
+		final PImage p = new PImage(element.getImage());
 
 		PNode foregroundNode = new PNode();
 		foregroundNode.addChild(p);
 		foregroundNode.setHeight(p.getHeight());
 		foregroundNode.setWidth(p.getWidth());
 		foregroundNode.setOffset(element.x, element.y);
+		
+		element.addListener(new ImageElement.Listener(){
+			@Override
+			public void imageUpdated(BufferedImage newImage){
+				p.setImage(newImage);
+				p.repaint();//invalidateFullBounds();
+			}			
+		});
 
-		applyAlignment(foregroundNode, element);		
-		return applyTransparencyAndShadow(foregroundNode, element);
+		applyAlignment(foregroundNode, element);
+		return foregroundNode;//(foregroundNode, element);
 	}
 
 	static private void applyAlignment(PNode node, Element element){
@@ -143,7 +181,7 @@ class PNodeFactory {
 	}
 
 	
-	static private final Color SHADOW_PAINT = new Color(10, 10, 10, 200);
+	static private final Color SHADOW_PAINT = new Color(10, 10, 10, 0);
 	static private PNode addShadow(PNode contentNode){
 
 		PNode contentNodeWithShadow = new PNode();

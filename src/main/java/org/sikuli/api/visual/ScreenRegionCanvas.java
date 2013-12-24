@@ -119,19 +119,33 @@ public class ScreenRegionCanvas extends Canvas {
 	}	
 
 	protected ScreenDisplayable createScreenDisplayable(Element element) {
-		Rectangle screenBounds = ((DesktopScreen) getScreenRegion().getScreen()).getBounds();
+		final Rectangle screenBounds = ((DesktopScreen) getScreenRegion().getScreen()).getBounds();
 
-		ScreenOverlayWindow overlayWindow = new ScreenOverlayWindow();
+		final ScreenOverlayWindow overlayWindow = new ScreenOverlayWindow();
 
 		PNode node = PNodeFactory.createFrom(element);
-		int x = (int) node.getXOffset();
-		int y = (int) node.getYOffset();
+		final int offsetX = (int) node.getXOffset();
+		final int offsetY = (int) node.getYOffset();
 		PBounds bounds = node.getBounds();
 		node.setOffset(0,0);			
 		overlayWindow.getCanvas().getLayer().addChild(node);
 
-		overlayWindow.setLocation(screenBounds.x + x, screenBounds.y + y);
+		overlayWindow.setLocation(screenBounds.x + offsetX, screenBounds.y + offsetY);
 		overlayWindow.setSize((int)bounds.width, (int)bounds.height);
+		
+		element.addListener(new Element.Listener(){
+			@Override
+			public void moved(int x, int y){
+				//System.out.println(node.getY());//getXOffset());//getBounds());
+				overlayWindow.setLocation(screenBounds.x + x,  screenBounds.y  + y);
+//				node.setOffset(x-2,y-2);
+//				node.repaint();
+//				node.invalidateLayout();
+//				node.invalidateFullBounds();
+			}
+		});
+//		
+		
 		return overlayWindow;
 
 	}	

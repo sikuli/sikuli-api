@@ -6,12 +6,14 @@ import java.util.List;
 
 import org.sikuli.api.Location;
 import org.sikuli.api.Region;
+import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.visual.element.BoxElement;
 import org.sikuli.api.visual.element.CircleElement;
 import org.sikuli.api.visual.element.DotElement;
 import org.sikuli.api.visual.element.Element;
 import org.sikuli.api.visual.element.ImageElement;
 import org.sikuli.api.visual.element.LabelElement;
+import org.sikuli.api.visual.element.RefreshableImageElement;
 
 import com.google.common.collect.Lists;
 /**
@@ -62,9 +64,48 @@ abstract public class Canvas {
 		ImageElement newElement = new ImageElement();		
 		newElement.x = screenLocation.getX();
 		newElement.y = screenLocation.getY();
-		newElement.image = image;
+		newElement.setImage(image);
 		return addElement(newElement);
 	}
+	
+	public class At {
+		public At(Location location) {
+			this.location = location;
+		}
+		Location location;		
+		public ImageElement addImage(BufferedImage image){
+			ImageElement newElement = new ImageElement();		
+			newElement.x = location.getX();
+			newElement.y = location.getY();
+			newElement.setImage(image);
+			getElements().add(newElement);
+			return newElement;
+		}
+		public DotElement addDot() {
+			DotElement newElement = new DotElement();		
+			newElement.x = location.getX();
+			newElement.y = location.getY();
+			newElement.width = 0;
+			newElement.height = 0;			
+			getElements().add(newElement);
+			return newElement;
+		}
+		public LabelElement addLabel(String labelText){
+			
+			LabelElement newElement = new LabelElement();
+			newElement.setText(labelText);
+			newElement.x = location.getX();
+			newElement.y = location.getY();
+			getElements().add(newElement);
+			return newElement;			
+		}
+	}
+	
+	public At at(Location screenLocation){
+		return new At(screenLocation);
+	}
+	
+	
 	/**
 	 * Adds a box at the specified screen region.
 	 * 
@@ -93,7 +134,7 @@ abstract public class Canvas {
 	public StyleBuilder addLabel(Region region, String labelText){
 		Rectangle r = region.getBounds();
 		LabelElement newElement = new LabelElement();
-		newElement.text = labelText;
+		newElement.setText(labelText);
 		newElement.x = r.x + r.width/2;
 		newElement.y = r.y + r.height/2;
 		return addElement(newElement);
@@ -108,7 +149,7 @@ abstract public class Canvas {
 	 */
 	public StyleBuilder addLabel(Location location, String labelText){
 		LabelElement newElement = new LabelElement();
-		newElement.text = labelText;
+		newElement.setText(labelText);
 		newElement.x = location.getX();
 		newElement.y = location.getY();
 		return addElement(newElement);

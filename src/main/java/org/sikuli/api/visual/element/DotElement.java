@@ -14,4 +14,5 @@ public class DotElement extends Element {
 	public void setLineColor(Color color){
 		setColor(color);
 	}
+
 }

@@ -1,6 +1,10 @@
 package org.sikuli.api.visual.element;
 
 import java.awt.Color;
+import java.util.EventListener;
+
+import javax.swing.event.EventListenerList;
+
 import edu.umd.cs.piccolo.PNode;
 /**
  * Element is an abstraction for objects to be displayed on the screen.
@@ -159,4 +163,38 @@ public class Element {
 	public void setTransparency(float transparency) {
 		this.transparency = transparency;
 	}
+	
+
+	public void setLocation(int x, int y) {
+		this.x = x;
+		this.y = y;
+		fireMoved(x,y);
+	}
+	
+	public interface Listener extends EventListener {
+		public void moved(int x, int y);
+	}
+	
+	EventListenerList listenerList = new EventListenerList();
+	public void addListener(Listener l) {
+		listenerList.add(Listener.class, l);
+	}
+
+	public void removeListener(Listener l) {
+		listenerList.remove(Listener.class, l);
+	}
+	
+	protected void fireMoved(int x, int y) {
+		// Guaranteed to return a non-null array
+		Object[] listeners = listenerList.getListenerList();
+		// Process the listeners last to first, notifying
+		// those that are interested in this event
+		for (int i = listeners.length-2; i>=0; i-=2) {
+			if (listeners[i]==Listener.class) {
+				// Lazily create the event:
+				((Listener)listeners[i+1]).moved(x, y);
+			}
+		}
+	}
 }
+
