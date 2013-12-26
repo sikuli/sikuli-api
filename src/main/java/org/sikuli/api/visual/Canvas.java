@@ -6,14 +6,13 @@ import java.util.List;
 
 import org.sikuli.api.Location;
 import org.sikuli.api.Region;
-import org.sikuli.api.ScreenLocation;
+import org.sikuli.api.visual.CanvasBuilder.ElementAdder;
 import org.sikuli.api.visual.element.BoxElement;
 import org.sikuli.api.visual.element.CircleElement;
 import org.sikuli.api.visual.element.DotElement;
 import org.sikuli.api.visual.element.Element;
 import org.sikuli.api.visual.element.ImageElement;
 import org.sikuli.api.visual.element.LabelElement;
-import org.sikuli.api.visual.element.RefreshableImageElement;
 
 import com.google.common.collect.Lists;
 /**
@@ -22,7 +21,13 @@ import com.google.common.collect.Lists;
  */
 abstract public class Canvas {
 
-	private final List<Element> elements = 	Lists.newArrayList();;
+	private final List<Element> elements = 	Lists.newArrayList();
+	
+	
+	public void add(Element element){
+		elements.add(element);
+	}
+	
 	/**
 	 * Adds a circle at the specified location with the specified radius.
 	 * 
@@ -68,43 +73,9 @@ abstract public class Canvas {
 		return addElement(newElement);
 	}
 	
-	public class At {
-		public At(Location location) {
-			this.location = location;
-		}
-		Location location;		
-		public ImageElement addImage(BufferedImage image){
-			ImageElement newElement = new ImageElement();		
-			newElement.x = location.getX();
-			newElement.y = location.getY();
-			newElement.setImage(image);
-			getElements().add(newElement);
-			return newElement;
-		}
-		public DotElement addDot() {
-			DotElement newElement = new DotElement();		
-			newElement.x = location.getX();
-			newElement.y = location.getY();
-			newElement.width = 0;
-			newElement.height = 0;			
-			getElements().add(newElement);
-			return newElement;
-		}
-		public LabelElement addLabel(String labelText){
-			
-			LabelElement newElement = new LabelElement();
-			newElement.setText(labelText);
-			newElement.x = location.getX();
-			newElement.y = location.getY();
-			getElements().add(newElement);
-			return newElement;			
-		}
+	public ElementAdder add(){
+		return (new CanvasBuilder(this)).new ElementAdder();
 	}
-	
-	public At at(Location screenLocation){
-		return new At(screenLocation);
-	}
-	
 	
 	/**
 	 * Adds a box at the specified screen region.

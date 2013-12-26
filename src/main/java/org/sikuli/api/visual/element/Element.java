@@ -196,5 +196,10 @@ public class Element {
 			}
 		}
 	}
+	
+	
+	public ElementStyleSetter styleWith(){
+		return new ElementStyleSetter(this);
+	}
 }
 
