@@ -178,7 +178,7 @@ class PNodeFactory {
 	}
 
 	
-	static private final Color SHADOW_PAINT = new Color(10, 10, 10, 0);
+	static private final Color SHADOW_PAINT = new Color(10, 10, 10, 255);
 	static private PNode addShadow(PNode contentNode){
 
 		PNode contentNodeWithShadow = new PNode();

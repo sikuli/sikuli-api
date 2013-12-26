@@ -1,9 +1,13 @@
 package org.sikuli.api.visual;
 
+import java.awt.image.BufferedImage;
+
 import org.sikuli.api.visual.element.BoxElement;
 import org.sikuli.api.visual.element.CircleElement;
 import org.sikuli.api.visual.element.DotElement;
 import org.sikuli.api.visual.element.Element;
+import org.sikuli.api.visual.element.ImageElement;
+import org.sikuli.api.visual.element.LabelElement;
 
 public class CanvasBuilder {
 
@@ -26,6 +30,18 @@ public class CanvasBuilder {
 		}
 		public ElementPointSetter dot() {
 			DotElement newElement = new DotElement();				
+			addElement(newElement);
+			return new ElementPointSetter(newElement);
+		}
+		public ElementPointSetter label(String labelText){
+			LabelElement newElement = new LabelElement();
+			newElement.setText(labelText);
+			addElement(newElement);
+			return new ElementPointSetter(newElement);
+		}
+		public ElementPointSetter image(BufferedImage image) {
+			ImageElement newElement = new ImageElement();
+			newElement.setImage(image);
 			addElement(newElement);
 			return new ElementPointSetter(newElement);
 		}

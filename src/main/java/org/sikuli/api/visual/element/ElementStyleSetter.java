@@ -39,6 +39,12 @@ public class ElementStyleSetter {
 		element.setColor(color);
 		return this;
 	}
+	
+	public ElementStyleSetter fontSize(float fontSize) {
+		element.setFontSize(fontSize);
+		return this;
+	}
+	
 	/**
 	 * Sets the background color of this canvas element.
 	 * 
@@ -133,4 +139,5 @@ public class ElementStyleSetter {
 		element.horizontalAlignment = Element.HorizontalAlignment.RIGHT;
 		return this;
 	}
+
 }

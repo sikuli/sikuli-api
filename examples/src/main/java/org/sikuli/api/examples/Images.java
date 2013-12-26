@@ -26,7 +26,7 @@ public class Images {
 	
 	
 	static final URL Cat = Images.class.getResource("Cat.png");
-	static final URL Dog = Images.class.getResource("Dog.png");
+	public static final URL Dog = Images.class.getResource("Dog.png");
 	
 	static final URL SceneCat1 = Images.class.getResource("SceneCat1.png");
 	static final URL SceneCat2 = Images.class.getResource("SceneCat2.png");
