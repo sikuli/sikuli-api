@@ -17,4 +17,9 @@ public interface Region {
 	 * @param newBounds the specified bounding Rectangle.
 	 */
 	public void setBounds(Rectangle newBounds);
+	
+	public int getX();
+	public int getY();
+	public int getWidth();
+	public int getHeight();	
 }

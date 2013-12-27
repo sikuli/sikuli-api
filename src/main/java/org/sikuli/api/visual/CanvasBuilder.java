@@ -2,6 +2,8 @@ package org.sikuli.api.visual;
 
 import java.awt.image.BufferedImage;
 
+import org.sikuli.api.Region;
+import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.visual.element.BoxElement;
 import org.sikuli.api.visual.element.CircleElement;
 import org.sikuli.api.visual.element.DotElement;
@@ -84,6 +86,14 @@ public class CanvasBuilder {
 			element.y = y;
 			element.width = width;
 			element.height = height;
+			return element;
+		}
+
+		public Element around(Region r) {
+			element.x = r.getX();
+			element.y = r.getY();
+			element.width = r.getWidth();
+			element.height = r.getHeight();
 			return element;
 		}
 	}

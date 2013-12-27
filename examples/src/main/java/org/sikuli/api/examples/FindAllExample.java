@@ -35,9 +35,9 @@ public class FindAllExample {
 		List<ScreenRegion> rs = s.findAll(imageTarget);
 		int no = 1;
 		for (ScreenRegion r : rs){
-			canvas.addBox(r);
+			canvas.add().box().around(r);
 			String labelText = String.format("(%d):%1.3f", no, r.getScore());
-			canvas.addLabel(r.getCenter(), labelText);
+			canvas.add().label(labelText).at(r.getX(), r.getY());
 			no += 1;
 		}
 		canvas.display(3);

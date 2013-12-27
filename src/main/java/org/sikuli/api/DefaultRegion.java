@@ -47,5 +47,21 @@ public class DefaultRegion implements Region {
 		this.width = newBounds.width;
 		this.height = newBounds.height;
 	}
+	@Override
+	public int getX() {
+		return x;
+	}
+	@Override
+	public int getY() {
+		return y;
+	}
+	@Override
+	public int getWidth() {
+		return width;
+	}
+	@Override
+	public int getHeight() {
+		return height;
+	}
 
 }

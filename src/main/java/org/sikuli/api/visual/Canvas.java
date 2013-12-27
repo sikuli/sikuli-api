@@ -83,6 +83,7 @@ abstract public class Canvas {
 	 * @param screenRegion the specified screen region.
 	 * @return
 	 */
+	@Deprecated
 	public StyleBuilder addBox(Region screenRegion){
 		Rectangle r = screenRegion.getBounds();
 		if (r == null){
@@ -102,6 +103,7 @@ abstract public class Canvas {
 	 * @param labelText the specified text.
 	 * @return
 	 */
+	@Deprecated	
 	public StyleBuilder addLabel(Region region, String labelText){
 		Rectangle r = region.getBounds();
 		LabelElement newElement = new LabelElement();
@@ -118,6 +120,7 @@ abstract public class Canvas {
 	 * @param labelText the specified text.
 	 * @return
 	 */
+	@Deprecated
 	public StyleBuilder addLabel(Location location, String labelText){
 		LabelElement newElement = new LabelElement();
 		newElement.setText(labelText);
