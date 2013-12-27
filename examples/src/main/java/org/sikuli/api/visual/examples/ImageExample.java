@@ -1,9 +1,12 @@
-package org.sikuli.api.visual;
+package org.sikuli.api.visual.examples;
 
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
 import org.sikuli.api.examples.Images;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 
 public class ImageExample {
 

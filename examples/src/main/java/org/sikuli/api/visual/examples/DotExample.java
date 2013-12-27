@@ -1,6 +1,9 @@
-package org.sikuli.api.visual;
+package org.sikuli.api.visual.examples;
 
 import java.awt.Color;
+
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 
 public class DotExample {
 

@@ -1,9 +1,11 @@
-package org.sikuli.api.visual;
+package org.sikuli.api.visual.examples;
 
 import org.sikuli.api.DefaultLocation;
 import org.sikuli.api.DefaultRegion;
 import org.sikuli.api.Location;
 import org.sikuli.api.Region;
+import org.sikuli.api.visual.Canvas;
+import org.sikuli.api.visual.DesktopCanvas;
 
 public class LabelPositioningExample {
 
