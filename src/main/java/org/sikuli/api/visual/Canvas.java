@@ -65,6 +65,7 @@ abstract public class Canvas {
 	 * @param image the specified image.
 	 * @return
 	 */
+	@Deprecated
 	public StyleBuilder addImage(Location screenLocation, BufferedImage image){		
 		ImageElement newElement = new ImageElement();		
 		newElement.x = screenLocation.getX();

@@ -47,21 +47,24 @@ public class FindExample {
 		// Click the center of 'r'		
 		mouse.click(r.getCenter());		
 		// Display a box around 'r' for 1 second
-		canvas.addBox(r).display(1);
+		canvas.add().box().around(r);
+		canvas.display(1);
 
 		// Find another image target and perform similar operations
 		imageURL = Images.GoogleMicrophoneIcon;                
 		imageTarget = new ImageTarget(imageURL);    			
 		r = s.find(imageTarget);       			
 		mouse.rightClick(r.getCenter());
-		canvas.clear().addBox(r).display(1);
+		canvas.add().box().around(r);
+		canvas.display(1);
 
 		// Find another image target and perform similar operations
 		imageURL = Images.GoogleSearchFeelingLuckyButton;                
 		imageTarget = new ImageTarget(imageURL);    			
 		r = s.find(imageTarget);
 		mouse.doubleClick(r.getCenter());
-		canvas.clear().addBox(r).display(1);
+		canvas.add().box().around(r);
+		canvas.display(1);
 
 	}
 }
