@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.sikuli.api.examples.Images;
+import org.sikuli.api.examples.images.Images;
 import org.sikuli.api.visual.Canvas;
 import org.sikuli.api.visual.DesktopCanvas;
 

@@ -1,4 +1,4 @@
-package org.sikuli.api.examples;
+package org.sikuli.api.examples.basic;
 import java.awt.FlowLayout;
 import java.awt.Rectangle;
 
@@ -13,6 +13,8 @@ import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.examples.images.Images;
+import org.sikuli.api.examples.utils.ScreenSimulator;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;

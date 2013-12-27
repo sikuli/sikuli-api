@@ -71,7 +71,7 @@ public class CanvasBuilder {
 		}
 
 		
-		public Element in(Region r) {
+		public Element inside(Region r) {
 			element.x = r.getX() + r.getWidth()/2 - element.width/2;
 			element.y = r.getY() + r.getHeight()/2 - element.height/2;
 			element.horizontalAlignment = HorizontalAlignment.CENTER;

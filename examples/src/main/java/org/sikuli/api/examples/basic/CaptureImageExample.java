@@ -1,11 +1,13 @@
-package org.sikuli.api.examples;
+package org.sikuli.api.examples.basic;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.sikuli.api.API;
 import org.sikuli.api.DesktopScreenRegion;
+import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
@@ -20,10 +22,21 @@ public class CaptureImageExample {
 	static Canvas canvas = new DesktopCanvas();
 
 	public static void main(String[] args) throws IOException {
-		DesktopScreenRegion smallRegion = new DesktopScreenRegion(500,500,400,200);
-		canvas.addBox(smallRegion).display(1);
+		ScreenRegion r = new DesktopScreenRegion(100,100,300,200);
+		canvas.add().box().around(r);
+		canvas.add().label("This area will be captured.").inside(r);
+		canvas.display(3);
 		
-		BufferedImage capturedImage = smallRegion.capture();
+		API.pause(2000);
+		
+		BufferedImage capturedImage = r.capture();
 		ImageIO.write(capturedImage, "png", new File("SavedCaptuedImage.png"));
+		
+		canvas.clear();
+		canvas.add().image(capturedImage).at(500,100);
+		canvas.add().label("This is the captured image").at(500,100);
+		
+		canvas.display(3);
+		
 	}
 }

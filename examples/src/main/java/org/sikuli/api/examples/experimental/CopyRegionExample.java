@@ -1,4 +1,4 @@
-package org.sikuli.api.examples;
+package org.sikuli.api.examples.experimental;
 
 import static org.sikuli.api.API.browse;
 import java.net.MalformedURLException;

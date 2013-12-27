@@ -1,11 +1,14 @@
-package org.sikuli.api.examples;
+package org.sikuli.api.examples.advanced;
 import java.awt.Rectangle;
+
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.Relative;
 import org.sikuli.api.Target;
 import org.sikuli.api.event.TargetEvent;
 import org.sikuli.api.event.TargetEventListener;
+import org.sikuli.api.examples.images.Images;
+import org.sikuli.api.examples.utils.ScreenSimulator;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;

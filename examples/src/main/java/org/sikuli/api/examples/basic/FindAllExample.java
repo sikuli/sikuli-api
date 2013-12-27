@@ -1,10 +1,12 @@
-package org.sikuli.api.examples;
+package org.sikuli.api.examples.basic;
 import java.util.List;
 
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ImageTarget;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
+import org.sikuli.api.examples.images.Images;
+import org.sikuli.api.examples.utils.ScreenSimulator;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopKeyboard;
@@ -37,7 +39,7 @@ public class FindAllExample {
 		for (ScreenRegion r : rs){
 			canvas.add().box().around(r);
 			String labelText = String.format("(%d):%1.3f", no, r.getScore());
-			canvas.add().label(labelText).in(r);
+			canvas.add().label(labelText).inside(r);
 			no += 1;
 		}
 		canvas.display(3);

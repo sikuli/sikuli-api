@@ -1,4 +1,4 @@
-package org.sikuli.api.examples;
+package org.sikuli.api.examples.advanced;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -8,6 +8,7 @@ import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
+import org.sikuli.api.examples.images.Images;
 import org.sikuli.api.robot.Keyboard;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.Key;

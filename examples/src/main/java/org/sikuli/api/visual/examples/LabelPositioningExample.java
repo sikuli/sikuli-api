@@ -19,7 +19,7 @@ public class LabelPositioningExample {
 
 		canvas.add().box().around(r);
 
-		canvas.add().label("Centered").in(r).styleWith().fontSize(15);
+		canvas.add().label("Centered").inside(r).styleWith().fontSize(15);
 		canvas.add().label("Below").below(r).styleWith().fontSize(15);
 		canvas.add().label("Above").above(r).styleWith().fontSize(15);
 		canvas.add().label("Left").left(r).styleWith().fontSize(15);

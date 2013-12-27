@@ -1,7 +1,8 @@
-package org.sikuli.api.examples;
+package org.sikuli.api.examples.advanced;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import javax.swing.BorderFactory;
+import javax.swing.CellRendererPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,13 +27,14 @@ import org.sikuli.api.Screen;
 import org.sikuli.api.ScreenLocation;
 import org.sikuli.api.DesktopScreenRegion;
 import org.sikuli.api.ScreenRegion;
+import org.sikuli.api.examples.images.Images;
 
 import com.google.common.collect.ImmutableList;
 
-public class CustomMultiScreenExample {
-	
-	
-	static class MyApp extends JFrame implements Screen {
+public class CustomScreenExample {
+
+
+	static class MyApp extends JFrame {
 
 		static class MyButton extends JButton {
 			MyButton(String name, URL url){
@@ -78,12 +81,70 @@ public class CustomMultiScreenExample {
 			setPreferredSize(new Dimension(500,500));
 			setSize(new Dimension(500,500));
 		}
-		
-		
-		
-		static void rectangle(ScreenRegion r){
-			final MyApp f = (MyApp) r.getScreen();			
-			
+
+	}
+
+	static class MyMouse {
+
+		JFrame f;
+		MyMouse(JFrame f){
+			this.f = f;
+		}
+
+		void click(ScreenLocation location){
+			Component comp = f.findComponentAt(location.getX(), location.getY());	
+			if (comp instanceof JButton){
+				((JButton) comp).doClick();
+			}
+		}
+	}
+
+	static class MyScreen implements Screen {
+
+		JFrame f;
+		MyScreen(JFrame f){
+			this.f = f;
+		}
+
+		@Override
+		public BufferedImage getScreenshot(int x, int y, int width, int height) {
+			BufferedImage componentImage = getComponentImage(f.getContentPane());
+			return crop(componentImage, x, y, width, height);				 
+		}
+
+		@Override
+		public Dimension getSize() {
+			return f.getContentPane().getSize();
+		}
+
+
+		BufferedImage getComponentImage(Component c){
+			Dimension size = c.getSize();
+			BufferedImage image = new BufferedImage(size.width, size.height,
+					BufferedImage.TYPE_3BYTE_BGR);
+			Graphics2D g2 = image.createGraphics();				
+			c.paint(g2);
+			g2.dispose();
+			return image;
+		}
+
+		BufferedImage crop(BufferedImage src, int x, int y, int width, int height){
+			BufferedImage dest = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+			Graphics g = dest.getGraphics();
+			g.drawImage(src, 0, 0, width, height, x, y, x + width, y + height, null);
+			g.dispose();
+			return dest;
+		}
+	};
+
+	static class MyPainter {
+
+		JFrame f;
+		MyPainter(JFrame f){
+			this.f = f;
+		}
+
+		void rectangle(ScreenRegion r){
 			// Add a rectangle to the frame around the given screen region object
 			final JPanel l = new JPanel();
 			l.setSize(r.getBounds().getSize());
@@ -110,85 +171,34 @@ public class CustomMultiScreenExample {
 			});
 			t.start();
 		}
-		
-		
-		
-		static void click(ScreenLocation location){
-			MyApp f = (MyApp) location.getScreen();
-			Component comp = f.findComponentAt(location.getX(), location.getY());	
-			if (comp instanceof JButton){
-				((JButton) comp).doClick();
-			}
-		}
-
-
-		@Override
-		public BufferedImage getScreenshot(int x, int y, int width, int height) {
-			BufferedImage componentImage = getComponentImage(getContentPane());
-			return crop(componentImage, x, y, width, height);				 
-		}
-
-		@Override
-		public Dimension getSize() {
-			return getContentPane().getSize();
-		}
-
-
-		BufferedImage getComponentImage(Component c){
-			Dimension size = c.getSize();
-			BufferedImage image = new BufferedImage(size.width, size.height,
-					BufferedImage.TYPE_3BYTE_BGR);
-			Graphics2D g2 = image.createGraphics();				
-			c.paint(g2);
-			g2.dispose();
-			return image;
-		}
-
-		BufferedImage crop(BufferedImage src, int x, int y, int width, int height){
-			BufferedImage dest = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-			Graphics g = dest.getGraphics();
-			g.drawImage(src, 0, 0, width, height, x, y, x + width, y + height, null);
-			g.dispose();
-			return dest;
-		}
-
 	}
 
 	public static void main(String[] args) {
 
-		final MyApp f1 = new MyApp();
-		final MyApp f2 = new MyApp();
-		
-		f1.pack();		
-		f1.setVisible(true);
-		f1.setLocation(10,20);
-		f1.setTitle("MyApp 1");
-		
-		f2.pack();		
-		f2.setVisible(true);
-		f2.setLocation(600,20);
-		f2.setTitle("MyApp 2");
+		final MyApp f = new MyApp();		
+		f.pack();
+		f.setLocationRelativeTo(null);
+		f.setVisible(true);
 
-		ScreenRegion s1 = new DesktopScreenRegion();
-		s1.setScreen(f1);
+		MyScreen myScreen = new MyScreen(f);
+		MyMouse myMouse = new MyMouse(f);
+		MyPainter myPainter = new MyPainter(f);
 
-		ScreenRegion s2 = new DesktopScreenRegion();
-		s2.setScreen(f2);
+		ScreenRegion s = new DesktopScreenRegion();
+		s.setScreen(myScreen);
 
 		for (int i=0; i < 10; i++){
-			
-			f1.moveButtonsRandomly();
-			f2.moveButtonsRandomly();
 
-			ScreenRegion dogRegion = s1.find(new ImageTarget(Images.Dog));
-			ScreenRegion catRegion = s2.find(new ImageTarget(Images.Cat));
-						
-			MyApp.click(dogRegion.getCenter());
-			MyApp.click(catRegion.getCenter());
-			
-			MyApp.rectangle(dogRegion);
-			MyApp.rectangle(catRegion);
-			
+			f.moveButtonsRandomly();
+
+			ScreenRegion dogRegion = s.find(new ImageTarget(Images.Dog));
+			ScreenRegion catRegion = s.find(new ImageTarget(Images.Cat));
+
+			myMouse.click(dogRegion.getCenter());
+			myMouse.click(catRegion.getCenter());
+
+			myPainter.rectangle(dogRegion);
+			myPainter.rectangle(catRegion);
 
 			API.pause(2000);
 		}

@@ -1,4 +1,4 @@
-package org.sikuli.api.examples;
+package org.sikuli.api.examples.experimental;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import org.sikuli.api.*;
+import org.sikuli.api.examples.images.Images;
 import org.sikuli.api.robot.Mouse;
 import org.sikuli.api.robot.desktop.DesktopMouse;
 
