@@ -18,6 +18,7 @@ import javax.swing.Timer;
 import org.sikuli.api.event.StateChangeListener;
 import org.sikuli.api.event.TargetEventListener;
 import org.sikuli.api.event.VisualEventManager;
+import org.sikuli.api.usage.UsageEvent;
 import org.sikuli.core.cv.ImageMask;
 import org.sikuli.ocr.DigitRecognizer;
 import org.sikuli.ocr.RecognizedDigit;
@@ -33,6 +34,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	private BufferedImage lastCapturedImage;
 	private Map<Target, Object> states = new ConcurrentHashMap<Target, Object>();
 	private ImageMask mask = null;
+	
 
 	/**
 	 * Constructs a new DefaultScreenRegion on the specified Screen object whose 
@@ -75,12 +77,14 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 
 	@Override
 	public List<ScreenRegion> findAll(Target target){
+		API.getTracker().addEvent(new UsageEvent("findAll"));
 		List<ScreenRegion> rs = target.doFindAll(this);
 		return rs;
 	}
 
 	@Override
 	public ScreenRegion find(Target target){
+		API.getTracker().addEvent(new UsageEvent("find"));
 		ScreenRegion result = _find(target);		
 		return result;
 	}	
