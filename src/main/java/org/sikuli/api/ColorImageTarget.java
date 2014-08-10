@@ -5,11 +5,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.List;
 
-import org.sikuli.core.search.ColorImageQuery;
-import org.sikuli.core.search.ImageQuery;
-import org.sikuli.core.search.ImageSearcher;
-import org.sikuli.core.search.RegionMatch;
-import org.sikuli.core.search.ScoreFilter;
 /**
  * The ColorImageTarget class defines targets based on color patterns. It also takes into account the textures patterns. 
  * This class can be used to distinguish between two targets having the same shapes or texture patterns but only differ 
@@ -54,11 +49,12 @@ public class ColorImageTarget extends ImageTarget {
 	
 	@Override
 	protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion){
-		ImageSearcher searcher = new ImageSearcher(screenRegion.capture());
-		ImageQuery query = new ColorImageQuery(targetImage);
-		ScoreFilter<RegionMatch> filter = new ScoreFilter<RegionMatch>(getMinScore());
-		List<RegionMatch> topMatches = searcher.search(query, filter, getLimit());	
-		return convertToScreenRegions(screenRegion, topMatches);
+//		ImageSearcher searcher = new ImageSearcher(screenRegion.capture());
+//		ImageQuery query = new ColorImageQuery(targetImage);
+//		ScoreFilter<RegionMatch> filter = new ScoreFilter<RegionMatch>(getMinScore());
+//		List<RegionMatch> topMatches = searcher.search(query, filter, getLimit());	
+//		return convertToScreenRegions(screenRegion, topMatches);
+		throw new UnsupportedOperationException("not yet implemented");
 	}
 	
 }

@@ -1,5 +1,8 @@
 package org.sikuli.api.visual;
 
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -66,13 +69,21 @@ public class ImageCanvas extends Canvas {
 			PNode node = PNodeFactory.createFrom(element);
 			foregroundLayer.addChild(node);
 		}
-		
 				
-		return VisionUtils.createComponentImage(canvas);
+		return createComponentImage(canvas);
 		
 		// add memory release stuff
 	}
 
+	static public BufferedImage createComponentImage(Component component) {
+		Dimension size = component.getSize();
+		BufferedImage image = new BufferedImage(size.width, size.height,
+				BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = image.createGraphics();
+		component.paint(g2);
+		g2.dispose();
+		return image;
+	}
 
 }
 

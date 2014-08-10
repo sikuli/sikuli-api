@@ -6,9 +6,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import org.sikuli.core.draw.ImageRenderer;
-import org.sikuli.core.draw.PiccoloImageRenderer;
-
 import com.google.common.collect.Lists;
 
 import edu.umd.cs.piccolo.PLayer;
@@ -21,7 +18,7 @@ class FourCornerModel extends VisualModel {
 	static public FourCornerModel learnFrom(BufferedImage trainingImage){
 		FourCornerModel model = new FourCornerModel();
 		
-		VisualModelFinder.logger.step(trainingImage, "original model image");
+//		VisualModelFinder.logger.step(trainingImage, "original model image");
 		//BufferedImage trimmedModelImage = VisionUtils.getSubimageInsideMargin(trainingImage);
 		//Rectangle inside = new R
 //		Rectangle inside = VisionUtils.getRegionInsideMargin(trainingImage);
@@ -33,7 +30,7 @@ class FourCornerModel extends VisualModel {
 		BufferedImage trimmedModelImage = trainingImage;
 		//BufferedImage trimmedModelImage = trainingImage.getSubimage(inside.x,inside.y,inside.width,inside.height);
 		
-		VisualModelFinder.logger.step(trimmedModelImage, "margin trimmed");
+//		VisualModelFinder.logger.step(trimmedModelImage, "margin trimmed");
 
 		final int d = 12;			
 		int w = trimmedModelImage.getWidth();
@@ -46,19 +43,19 @@ class FourCornerModel extends VisualModel {
 					
 		final List<ModelPart> parts = Lists.newArrayList(model.topLeft,model.topRight,model.bottomRight,model.bottomLeft);
 		
-		ImageRenderer ir = new PiccoloImageRenderer(trimmedModelImage){
-			@Override
-			protected void addContent(PLayer layer) {
-				for (ModelPart part : parts){					
-					PPath p = PPath.createRectangle(0,0,d,d);
-					p.setStrokePaint(Color.red);
-					p.setStroke(new BasicStroke(2f));
-					p.setOffset(part.getBounds().getLocation());
-					layer.addChild(p);
-				}
-			}			
-		};		
-		VisualModelFinder.logger.step(ir, "parts");
+//		ImageRenderer ir = new PiccoloImageRenderer(trimmedModelImage){
+//			@Override
+//			protected void addContent(PLayer layer) {
+//				for (ModelPart part : parts){					
+//					PPath p = PPath.createRectangle(0,0,d,d);
+//					p.setStrokePaint(Color.red);
+//					p.setStroke(new BasicStroke(2f));
+//					p.setOffset(part.getBounds().getLocation());
+//					layer.addChild(p);
+//				}
+//			}			
+//		};		
+//		VisualModelFinder.logger.step(ir, "parts");
 		
 		return model;
 	}

@@ -14,9 +14,7 @@ import java.util.Map;
 import org.sikuli.core.draw.ImageRenderer;
 import org.sikuli.core.draw.PiccoloImageRenderer;
 import org.sikuli.core.logging.ImageExplainer;
-import org.sikuli.core.search.ImageSearcher;
-import org.sikuli.core.search.RegionMatch;
-import org.sikuli.core.search.algorithm.TemplateMatcher;
+import org.sikuli.core.search.TemplateMatcher;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -29,14 +27,14 @@ class VisualModelFinder {
 	final static ImageExplainer logger = ImageExplainer.getExplainer(VisualModelFinder.class); 
 	
 	static class ModelPartMatch {
-		public ModelPartMatch(ModelPart modelPart, RegionMatch scoreMatch) {
+		public ModelPartMatch(ModelPart modelPart, TemplateMatcher.Result scoreMatch) {
 			super();
 			this.modelPart = modelPart;
 			this.scoreMatch = scoreMatch;
 		}
 		final private ModelPart modelPart;
-		final private RegionMatch scoreMatch;
-		public RegionMatch getScoreMatch() {
+		final private TemplateMatcher.Result scoreMatch;
+		public TemplateMatcher.Result getScoreMatch() {
 			return scoreMatch;
 		}
 		public ModelPart getModelPart() {
@@ -125,31 +123,28 @@ class VisualModelFinder {
 		
 	}
 		
-	public static List<RegionMatch> searchButton(FourCornerModel model, BufferedImage testImage){	
-		
-		ImageSearcher search = new ImageSearcher(testImage);	
-		
-		
+	public static List<TemplateMatcher.Result> searchButton(FourCornerModel model, BufferedImage testImage){	
+					
 		double minSimilarity = 0.7;
 		int numMatches = 40;
 		
-		final List<RegionMatch> tms1 = 
+		final List<TemplateMatcher.Result> tms1 = 
 				TemplateMatcher.findMatchesByGrayscaleAtOriginalResolution(testImage, model.getTopLeft().getImage(), numMatches, minSimilarity);
 
-		final List<RegionMatch> tms3 = 
+		final List<TemplateMatcher.Result> tms3 = 
 				TemplateMatcher.findMatchesByGrayscaleAtOriginalResolution(testImage, model.getBottomRight().getImage(), numMatches, minSimilarity);
 
-		final List<RegionMatch> tms2 = 
+		final List<TemplateMatcher.Result> tms2 = 
 				TemplateMatcher.findMatchesByGrayscaleAtOriginalResolution(testImage, model.getTopRight().getImage(), numMatches, minSimilarity);
 
-		final List<RegionMatch> tms4 = 
+		final List<TemplateMatcher.Result> tms4 = 
 				TemplateMatcher.findMatchesByGrayscaleAtOriginalResolution(testImage, model.getBottomLeft().getImage(), numMatches, minSimilarity);
 		
 		ImageRenderer matchedPartsRenderer = new PiccoloImageRenderer(testImage){
 			@Override
 			protected void addContent(PLayer layer) {
-				for (List<RegionMatch> tmss : Lists.newArrayList(tms1,tms2,tms3,tms4)){
-					for (RegionMatch tms : tmss){
+				for (List<TemplateMatcher.Result> tmss : Lists.newArrayList(tms1,tms2,tms3,tms4)){
+					for (TemplateMatcher.Result tms : tmss){
 						PPath c = PPath.createRectangle(tms.getX(),tms.getY(),tms.getWidth(),tms.getHeight());
 						c.setStroke(new BasicStroke(2f));
 						c.setStrokePaint(Color.blue);
@@ -163,8 +158,8 @@ class VisualModelFinder {
 		
 		// generate hypotheses
 		final List<MatchHypothesis> hypotheses = Lists.newArrayList();
-		for (RegionMatch scoreMatch1 : tms1){
-			for (RegionMatch scoreMatch3 : tms3){
+		for (TemplateMatcher.Result scoreMatch1 : tms1){
+			for (TemplateMatcher.Result scoreMatch3 : tms3){
 				
 				ModelPartMatch m1 = new ModelPartMatch(model.getTopLeft(), scoreMatch1);
 				ModelPartMatch m2 = new ModelPartMatch(model.getBottomRight(), scoreMatch3);
@@ -182,8 +177,8 @@ class VisualModelFinder {
 				for (MatchHypothesis h : hypotheses){
 					ModelPartMatch m1 = h.getTopLeft();
 					ModelPartMatch m2 = h.getBottomRight();
-					RegionMatch p1 = m1.getScoreMatch();
-					RegionMatch p2 = m2.getScoreMatch();
+					TemplateMatcher.Result p1 = m1.getScoreMatch();
+					TemplateMatcher.Result p2 = m2.getScoreMatch();
 					PPath line = PPath.createLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
 					line.setStroke(new BasicStroke(2f));
 					line.setStrokePaint(Color.red);
@@ -213,7 +208,7 @@ class VisualModelFinder {
 			// find if there is a matched part in the expected location
 			// according to this hypothesis
 			
-			for (RegionMatch s2 : tms2){			
+			for (TemplateMatcher.Result s2 : tms2){			
 				Point seenLocation = s2.getLocation();
 				boolean isMatchedPartSeenNearbyExpectedLocation = seenLocation.distance(expectedLocation.x,expectedLocation.y) < 5.0f;
 				if (isMatchedPartSeenNearbyExpectedLocation){					
@@ -224,7 +219,7 @@ class VisualModelFinder {
 			
 			expectedLocation = h1.getExpectedBottomLeftPartModelLocation();
 				
-			for (RegionMatch s4 : tms4){
+			for (TemplateMatcher.Result s4 : tms4){
 				Point seenLocation = s4.getLocation();
 				boolean isMatchedPartSeenNearbyExpectedLocation = seenLocation.distance(expectedLocation.x, expectedLocation.y) < 5.0f;
 				if (isMatchedPartSeenNearbyExpectedLocation){					
@@ -254,7 +249,7 @@ class VisualModelFinder {
 		});
 		
 		
-		Map<RegionMatch,Integer> alreadyUsedMatch = Maps.newHashMap();
+		Map<TemplateMatcher.Result,Integer> alreadyUsedMatch = Maps.newHashMap();
 				
 		// remove overlapping hypotheses
 		List<MatchHypothesis> nonOverlappingGoodHypotheses = Lists.newArrayList();
@@ -280,9 +275,9 @@ class VisualModelFinder {
 		
 		
 		// collect the list of ScoreRegionMatch objects to return
-		List<RegionMatch> matches = Lists.newArrayList();
+		List<TemplateMatcher.Result> matches = Lists.newArrayList();
 		for (MatchHypothesis h1 : nonOverlappingGoodHypotheses){
-			RegionMatch regionMatch = new RegionMatch(h1.getBounds());
+			TemplateMatcher.Result regionMatch = new TemplateMatcher.Result(h1.getBounds());
 			matches.add(regionMatch);
 		}		
 		return matches;		
@@ -301,8 +296,8 @@ class VisualModelFinder {
 			for (MatchHypothesis h : hypotheses){
 				ModelPartMatch m1 = h.getTopLeft();
 				ModelPartMatch m2 = h.getBottomRight();
-				RegionMatch p1 = m1.getScoreMatch();
-				RegionMatch p2 = m2.getScoreMatch();
+				TemplateMatcher.Result p1 = m1.getScoreMatch();
+				TemplateMatcher.Result p2 = m2.getScoreMatch();
 				
 				// draw diagonal line				
 //				PPath line = PPath.createLine(p1.getX(),p1.getY(),p2.getX(),p2.getY());
@@ -329,7 +324,7 @@ class VisualModelFinder {
 				ModelPartMatch m4 = h.getBottomLeft();
 				
 				if (m3 != null){
-					RegionMatch p3 = m3.getScoreMatch();
+					TemplateMatcher.Result p3 = m3.getScoreMatch();
 					PPath c = PPath.createRectangle(p3.getX(),p3.getY(),p3.getWidth(),p3.getHeight());
 					c.setStroke(new BasicStroke(2f));
 					c.setStrokePaint(Color.blue);
@@ -338,7 +333,7 @@ class VisualModelFinder {
 				}
 				
 				if (m4 != null){
-					RegionMatch p4 = m4.getScoreMatch();
+					TemplateMatcher.Result p4 = m4.getScoreMatch();
 					PPath c = PPath.createRectangle(p4.getX(),p4.getY(),p4.getWidth(),p4.getHeight());
 					c.setStroke(new BasicStroke(2f));
 					c.setStrokePaint(Color.green);

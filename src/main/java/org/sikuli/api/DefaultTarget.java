@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.sikuli.core.search.RegionMatch;
+import org.sikuli.core.search.TemplateMatcher;
 
 import com.google.common.collect.Lists;
 
@@ -112,9 +112,9 @@ abstract public class DefaultTarget implements Target {
 	 * @param rms the matched screen regions.
 	 * @return a new list of ScreenRegion objects that correspond to the matched regions.
 	 */
-	protected static List<ScreenRegion> convertToScreenRegions(ScreenRegion parent, List<RegionMatch> rms) {
+	protected static List<ScreenRegion> convertToScreenRegions(ScreenRegion parent, List<TemplateMatcher.Result> rms) {
 		List<ScreenRegion> irs = Lists.newArrayList();		
-		for (RegionMatch rm : rms){
+		for (TemplateMatcher.Result rm : rms){
 			ScreenRegion ir = new DefaultScreenRegion(parent, rm.getX(),rm.getY(),rm.getWidth(),rm.getHeight());
 			ir.setScore(rm.getScore());
 			irs.add(ir);

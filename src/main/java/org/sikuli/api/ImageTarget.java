@@ -9,8 +9,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import org.sikuli.core.search.RegionMatch;
-import org.sikuli.core.search.algorithm.TemplateMatcher;
+import org.sikuli.core.search.TemplateMatcher;
 
 import com.google.common.collect.Lists;
 
@@ -120,7 +119,7 @@ public class ImageTarget extends DefaultTarget implements Target {
 			return Lists.newArrayList();
 		}
 		
-		List<RegionMatch> matches;
+		List<TemplateMatcher.Result> matches;
 		
 		BufferedImage screenImage = screenRegion.capture();		
 		List<Rectangle> rois = screenRegion.getROIs();

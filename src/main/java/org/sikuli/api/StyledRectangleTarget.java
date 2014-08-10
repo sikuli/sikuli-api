@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-import org.sikuli.core.search.RegionMatch;
+import org.sikuli.core.search.TemplateMatcher;
 /**
  * StyledRectangleTarget class is used to identify rectangular targets that have a particular rectangle style
  *  (lines and corners) while ignoring the content inside the rectangle. <p>
@@ -48,9 +48,9 @@ public class StyledRectangleTarget extends ImageTarget {
 	protected List<ScreenRegion> getUnorderedMatches(ScreenRegion screenRegion){
 		BufferedImage exampleImage = getImage();
 		FourCornerModel buttonModel = FourCornerModel.learnFrom(exampleImage);
-		List<RegionMatch> matches = VisualModelFinder.searchButton(buttonModel, 
+		List<TemplateMatcher.Result> matches = VisualModelFinder.searchButton(buttonModel, 
 				screenRegion.capture());	
-		List<RegionMatch> subList = matches.subList(0,  Math.min(getLimit(), matches.size()));
+		List<TemplateMatcher.Result> subList = matches.subList(0,  Math.min(getLimit(), matches.size()));
 		return convertToScreenRegions(screenRegion, subList);
 	}
 

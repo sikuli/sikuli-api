@@ -18,9 +18,6 @@ import javax.swing.Timer;
 import org.sikuli.api.event.StateChangeListener;
 import org.sikuli.api.event.TargetEventListener;
 import org.sikuli.api.event.VisualEventManager;
-import org.sikuli.core.cv.ImageMask;
-import org.sikuli.ocr.DigitRecognizer;
-import org.sikuli.ocr.RecognizedDigit;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -32,7 +29,6 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 
 	private BufferedImage lastCapturedImage;
 	private Map<Target, Object> states = new ConcurrentHashMap<Target, Object>();
-	private ImageMask mask = null;
 
 	/**
 	 * Constructs a new DefaultScreenRegion on the specified Screen object whose 
@@ -240,23 +236,6 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	public void addStateChangeEventListener(StateChangeListener listener) {
 		VisualEventManager.getSingleton().addStateChangeEventListener(this, listener);		
 	}
-	/**
-	 * Returns the explicit masking of this DefaultScreenRegion.
-	 * 
-	 * @return the explicit masking of this DefaultScreenRegion.
-	 */
-	public ImageMask getMask() {
-		return mask;
-	}
-	/**
-	 * Sets the masking of this DefaultScreenRegion.
-	 * 
-	 * @param mask the masking of this DefaultScreenRegion.
-	 */
-	public void setMask(ImageMask mask) {
-		this.mask = mask;
-	}
-
 
 	// x, y are relative to the upper-left corner of this ScreenRegion
 	// no boundary check is built in yet
@@ -275,28 +254,7 @@ public class DefaultScreenRegion extends AbstractScreenRegion implements ScreenR
 	@Override
 	public List<Rectangle> getROIs(){		
 		return ImmutableList.copyOf(rois);
-	}
-
-	/**
-	 * Extracts an integer from this screen region.
-	 * 
-	 * @return the Integer this screen region contains.
-	 */
-	public Integer extractInteger() {
-		List<RecognizedDigit> digits = DigitRecognizer.recognize(capture());
-		Collections.sort(digits, new Comparator<RecognizedDigit>(){
-			@Override
-			public int compare(RecognizedDigit d1, RecognizedDigit d2) {
-				return d1.x -d2.x;
-			}			
-		});
-		String numberString = "";
-		for (RecognizedDigit d : digits){
-			numberString += d.digit;
-		}
-		return Integer.parseInt(numberString);
-	}
-
+	}	
 
 	/**
 	 * Returns a map of {@link Target} objects and states, which can be any object, 
