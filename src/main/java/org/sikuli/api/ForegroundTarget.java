@@ -6,8 +6,11 @@ import java.util.List;
 import org.sikuli.core.cv.VisionUtils;
 
 import com.google.common.collect.Lists;
-import com.googlecode.javacv.cpp.opencv_core.CvRect;
-import com.googlecode.javacv.cpp.opencv_core.IplImage;
+import static org.bytedeco.javacpp.opencv_core.*;
+import static org.bytedeco.javacpp.opencv_imgproc.*;
+import org.bytedeco.javacv.*;
+import org.bytedeco.javacpp.*;
+
 /**
  * The ForegroundTarget class defines targets based on whether they have 
  * textures (as opposed to textureless background). This class can be used to distinguish between foreground targets and 
