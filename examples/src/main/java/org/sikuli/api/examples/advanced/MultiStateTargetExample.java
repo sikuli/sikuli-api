@@ -55,7 +55,7 @@ public class MultiStateTargetExample {
 			String state = (String) c.getState();
 			// display the state next to each checkbox to visualize
 			ScreenLocation labelLocation = Relative.to(c).topLeft().left(70).below(10).getScreenLocation();
-			canvas.addLabel(labelLocation, state);
+			canvas.add().label(state).at(labelLocation);
 		}
 		canvas.display(3);
 	}

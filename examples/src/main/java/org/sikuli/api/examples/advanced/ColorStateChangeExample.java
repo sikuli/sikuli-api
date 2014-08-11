@@ -56,19 +56,20 @@ public class ColorStateChangeExample {
 				System.out.println(event.getScreenRegion() + "'s state is changed " +
 						"from {" + event.getOldState() + "} " +
 						" to {" + event.getNewState() + "}");			
-				
-				
+							
 				String txt = event.getOldState() + "->" + event.getNewState();
-				ScreenLocation labelLocation = Relative.to(event.getScreenRegion()).topLeft().above(20).getScreenLocation();
-				canvas.clear().addLabel(labelLocation,txt).display(1);
+				canvas.clear().add().label(txt).above(event.getScreenRegion());
+				canvas.display(1);
 			}					
 		};
 
 		ScreenRegion personIcon = s.wait(new ImageTarget(Images.PersonIcon),1000);		
-		canvas.clear().addBox(personIcon).display(1);
+		canvas.clear().add().box().around(personIcon);
+		canvas.display(1);
 		
 		ScreenRegion statusIcon = Relative.to(personIcon).right(30).getScreenRegion();
-		canvas.clear().addBox(personIcon).display(1);		
+		canvas.clear().add().box().around(personIcon);
+		canvas.display(1);		
 
 		statusIcon.addState(new ColorImageTarget(Images.GreenBullet), "GREEN");
 		statusIcon.addState(new ColorImageTarget(Images.RedBullet), "RED");

@@ -36,18 +36,23 @@ public class RelativeExample {
 		Target imageTarget = new ImageTarget(imageURL);
 		ScreenRegion r = s.find(imageTarget);		
 		
-		canvas.addBox(Relative.to(r).right(100).getScreenRegion());
-		canvas.addLabel(Relative.to(r).right(100).center().getScreenLocation(), "right");
-
-		canvas.addBox(Relative.to(r).left(100).getScreenRegion());
-		canvas.addLabel(Relative.to(r).left(100).center().getScreenLocation(), "left");
-
-		canvas.addBox(Relative.to(r).above(100).getScreenRegion());
-		canvas.addLabel(Relative.to(r).above(100).center().getScreenLocation(), "above");
-
-		canvas.addBox(Relative.to(r).below(100).getScreenRegion());
-		canvas.addLabel(Relative.to(r).below(100).center().getScreenLocation(), "below");
+		ScreenRegion rightArea = Relative.to(r).right(100).getScreenRegion();
+		ScreenRegion leftArea = Relative.to(r).left(100).getScreenRegion();
+		ScreenRegion aboveArea = Relative.to(r).above(100).getScreenRegion();
+		ScreenRegion belowArea = Relative.to(r).below(100).getScreenRegion();
 		
+		canvas.add().box().around(rightArea);
+		canvas.add().label("right").inside(rightArea);
+				
+		canvas.add().box().around(leftArea);
+		canvas.add().label("left").inside(leftArea);
+
+		canvas.add().box().around(aboveArea);
+		canvas.add().label("above").inside(aboveArea);
+		
+		canvas.add().box().around(belowArea);
+		canvas.add().label("below").inside(belowArea);
+
 		canvas.display(3);
 
 		mouse.click(Relative.to(r).center().getScreenLocation());

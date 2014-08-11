@@ -63,10 +63,8 @@ public class StateChangeEventExample {
 		smallRegion.addState(dog, "HAS A DOG");
 		smallRegion.addStateChangeEventListener(l);
 
-		// TODO: test if remove works
-		//smallRegion.removeState(cat);
-
-		canvas.addBox(smallRegion).display(10);
+		canvas.add().box().around(smallRegion);
+		canvas.display(10);
 		
 	}
 }

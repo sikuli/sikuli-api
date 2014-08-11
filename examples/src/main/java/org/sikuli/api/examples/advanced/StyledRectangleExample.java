@@ -41,7 +41,7 @@ public class StyledRectangleExample {
 		
 		List<ScreenRegion> rs = s.findAll(target);
 		for (ScreenRegion r : rs){
-			canvas.addBox(r);
+			canvas.add().box().around(r);
 		}
 		canvas.display(3);				
 	}

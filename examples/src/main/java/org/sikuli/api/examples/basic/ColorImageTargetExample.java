@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.sikuli.api.ColorImageTarget;
 import org.sikuli.api.DesktopScreenRegion;
-import org.sikuli.api.Relative;
 import org.sikuli.api.ScreenRegion;
 import org.sikuli.api.Target;
 import org.sikuli.api.examples.images.Images;
@@ -52,18 +51,18 @@ public class ColorImageTargetExample {
 		List<ScreenRegion> redTargetRegions = s.findAll(redTarget);
 		
 		for (ScreenRegion r : blueTargetRegions){
-			canvas.addBox(r);
-			canvas.addLabel(r.getCenter(), "blue");			
+			canvas.add().box().around(r);
+			canvas.add().label("blue").inside(r);			
 		}
 
 		for (ScreenRegion r : redTargetRegions){
-			canvas.addBox(r);
-			canvas.addLabel(r.getCenter(), "red");			
+			canvas.add().box().around(r);
+			canvas.add().label("red").inside(r);			
 		}
 
 		for (ScreenRegion r : greenTargetRegions){
-			canvas.addBox(r);
-			canvas.addLabel(r.getCenter(), "green");			
+			canvas.add().box().around(r);
+			canvas.add().label("green").inside(r);			
 		}
 		canvas.display(3);
 		
@@ -76,15 +75,15 @@ public class ColorImageTargetExample {
 		ScreenRegion redBullet = s.find(new ColorImageTarget(Images.RedBullet));
 		ScreenRegion silverBullet = s.find(new ColorImageTarget(Images.SilverBullet));
 		
-		canvas.addBox(greenBullet);		
-		canvas.addLabel(Relative.to(greenBullet).topLeft().above(20).getScreenLocation(), "green");
+		canvas.add().box().around(greenBullet);		
+		canvas.add().label("green").above(greenBullet);
 		
-		canvas.addBox(redBullet);
-		canvas.addLabel(Relative.to(redBullet).topLeft().above(20).getScreenLocation(), "red");
-		
-		canvas.addBox(silverBullet);
-		canvas.addLabel(Relative.to(silverBullet).topLeft().above(20).getScreenLocation(), "silver");
-		
+		canvas.add().box().around(redBullet);		
+		canvas.add().label("red").above(redBullet);
+
+		canvas.add().box().around(silverBullet);		
+		canvas.add().label("silver").above(silverBullet);
+				
 		canvas.display(3);
 		
 		simulator.resume();

@@ -62,13 +62,17 @@ public class TwoRegionColorStateChangeExample {
 		right = Relative.to(right).taller(30).wider(30).getScreenRegion();
 
 		
-		canvas.addBox(s);
+		canvas.add().box().around(s);
 		
-		canvas.addBox(left);
-		canvas.addLabel(left.getCenter(), "left");		
+		canvas.add().box().around(left);
+		canvas.add().label("left").inside(left);
+		
+		canvas.add().box().around(right);
+		canvas.add().label("right").inside(right);		
+		
 
-		canvas.addBox(right);
-		canvas.addLabel(right.getCenter(), "right");
+//		canvas.addBox(right);
+//		canvas.addLabel(right.getCenter(), "right");
 		canvas.display(3);
 		
 		simulator.resume();		
@@ -82,7 +86,7 @@ public class TwoRegionColorStateChangeExample {
 						" to {" + event.getNewState() + "}");	
 				
 				canvas.clear();
-				canvas.addLabel(event.getScreenRegion().getCenter(), event.getOldState() + "->" + event.getNewState());
+				canvas.add().label(event.getOldState() + "->" + event.getNewState()).inside(event.getScreenRegion());
 				canvas.display(1);
 			}					
 		};

@@ -29,9 +29,9 @@ public class MultiScreenExample {
 
 			// create a canvas to draw visualization on the screen
 			Canvas c = new ScreenRegionCanvas(screenRegion);
-			c.addBox(innerRegion);
-			c.addLabel(innerRegion.getCenter(), "Screen " + screenId).withFontSize(30);
-			c.addImage(Relative.to(innerRegion).center().above(200).getScreenLocation(), ImageIO.read(Images.Dog));
+			c.add().box().around(innerRegion);
+			c.add().label("Screen " + screenId).inside(innerRegion).styleWith().fontSize(30);
+			c.add().image(ImageIO.read(Images.Dog)).at(Relative.to(innerRegion).center().above(200).getScreenLocation());
 			c.show();
 			
 			// hover the mouse cursor to each corner of the inner circle 

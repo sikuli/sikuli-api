@@ -70,9 +70,9 @@ public class EnterTextExample {
 		ScreenRegion icon2 = s.find(new ImageTarget(Images.ThumbIcon));;
 		ScreenRegion icon3 = s.find(new ImageTarget(Images.TwitterBirdIcon));;
 
-		canvas.addBox(icon1);
-		canvas.addBox(icon2);
-		canvas.addBox(icon3);
+		canvas.add().box().around(icon1);
+		canvas.add().box().around(icon2);
+		canvas.add().box().around(icon3);
 		canvas.display(1);
 		
 		mouse.click(Relative.to(icon1).center().right(30).getScreenLocation());

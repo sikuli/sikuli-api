@@ -50,11 +50,11 @@ public class OrderingExample {
 		
 		rs = s.findAll(target);
 		
-		canvas.addLabel(Relative.to(s).topLeft().getScreenLocation(), "Unchecked checkboxes found in bottom-up ordering");
+		canvas.add().label("Unchecked checkboxes found in bottom-up ordering").above(s);
 		for (int i=0; i < rs.size(); ++i){
 			ScreenRegion r = rs.get(i);
-			canvas.addBox(r);
-			canvas.addLabel(Relative.to(r).topLeft().left(20).getScreenLocation(), ""+(i+1));
+			canvas.add().box().around(r);
+			canvas.add().label(""+(i+1)).left(r);
 		}
 		canvas.display(5);
 				
@@ -65,11 +65,11 @@ public class OrderingExample {
 		
 		rs = s.findAll(target);
 		
-		canvas.clear().addLabel(Relative.to(s).topLeft().getScreenLocation(), "Rectangles found in left-right ordering");
+		canvas.clear().add().label("Rectangles found in left-right ordering").above(s);
 		for (int i=0; i < rs.size(); ++i){
 			ScreenRegion r = rs.get(i);
-			canvas.addBox(r);
-			canvas.addLabel(Relative.to(r).topLeft().left(20).getScreenLocation(), ""+(i+1));
+			canvas.add().box().around(r);
+			canvas.add().label(""+(i+1)).left(r);
 		}
 		canvas.display(5);
 
