@@ -35,6 +35,7 @@ abstract public class Canvas {
 	 * @param radius the specified radius of the circle.
 	 * @return
 	 */
+	@Deprecated	
 	public StyleBuilder addCircle(Location screenLocation, int radius){		
 		CircleElement newElement = new CircleElement();		
 		newElement.x = screenLocation.getX() - radius;
@@ -49,6 +50,7 @@ abstract public class Canvas {
 	 * @param screenLocation the specified screen location.
 	 * @return
 	 */
+	@Deprecated	
 	public StyleBuilder addDot(Location screenLocation) {
 		DotElement newElement = new DotElement();		
 		newElement.x = screenLocation.getX();
@@ -130,6 +132,7 @@ abstract public class Canvas {
 		return addElement(newElement);
 	}
 
+	@Deprecated
 	private StyleBuilder addElement(Element element){
 		getElements().add(element);
 		return new StyleBuilder(this, element);
