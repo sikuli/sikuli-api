@@ -77,11 +77,8 @@ class PNodeFactory {
 		foregroundNode.setHeight(p.getHeight());
 		foregroundNode.setWidth(p.getWidth());
 		foregroundNode.setOffset(element.x-2, element.y-2);
-		System.out.println(foregroundNode.getOffset());
 
 		final PNode node = applyTransparencyAndShadow(foregroundNode, element);
-		System.out.println(node.getOffset());//());/
-
 		return node;
 	}
 	
@@ -181,7 +178,7 @@ class PNodeFactory {
 	}
 
 	
-	static private final Color SHADOW_PAINT = new Color(10, 10, 10, 0);
+	static private final Color SHADOW_PAINT = new Color(10, 10, 10, 255);
 	static private PNode addShadow(PNode contentNode){
 
 		PNode contentNodeWithShadow = new PNode();

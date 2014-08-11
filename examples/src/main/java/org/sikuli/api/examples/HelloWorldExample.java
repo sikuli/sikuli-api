@@ -32,7 +32,8 @@ public class HelloWorldExample {
 				
 		// Display "Hello World" next to the found target for 3 seconds
 		Canvas canvas = new DesktopCanvas();
-		canvas.addLabel(r, "Hello World").display(3);
+		canvas.add().label("Hello World");
+		canvas.display(3);
 		
 		// Click the center of the found target
 		Mouse mouse = new DesktopMouse();
